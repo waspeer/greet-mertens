@@ -1,1 +1,1 @@
-export { BlogPostPreviewList } from "./blog-post-preview-list";
+export { BlogPostPreviewList } from './blog-post-preview-list';

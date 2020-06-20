@@ -1,1 +1,1 @@
-export * from "./blog-post-body";
+export * from './blog-post-body';

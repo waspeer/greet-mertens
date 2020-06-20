@@ -1,8 +1,10 @@
-import { graphql } from "gatsby";
-import React from "react";
-import { BlogPostPageQuery } from "../../graphql-types";
-import { BlogPost } from "#components/blog-post";
-import { BlogPost as BlogPostType } from "#lib/types";
+import { graphql } from 'gatsby';
+import React from 'react';
+
+import { BlogPost } from '#components/blog-post';
+import { BlogPost as BlogPostType } from '#lib/types';
+
+import { BlogPostPageQuery } from '../../graphql-types';
 
 interface Props {
   data: BlogPostPageQuery;
@@ -10,13 +12,7 @@ interface Props {
 
 const BlogPostPage = ({ data }: Props) => {
   const postData = data.post!;
-  const post: BlogPostType = (({
-    _rawBody,
-    categories,
-    mainImage,
-    publishedAt,
-    ...rest
-  }) => ({
+  const post: BlogPostType = (({ _rawBody, categories, mainImage, publishedAt, ...rest }) => ({
     body: _rawBody,
     categories: categories.map(({ icon, ...category }) => ({
       icon: icon?.native,

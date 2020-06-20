@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
 interface Arguments {
   publishedAt: Date;
@@ -6,7 +6,7 @@ interface Arguments {
 }
 
 export function getPostUrl({ publishedAt, slug }: Arguments) {
-  const dateSegment = format(publishedAt, "yyyy/MM");
+  const dateSegment = format(publishedAt, 'yyyy/MM');
 
   return `/blog/${dateSegment}/${slug}/`;
 }
