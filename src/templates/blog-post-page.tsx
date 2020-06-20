@@ -1,8 +1,8 @@
 import { graphql } from 'gatsby';
 import React from 'react';
 
-import { BlogPost } from '#components/blog-post';
-import { BlogPost as BlogPostType } from '#lib/types';
+import { BlogPost } from '~/sections/blog-post';
+import type { BlogPost as BlogPostType } from '~/lib/types';
 
 import { BlogPostPageQuery } from '../../graphql-types';
 

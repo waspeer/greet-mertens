@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Category as CategoryType } from '#lib/types';
-import { getContrast } from '#lib/helpers/get-contrast';
+import type { Category as CategoryType } from '~/lib/types';
+import { getContrast } from '~/lib/helpers/get-contrast';
 
 import './categories.css';
 

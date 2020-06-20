@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 
-import '../styles/tailwind.css';
+import '~/styles/tailwind.css';
 
 interface Props {
   children: React.ReactNode;

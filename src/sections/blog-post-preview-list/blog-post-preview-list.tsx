@@ -1,14 +1,14 @@
 import { Link } from 'gatsby';
 import React from 'react';
 
-import { getPostUrl } from '#lib/helpers/get-post-url';
-import { BlogPostPreview as IBlogPostPreview } from '#lib/types';
+import { getPostUrl } from '~/lib/helpers/get-post-url';
+import type { BlogPostPreview as BlogPostPreviewType } from '~/lib/types';
 
-import { BlogPostPreview } from './blog-post-preview/blog-post-preview';
+import { BlogPostPreview } from './components';
 import './blog-post-preview-list.css';
 
 interface Props {
-  posts: IBlogPostPreview[];
+  posts: BlogPostPreviewType[];
 }
 
 export const BlogPostPreviewList = ({ posts }: Props) => {

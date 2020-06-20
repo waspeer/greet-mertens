@@ -5141,13 +5141,13 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___resolve'
   | 'pluginCreator___name'
   | 'pluginCreator___version'
-  | 'pluginCreator___pluginOptions____lib'
-  | 'pluginCreator___pluginOptions____components'
+  | 'pluginCreator___pluginOptions____'
   | 'pluginCreator___pluginOptions___projectId'
   | 'pluginCreator___pluginOptions___dataset'
   | 'pluginCreator___pluginOptions___token'
   | 'pluginCreator___pluginOptions___watchMode'
   | 'pluginCreator___pluginOptions___overlayDrafts'
+  | 'pluginCreator___pluginOptions___component'
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___nodeAPIs'
@@ -5337,13 +5337,13 @@ export type SitePluginFieldsEnum =
   | 'resolve'
   | 'name'
   | 'version'
-  | 'pluginOptions____lib'
-  | 'pluginOptions____components'
+  | 'pluginOptions____'
   | 'pluginOptions___projectId'
   | 'pluginOptions___dataset'
   | 'pluginOptions___token'
   | 'pluginOptions___watchMode'
   | 'pluginOptions___overlayDrafts'
+  | 'pluginOptions___component'
   | 'pluginOptions___path'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
@@ -5461,25 +5461,25 @@ export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
 };
 
 export type SitePluginPluginOptions = {
-  _lib?: Maybe<Scalars['String']>;
-  _components?: Maybe<Scalars['String']>;
+  _?: Maybe<Scalars['String']>;
   projectId?: Maybe<Scalars['String']>;
   dataset?: Maybe<Scalars['String']>;
   token?: Maybe<Scalars['String']>;
   watchMode?: Maybe<Scalars['Boolean']>;
   overlayDrafts?: Maybe<Scalars['Boolean']>;
+  component?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
 export type SitePluginPluginOptionsFilterInput = {
-  _lib?: Maybe<StringQueryOperatorInput>;
-  _components?: Maybe<StringQueryOperatorInput>;
+  _?: Maybe<StringQueryOperatorInput>;
   projectId?: Maybe<StringQueryOperatorInput>;
   dataset?: Maybe<StringQueryOperatorInput>;
   token?: Maybe<StringQueryOperatorInput>;
   watchMode?: Maybe<BooleanQueryOperatorInput>;
   overlayDrafts?: Maybe<BooleanQueryOperatorInput>;
+  component?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
 };
@@ -5506,6 +5506,17 @@ export type StringQueryOperatorInput = {
   regex?: Maybe<Scalars['String']>;
   glob?: Maybe<Scalars['String']>;
 };
+
+export type BlogPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BlogPageQuery = { posts: { edges: Array<{ node: (
+        Pick<SanityPost, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
+        & { mainImage?: Maybe<(
+          Pick<SanityFigure, 'alt'>
+          & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
+        )>, slug: Pick<SanitySlug, 'current'> }
+      ) }> } };
 
 export type IndexPageQueryVariables = Exact<{ [key: string]: never; }>;
 

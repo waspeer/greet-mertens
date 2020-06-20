@@ -4,13 +4,13 @@ import { graphql } from 'gatsby';
 import type { BlogPostPreview } from '~/lib/types';
 import { BlogPostPreviewList } from '~/sections/blog-post-preview-list';
 
-import { IndexPageQuery } from '../../graphql-types';
+import { BlogPageQuery } from '../../graphql-types';
 
 interface Props {
-  data: IndexPageQuery;
+  data: BlogPageQuery;
 }
 
-const IndexPage = ({ data }: Props) => {
+const BlogPage = ({ data }: Props) => {
   const postPreviews: BlogPostPreview[] = data.posts.edges.map(
     ({ node: { mainImage, publishedAt, _rawExcerpt, slug, ...rest } }) => ({
       excerpt: _rawExcerpt,
@@ -33,10 +33,8 @@ const IndexPage = ({ data }: Props) => {
   );
 };
 
-export default IndexPage;
-
 export const query = graphql`
-  query IndexPage {
+  query BlogPage {
     posts: allSanityPost(
       limit: 6
       sort: { fields: [publishedAt], order: DESC }
@@ -64,3 +62,5 @@ export const query = graphql`
     }
   }
 `;
+
+export default BlogPage;

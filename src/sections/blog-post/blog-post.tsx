@@ -2,12 +2,10 @@ import { differenceInDays, format, formatDistanceToNow } from 'date-fns';
 import { nl } from 'date-fns/locale';
 import React from 'react';
 
-import { BlogPost as BlogPostType } from '#lib/types';
+import type { BlogPost as BlogPostType } from '~/lib/types';
 
-import { CategoryList } from './categories';
+import { CategoryList, Figure, BlogPostBody } from './components';
 import './blog-post.css';
-import { BlogPostBody } from './blog-post-body';
-import { Figure } from './figure';
 
 interface Props {
   post: BlogPostType;

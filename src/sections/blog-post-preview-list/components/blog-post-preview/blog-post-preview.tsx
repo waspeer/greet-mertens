@@ -1,13 +1,13 @@
 import { format } from 'date-fns';
 import Image from 'gatsby-image';
 import React from 'react';
+import PortableText from '@sanity/block-content-to-react';
 
-import type { BlogPostPreview as IBlogPostPreview } from '#lib/types';
-import { PortableText } from '#components/portable-text';
+import type { BlogPostPreview as BlogPostPreviewType } from '~/lib/types';
 
 import './blog-post-preview.css';
 
-type Props = Pick<IBlogPostPreview, 'excerpt' | 'id' | 'mainImage' | 'publishedAt' | 'title'>;
+type Props = Pick<BlogPostPreviewType, 'excerpt' | 'id' | 'mainImage' | 'publishedAt' | 'title'>;
 
 export const BlogPostPreview = ({ mainImage, title, excerpt, publishedAt }: Props) => {
   return (

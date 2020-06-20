@@ -1,6 +1,6 @@
 -   [x] Make git repository
 -   [x] Add ESLint etc.
--   [ ] Improve folder structure (sections -> components, eg. tinyhouse)
+-   [x] Improve folder structure (sections -> components, eg. tinyhouse)
 
 # Blog Posts
 

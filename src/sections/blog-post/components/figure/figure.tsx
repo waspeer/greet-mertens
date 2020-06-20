@@ -2,7 +2,7 @@ import classNames from '@sindresorhus/class-names';
 import GatsbyImage from 'gatsby-image';
 import React from 'react';
 
-import { Image as ImageType } from '#lib/types';
+import type { Image as ImageType } from '~/lib/types';
 
 import './figure.css';
 

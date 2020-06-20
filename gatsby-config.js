@@ -1,21 +1,20 @@
-require("dotenv").config();
-const path = require("path");
+require('dotenv').config();
+const path = require('path');
 
 module.exports = {
   plugins: [
     {
-      resolve: "gatsby-plugin-root-import",
+      resolve: 'gatsby-plugin-root-import',
       options: {
-        "#lib": path.join(__dirname, "src/lib"),
-        "#components": path.join(__dirname, "src/components"),
+        '~': path.join(__dirname, 'src'),
       },
     },
-    "gatsby-transformer-sharp",
-    "gatsby-plugin-sharp",
-    "gatsby-plugin-postcss",
-    "gatsby-plugin-graphql-codegen",
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
+    'gatsby-plugin-postcss',
+    'gatsby-plugin-graphql-codegen',
     {
-      resolve: "gatsby-source-sanity",
+      resolve: 'gatsby-source-sanity',
       options: {
         projectId: process.env.GATSBY_SANITY_PROJECT_ID,
         dataset: process.env.GATSBY_SANITY_DATASET,
@@ -24,6 +23,11 @@ module.exports = {
         overlayDrafts: true,
       },
     },
-    "gatsby-plugin-layout",
+    {
+      resolve: 'gatsby-plugin-layout',
+      options: {
+        component: path.join(__dirname, 'src/lib/components/layout'),
+      },
+    },
   ],
 };

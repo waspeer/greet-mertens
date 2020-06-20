@@ -11,7 +11,7 @@ module.exports = {
         alphabetize: {},
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
         'newlines-between': 'always',
-        pathGroups: [{ pattern: '#*/**', group: 'internal' }],
+        pathGroups: [{ pattern: '~/**', group: 'internal' }],
       },
     ],
     'import/prefer-default-export': 'off',
