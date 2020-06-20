@@ -1,0 +1,11 @@
+.captionedMedia {
+  @apply flex flex-col;
+}
+
+.captionedMedia__media {
+  @apply w-full flex-1 overflow-hidden;
+}
+
+.captionedMedia__caption {
+  @apply text-center text-xs text-gray-500 my-1;
+}

@@ -1,0 +1,23 @@
+.blogCategoryOverview {
+  @apply max-w-2xl;
+}
+
+.blogCategoryOverview__list {
+  & li {
+    @apply mb-8 transition-opacity;
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  &:hover {
+    & li {
+      @apply opacity-75;
+
+      &:hover {
+        @apply opacity-100;
+      }
+    }
+  }
+}

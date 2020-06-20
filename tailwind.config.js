@@ -1,20 +1,23 @@
 module.exports = {
-  purge: ["./src/**/*.js"],
+  purge: ['./src/**/*.js'],
   theme: {
     extend: {
       colors: {
-        body: "#272727",
+        body: '#272727',
       },
       container: {
         center: true,
-        padding: "2rem",
+        padding: '2rem',
       },
       fontFamily: {
-        body: ['"Open Sans"', " sans-serif"],
-        heading: ['"Libre Caslon Display"', "serif"],
+        body: ['"Open Sans"', ' sans-serif'],
+        heading: ['"Libre Caslon Display"', 'serif'],
       },
       fontSize: {
-        display: "5rem",
+        display: '5rem',
+      },
+      inset: {
+        '1/2': '50%',
       },
     },
   },

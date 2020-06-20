@@ -2,6 +2,7 @@ import classNames from '@sindresorhus/class-names';
 import GatsbyImage from 'gatsby-image';
 import React from 'react';
 
+import { CaptionedMedia } from '~/lib/components/captioned-media';
 import type { Image as ImageType } from '~/lib/types';
 
 import './figure.css';
@@ -12,10 +13,13 @@ interface Props {
 }
 
 export const Figure = ({ className, image }: Props) => {
+  const media = image.fluid && <GatsbyImage alt={image.alt} fluid={image.fluid} />;
+
   return (
-    <div className={classNames('figure', className)}>
-      {image.fluid && <GatsbyImage alt={image.alt} fluid={image.fluid} />}
-      {image.caption && <div className="figure__caption">{image.caption}</div>}
-    </div>
+    <CaptionedMedia
+      caption={image.caption}
+      className={classNames('figure', className)}
+      media={media}
+    />
   );
 };

@@ -1538,9 +1538,11 @@ export type QuerySanityCategoryArgs = {
   _rev?: Maybe<StringQueryOperatorInput>;
   _key?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<SanitySlugFilterInput>;
   icon?: Maybe<SanityEmojiFilterInput>;
   color?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
+  _rawSlug?: Maybe<JsonQueryOperatorInput>;
   _rawIcon?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -1848,7 +1850,7 @@ export type SanityBlockFilterListInput = {
   elemMatch?: Maybe<SanityBlockFilterInput>;
 };
 
-export type SanityBlockOrFigure = SanityBlock | SanityFigure;
+export type SanityBlockOrFigureOrPlayer = SanityBlock | SanityFigure | SanityPlayer;
 
 export type SanityCategory = SanityDocument & Node & {
   _id?: Maybe<Scalars['String']>;
@@ -1858,9 +1860,11 @@ export type SanityCategory = SanityDocument & Node & {
   _rev?: Maybe<Scalars['String']>;
   _key?: Maybe<Scalars['String']>;
   title: Scalars['String'];
+  slug: SanitySlug;
   icon?: Maybe<SanityEmoji>;
   color?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  _rawSlug?: Maybe<Scalars['JSON']>;
   _rawIcon?: Maybe<Scalars['JSON']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -1882,6 +1886,11 @@ export type SanityCategory_UpdatedAtArgs = {
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SanityCategory_RawSlugArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
 };
 
 
@@ -1924,6 +1933,47 @@ export type SanityCategoryFieldsEnum =
   | '_rev'
   | '_key'
   | 'title'
+  | 'slug____key'
+  | 'slug____type'
+  | 'slug___current'
+  | 'slug___id'
+  | 'slug___parent___id'
+  | 'slug___parent___parent___id'
+  | 'slug___parent___parent___children'
+  | 'slug___parent___children'
+  | 'slug___parent___children___id'
+  | 'slug___parent___children___children'
+  | 'slug___parent___internal___content'
+  | 'slug___parent___internal___contentDigest'
+  | 'slug___parent___internal___description'
+  | 'slug___parent___internal___fieldOwners'
+  | 'slug___parent___internal___ignoreType'
+  | 'slug___parent___internal___mediaType'
+  | 'slug___parent___internal___owner'
+  | 'slug___parent___internal___type'
+  | 'slug___children'
+  | 'slug___children___id'
+  | 'slug___children___parent___id'
+  | 'slug___children___parent___children'
+  | 'slug___children___children'
+  | 'slug___children___children___id'
+  | 'slug___children___children___children'
+  | 'slug___children___internal___content'
+  | 'slug___children___internal___contentDigest'
+  | 'slug___children___internal___description'
+  | 'slug___children___internal___fieldOwners'
+  | 'slug___children___internal___ignoreType'
+  | 'slug___children___internal___mediaType'
+  | 'slug___children___internal___owner'
+  | 'slug___children___internal___type'
+  | 'slug___internal___content'
+  | 'slug___internal___contentDigest'
+  | 'slug___internal___description'
+  | 'slug___internal___fieldOwners'
+  | 'slug___internal___ignoreType'
+  | 'slug___internal___mediaType'
+  | 'slug___internal___owner'
+  | 'slug___internal___type'
   | 'icon____key'
   | 'icon____type'
   | 'icon___sanityId'
@@ -1940,6 +1990,7 @@ export type SanityCategoryFieldsEnum =
   | 'icon___customCategory'
   | 'color'
   | 'description'
+  | '_rawSlug'
   | '_rawIcon'
   | 'id'
   | 'parent___id'
@@ -2036,9 +2087,11 @@ export type SanityCategoryFilterInput = {
   _rev?: Maybe<StringQueryOperatorInput>;
   _key?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<SanitySlugFilterInput>;
   icon?: Maybe<SanityEmojiFilterInput>;
   color?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
+  _rawSlug?: Maybe<JsonQueryOperatorInput>;
   _rawIcon?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -3309,6 +3362,7 @@ export type SanityPlayer = {
   _key?: Maybe<Scalars['String']>;
   _type?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
+  caption?: Maybe<Scalars['String']>;
 };
 
 export type SanityPost = SanityDocument & Node & {
@@ -3587,6 +3641,23 @@ export type SanityPostFieldsEnum =
   | 'categories____rev'
   | 'categories____key'
   | 'categories___title'
+  | 'categories___slug____key'
+  | 'categories___slug____type'
+  | 'categories___slug___current'
+  | 'categories___slug___id'
+  | 'categories___slug___parent___id'
+  | 'categories___slug___parent___children'
+  | 'categories___slug___children'
+  | 'categories___slug___children___id'
+  | 'categories___slug___children___children'
+  | 'categories___slug___internal___content'
+  | 'categories___slug___internal___contentDigest'
+  | 'categories___slug___internal___description'
+  | 'categories___slug___internal___fieldOwners'
+  | 'categories___slug___internal___ignoreType'
+  | 'categories___slug___internal___mediaType'
+  | 'categories___slug___internal___owner'
+  | 'categories___slug___internal___type'
   | 'categories___icon____key'
   | 'categories___icon____type'
   | 'categories___icon___sanityId'
@@ -3603,6 +3674,7 @@ export type SanityPostFieldsEnum =
   | 'categories___icon___customCategory'
   | 'categories___color'
   | 'categories___description'
+  | 'categories____rawSlug'
   | 'categories____rawIcon'
   | 'categories___id'
   | 'categories___parent___id'
@@ -4071,6 +4143,23 @@ export type SanityProjectFieldsEnum =
   | 'categories____rev'
   | 'categories____key'
   | 'categories___title'
+  | 'categories___slug____key'
+  | 'categories___slug____type'
+  | 'categories___slug___current'
+  | 'categories___slug___id'
+  | 'categories___slug___parent___id'
+  | 'categories___slug___parent___children'
+  | 'categories___slug___children'
+  | 'categories___slug___children___id'
+  | 'categories___slug___children___children'
+  | 'categories___slug___internal___content'
+  | 'categories___slug___internal___contentDigest'
+  | 'categories___slug___internal___description'
+  | 'categories___slug___internal___fieldOwners'
+  | 'categories___slug___internal___ignoreType'
+  | 'categories___slug___internal___mediaType'
+  | 'categories___slug___internal___owner'
+  | 'categories___slug___internal___type'
   | 'categories___icon____key'
   | 'categories___icon____type'
   | 'categories___icon___sanityId'
@@ -4087,6 +4176,7 @@ export type SanityProjectFieldsEnum =
   | 'categories___icon___customCategory'
   | 'categories___color'
   | 'categories___description'
+  | 'categories____rawSlug'
   | 'categories____rawIcon'
   | 'categories___id'
   | 'categories___parent___id'
@@ -5507,6 +5597,14 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
+export type CategoriesPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesPageQuery = { allSanityCategory: { nodes: Array<(
+      Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
+      & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
+    )> } };
+
 export type BlogPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5518,16 +5616,12 @@ export type BlogPageQuery = { posts: { edges: Array<{ node: (
         )>, slug: Pick<SanitySlug, 'current'> }
       ) }> } };
 
-export type IndexPageQueryVariables = Exact<{ [key: string]: never; }>;
+export type BlogCategoryPageQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
 
 
-export type IndexPageQuery = { posts: { edges: Array<{ node: (
-        Pick<SanityPost, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
-        & { mainImage?: Maybe<(
-          Pick<SanityFigure, 'alt'>
-          & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-        )>, slug: Pick<SanitySlug, 'current'> }
-      ) }> } };
+export type BlogCategoryPageQuery = { category?: Maybe<Pick<SanityCategory, 'title'>> };
 
 export type BlogPostPageQueryVariables = Exact<{
   id: Scalars['String'];

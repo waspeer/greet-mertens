@@ -42,7 +42,8 @@
     @apply leading-relaxed mt-6;
   }
 
-  & .figure {
+  & .figure,
+  & .player {
     @apply mt-8 -mx-8;
   }
 }

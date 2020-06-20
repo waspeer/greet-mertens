@@ -11,7 +11,9 @@ const Layout = ({ children }: Props) => {
   return (
     <div>
       <header className="p-4 flex items-center">
-        <h1 className="text-2xl m-0">Greet Mertens</h1>
+        <h1 className="text-2xl m-0">
+          <Link to="/">Greet Mertens</Link>
+        </h1>
 
         <nav className="flex flex-grow justify-end text-gray-700" style={{ marginTop: '0.125em' }}>
           <Link className="mr-4" to="/blog">

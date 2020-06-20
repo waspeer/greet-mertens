@@ -1,20 +1,27 @@
-const { format, isFuture } = require("date-fns");
+const { format, isFuture } = require('date-fns');
 
 module.exports = {
   createPages: async ({ graphql, actions }) => {
     const { createPage } = actions;
     const result = await graphql(/* GraphQL */ `
       query createPagesQuery {
-        allSanityPost(
+        posts: allSanityPost(
           filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
         ) {
-          edges {
-            node {
-              id
-              publishedAt
-              slug {
-                current
-              }
+          nodes {
+            id
+            publishedAt
+            slug {
+              current
+            }
+          }
+        }
+
+        categories: allSanityCategory(filter: { slug: { current: { ne: null } } }) {
+          nodes {
+            id
+            slug {
+              current
             }
           }
         }
@@ -23,21 +30,31 @@ module.exports = {
 
     if (result.errors) throw result.errors;
 
-    const postEdges = (result.data.allSanityPost || {}).edges || [];
+    const postNodes = (result.data.posts || {}).nodes || [];
+    const categoryNodes = (result.data.categories || {}).nodes || [];
 
-    postEdges
-      .filter((edge) => !isFuture(new Date(edge.node.publishedAt)))
-      .forEach((edge) => {
-        const { id, slug = {}, publishedAt } = edge.node;
-        const dateSegment = format(new Date(publishedAt), "yyyy/MM");
+    postNodes
+      .filter(({ publishedAt }) => !isFuture(new Date(publishedAt)))
+      .forEach(({ id, slug, publishedAt }) => {
+        const dateSegment = format(new Date(publishedAt), 'yyyy/MM');
         const path = `/blog/${dateSegment}/${slug.current}/`;
 
         createPage({
           path,
-          component: require.resolve("./src/templates/blog-post-page.tsx"),
+          component: require.resolve('./src/templates/blog-post-page.tsx'),
           context: { id },
         });
       });
+
+    categoryNodes.forEach(({ id, slug }) => {
+      const path = `/blog/categories/${slug.current}`;
+
+      createPage({
+        path,
+        component: require.resolve('./src/templates/blog-category-page.tsx'),
+        context: { id },
+      });
+    });
   },
 
   createSchemaCustomization: ({ actions }) => {
@@ -45,6 +62,7 @@ module.exports = {
     const typeDefs = /* GraphQL */ `
       type SanityCategory implements Node {
         title: String!
+        slug: SanitySlug!
       }
 
       type SanityFigure implements Node {

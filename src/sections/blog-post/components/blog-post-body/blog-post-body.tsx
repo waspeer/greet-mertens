@@ -3,6 +3,7 @@ import { getFluidGatsbyImage } from 'gatsby-source-sanity';
 import React from 'react';
 
 import { Figure } from '../figure';
+import { Player } from '../player';
 
 interface Props {
   body: any[];
@@ -48,6 +49,14 @@ const serializers = {
           }}
         />
       );
+    },
+
+    player: ({ node }: any) => {
+      if (!node || !node.url) {
+        return null;
+      }
+
+      return <Player caption={node.caption} url={node.url} />;
     },
   },
 };

@@ -16,8 +16,12 @@ export interface BlogPostPreview {
 export interface Category {
   color?: string | null;
   description?: string | null;
-  icon?: string | null;
+  icon?: {
+    description: string;
+    icon: string;
+  } | null;
   id: string;
+  slug: string;
   title: string;
 }
 

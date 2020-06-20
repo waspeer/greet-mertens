@@ -4,7 +4,7 @@ import React from 'react';
 import { BlogPost } from '~/sections/blog-post';
 import type { BlogPost as BlogPostType } from '~/lib/types';
 
-import { BlogPostPageQuery } from '../../graphql-types';
+import type { BlogPostPageQuery } from '../../graphql-types';
 
 interface Props {
   data: BlogPostPageQuery;

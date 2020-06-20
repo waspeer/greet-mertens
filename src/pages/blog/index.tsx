@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import type { BlogPostPreview } from '~/lib/types';
 import { BlogPostPreviewList } from '~/sections/blog-post-preview-list';
 
-import { BlogPageQuery } from '../../graphql-types';
+import type { BlogPageQuery } from '../../../graphql-types';
 
 interface Props {
   data: BlogPageQuery;
@@ -26,11 +26,7 @@ const BlogPage = ({ data }: Props) => {
     }),
   );
 
-  return (
-    <div className="container">
-      <BlogPostPreviewList posts={postPreviews} />
-    </div>
-  );
+  return <BlogPostPreviewList posts={postPreviews} />;
 };
 
 export const query = graphql`
