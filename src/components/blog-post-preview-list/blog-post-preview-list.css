@@ -1,0 +1,11 @@
+.blogPostPreviewList {
+  @apply max-w-xl m-auto p-0;
+
+  & li {
+    @apply list-none p-0 border-b;
+
+    &:last-child {
+      @apply border-none;
+    }
+  }
+}

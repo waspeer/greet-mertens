@@ -1,0 +1,11 @@
+.figure {
+  @apply flex flex-col;
+
+  & .gatsby-image-wrapper {
+    @apply w-full flex-1;
+  }
+}
+
+.figure__caption {
+  @apply text-center text-xs text-gray-500 my-1;
+}
