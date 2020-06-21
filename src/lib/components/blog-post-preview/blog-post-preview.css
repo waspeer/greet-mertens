@@ -3,11 +3,15 @@
 }
 
 .blogPostPreview__image {
-  @apply w-full mr-6 bg-gray-100;
+  @apply w-1/3 mr-6 bg-gray-100;
 
   & > div {
     @apply w-full h-full;
   }
+}
+
+.blogPostPreview__text {
+  @apply flex-1;
 }
 
 .blogPostPreview__text h3,

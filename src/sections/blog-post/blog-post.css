@@ -7,7 +7,7 @@
 }
 
 .blogPost__text {
-  @apply max-w-2xl pt-4;
+  @apply pt-4;
 }
 
 .blogPost__title {

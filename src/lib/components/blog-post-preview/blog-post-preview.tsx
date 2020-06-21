@@ -7,9 +7,13 @@ import type { BlogPostPreview as BlogPostPreviewType } from '~/lib/types';
 
 import './blog-post-preview.css';
 
-type Props = Pick<BlogPostPreviewType, 'excerpt' | 'id' | 'mainImage' | 'publishedAt' | 'title'>;
+interface Props {
+  postPreview: Pick<BlogPostPreviewType, 'excerpt' | 'id' | 'mainImage' | 'publishedAt' | 'title'>;
+}
 
-export const BlogPostPreview = ({ mainImage, title, excerpt, publishedAt }: Props) => {
+export const BlogPostPreview = ({ postPreview }: Props) => {
+  const { mainImage, title, excerpt, publishedAt } = postPreview;
+
   return (
     <div className="blogPostPreview">
       <div className="blogPostPreview__image">

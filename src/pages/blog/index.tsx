@@ -2,7 +2,8 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import type { BlogPostPreview } from '~/lib/types';
-import { BlogPostPreviewList } from '~/sections/blog-post-preview-list';
+import { BlogRecentPostsList } from '~/sections/blog-recent-posts-list';
+import { normalizePostPreview } from '~/lib/helpers/normalize-post-preview';
 
 import type { BlogPageQuery } from '../../../graphql-types';
 
@@ -11,22 +12,11 @@ interface Props {
 }
 
 const BlogPage = ({ data }: Props) => {
-  const postPreviews: BlogPostPreview[] = data.posts.edges.map(
-    ({ node: { mainImage, publishedAt, _rawExcerpt, slug, ...rest } }) => ({
-      excerpt: _rawExcerpt,
-      mainImage: mainImage
-        ? {
-            alt: mainImage.alt,
-            fluid: mainImage.asset?.fluid,
-          }
-        : undefined,
-      publishedAt: new Date(publishedAt),
-      slug: slug.current,
-      ...rest,
-    }),
+  const postPreviews: BlogPostPreview[] = data.posts.edges.map(({ node }) =>
+    normalizePostPreview(node),
   );
 
-  return <BlogPostPreviewList posts={postPreviews} />;
+  return <BlogRecentPostsList postPreviews={postPreviews} />;
 };
 
 export const query = graphql`

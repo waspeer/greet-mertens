@@ -5621,7 +5621,16 @@ export type BlogCategoryPageQueryVariables = Exact<{
 }>;
 
 
-export type BlogCategoryPageQuery = { category?: Maybe<Pick<SanityCategory, 'title'>> };
+export type BlogCategoryPageQuery = { category?: Maybe<(
+    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
+    & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
+  )>, posts: { nodes: Array<(
+      Pick<SanityPost, '_rawExcerpt' | 'id' | 'publishedAt' | 'title'>
+      & { mainImage?: Maybe<(
+        Pick<SanityFigure, 'alt'>
+        & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
+      )>, slug: Pick<SanitySlug, 'current'> }
+    )> } };
 
 export type BlogPostPageQueryVariables = Exact<{
   id: Scalars['String'];
@@ -5632,7 +5641,7 @@ export type BlogPostPageQuery = { post?: Maybe<(
     Pick<SanityPost, 'id' | 'publishedAt' | 'title' | '_rawBody'>
     & { categories: Array<(
       Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-      & { icon?: Maybe<Pick<SanityEmoji, 'native'>> }
+      & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
     )>, mainImage?: Maybe<(
       Pick<SanityFigure, 'alt' | 'caption'>
       & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }

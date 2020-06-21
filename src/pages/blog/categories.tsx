@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import type { Category } from '~/lib/types';
-import { BlogCategoryOverview } from '~/sections/blog-category-overview/blog-category-overview';
+import { BlogCategoriesOverview } from '~/sections/blog-categories-overview/blog-categories-overview';
 
 import type { CategoriesPageQuery } from '../../../graphql-types';
 
@@ -17,7 +17,7 @@ const CategoriesPage = ({ data }: Props) => {
     ...rest,
   }));
 
-  return <BlogCategoryOverview categories={categories} />;
+  return <BlogCategoriesOverview categories={categories} />;
 };
 
 export const query = graphql`

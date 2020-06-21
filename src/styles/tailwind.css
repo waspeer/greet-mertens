@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
 @tailwind base;
 
@@ -47,4 +47,24 @@ p,
 ul,
 ol {
   @apply leading-snug;
+}
+
+ul.focussedList {
+  & li {
+    @apply transition-opacity;
+  }
+
+  &:hover {
+    & li {
+      @apply opacity-75;
+
+      &:hover {
+        @apply opacity-100;
+      }
+    }
+  }
+}
+
+.container {
+  @apply max-w-2xl;
 }

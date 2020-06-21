@@ -1,7 +1,9 @@
+import { Link } from 'gatsby';
 import React from 'react';
 
 import type { Category as CategoryType } from '~/lib/types';
 import { getContrast } from '~/lib/helpers/get-contrast';
+import { getCategoryUrl } from '~/lib/helpers/get-category-url';
 
 import './categories.css';
 
@@ -12,7 +14,7 @@ interface Props {
 export const CategoryList = ({ categories }: Props) => {
   return (
     <ul className="blogPost__categories">
-      {categories.map(({ color, icon, id, title }) => (
+      {categories.map(({ color, icon, id, slug, title }) => (
         <li
           key={id}
           style={{
@@ -20,8 +22,14 @@ export const CategoryList = ({ categories }: Props) => {
             color: getContrast(color || 'f5f5f5'),
           }}
         >
-          {icon && <span>{icon}</span>}
-          {title}
+          <Link to={getCategoryUrl({ slug })}>
+            {icon && (
+              <span role="img" aria-label={icon.description}>
+                {icon.icon}
+              </span>
+            )}
+            {title}
+          </Link>
         </li>
       ))}
     </ul>

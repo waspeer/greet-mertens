@@ -2,7 +2,7 @@ import { graphql } from 'gatsby';
 import React from 'react';
 
 import { BlogPost } from '~/sections/blog-post';
-import type { BlogPost as BlogPostType } from '~/lib/types';
+import { normalizePost } from '~/lib/helpers/normalize-post';
 
 import type { BlogPostPageQuery } from '../../graphql-types';
 
@@ -11,23 +11,7 @@ interface Props {
 }
 
 const BlogPostPage = ({ data }: Props) => {
-  const postData = data.post!;
-  const post: BlogPostType = (({ _rawBody, categories, mainImage, publishedAt, ...rest }) => ({
-    body: _rawBody,
-    categories: categories.map(({ icon, ...category }) => ({
-      icon: icon?.native,
-      ...category,
-    })),
-    mainImage: mainImage
-      ? {
-          alt: mainImage.alt,
-          caption: mainImage.caption,
-          fluid: mainImage.asset?.fluid,
-        }
-      : undefined,
-    publishedAt: new Date(publishedAt),
-    ...rest,
-  }))(postData);
+  const post = normalizePost(data.post!);
 
   return <BlogPost post={post} />;
 };
@@ -42,6 +26,9 @@ export const query = graphql`
           native
         }
         id
+        slug {
+          current
+        }
         title
       }
       id
