@@ -1,9 +1,8 @@
-// TODO implement
-
 interface Arguments {
+  namespace: 'blog' | 'portfolio';
   slug: string;
 }
 
-export function getCategoryUrl({ slug }: Arguments) {
-  return `/blog/categories/${slug}`;
+export function getCategoryUrl({ namespace, slug }: Arguments) {
+  return `/${namespace}/categories/${slug}`;
 }

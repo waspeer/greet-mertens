@@ -1,6 +1,7 @@
 -   [x] Make git repository
 -   [x] Add ESLint etc.
 -   [x] Improve folder structure (sections -> components, eg. tinyhouse)
+-   [ ] Merge blog + portfolio categories
 
 # Blog Posts
 
@@ -13,8 +14,10 @@
 # Portfolio
 
 -   [ ] Implement portfolio
+-   [ ] Do something with isCurrent
 
 # Future
 
 -   [ ] Een mailinglist formulier onderaan de artikelen?
 -   [ ] Unsplash toevoegen als image source?
+-   [ ] Generalize components for project + blog (like CategoryList)

@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { nl as locale } from 'date-fns/locale';
 import Image from 'gatsby-image';
 import React from 'react';
 import PortableText from '@sanity/block-content-to-react';
@@ -24,7 +25,9 @@ export const BlogPostPreview = ({ postPreview }: Props) => {
         <div className="blogPostPreview__excerpt">
           <PortableText blocks={excerpt} />
         </div>
-        <div className="blogPostPreview__publishedAt">{format(publishedAt, 'd MMMM yyyy')}</div>
+        <div className="blogPostPreview__publishedAt">
+          {format(publishedAt, 'd MMMM yyyy', { locale })}
+        </div>
       </div>
     </div>
   );

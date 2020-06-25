@@ -15,6 +15,20 @@ module.exports = {
               current
             }
           }
+          usedCategories: distinct(field: categories___id)
+        }
+
+        projects: allSanityProject(
+          filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
+        ) {
+          nodes {
+            id
+            publishedAt
+            slug {
+              current
+            }
+          }
+          usedCategories: distinct(field: categories___id)
         }
 
         categories: allSanityCategory(filter: { slug: { current: { ne: null } } }) {
@@ -30,8 +44,17 @@ module.exports = {
 
     if (result.errors) throw result.errors;
 
-    const postNodes = (result.data.posts || {}).nodes || [];
+    const postsResult = result.data.posts || {};
+    const postNodes = postsResult.nodes || [];
+    const postCategories = postsResult.usedCategories || [];
+    const projectsResult = result.data.projects || {};
+    const projectNodes = projectsResult.nodes || [];
+    const projectCategories = projectsResult.usedCategories || [];
     const categoryNodes = (result.data.categories || {}).nodes || [];
+
+    /**
+     * BLOG POSTS
+     */
 
     postNodes
       .filter(({ publishedAt }) => !isFuture(new Date(publishedAt)))
@@ -46,12 +69,58 @@ module.exports = {
         });
       });
 
-    categoryNodes.forEach(({ id, slug }) => {
-      const path = `/blog/categories/${slug.current}`;
+    /**
+     * BLOG CATEGORIES PAGE
+     */
+
+    createPage({
+      path: '/blog/categories',
+      component: require.resolve('./src/templates/blog-categories-page.tsx'),
+      context: { ids: postCategories },
+    });
+
+    /**
+     * BLOG CATEGORY PAGES
+     */
+
+    postCategories.forEach((id) => {
+      const slug = categoryNodes.find((category) => category.id === id).slug.current;
+      const path = `/blog/categories/${slug}`;
 
       createPage({
         path,
         component: require.resolve('./src/templates/blog-category-page.tsx'),
+        context: { id },
+      });
+    });
+
+    /**
+     * PORTFOLIO PROJECTS
+     */
+
+    projectNodes
+      .filter(({ publishedAt }) => !isFuture(new Date(publishedAt)))
+      .forEach(({ id, slug }) => {
+        const path = `/portfolio/project/${slug.current}/`;
+
+        createPage({
+          path,
+          component: require.resolve('./src/templates/portfolio-project-page.tsx'),
+          context: { id },
+        });
+      });
+
+    /**
+     * PORTFOLIO CATEGORY PAGES
+     */
+
+    projectCategories.forEach((id) => {
+      const slug = categoryNodes.find((category) => category.id === id).slug.current;
+      const path = `/portfolio/categories/${slug}`;
+
+      createPage({
+        path,
+        component: require.resolve('./src/templates/portfolio-category-page.tsx'),
         context: { id },
       });
     });
@@ -76,6 +145,16 @@ module.exports = {
       }
 
       type SanityPost implements Node {
+        _rawBody: JSON!
+        _rawExcerpt: JSON!
+        categories: [SanityCategory!]!
+        mainImage: SanityFigure
+        publishedAt: Date
+        slug: SanitySlug!
+        title: String!
+      }
+
+      type SanityProject implements Node {
         _rawBody: JSON!
         _rawExcerpt: JSON!
         categories: [SanityCategory!]!

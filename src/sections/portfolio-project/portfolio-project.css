@@ -1,0 +1,49 @@
+.portfolioProject__mainImage {
+  height: 75vh;
+
+  @screen md {
+    @apply h-screen;
+  }
+}
+
+.portfolioProject__text {
+  @apply pt-4;
+}
+
+.portfolioProject__title {
+  @apply text-5xl;
+}
+
+.portfolioProject__info {
+  @apply flex mt-2 mb-4;
+}
+
+.portfolioProject__publishedAt {
+  @apply text-xs text-gray-500 capitalize;
+}
+
+.portfolioProject__body {
+  @apply pb-8;
+
+  & h2,
+  & h3 {
+    @apply font-body mt-8 -mb-4;
+  }
+
+  & h2 {
+    @apply text-2xl;
+  }
+
+  & h3 {
+    @apply text-xl;
+  }
+
+  & p {
+    @apply leading-relaxed mt-6;
+  }
+
+  & .figure,
+  & .player {
+    @apply mt-8 -mx-8;
+  }
+}

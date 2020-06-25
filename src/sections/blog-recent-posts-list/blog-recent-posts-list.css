@@ -1,11 +1,7 @@
-.blogPostPreviewList {
-  @apply max-w-xl m-auto p-0;
+.blogRecentPostsList__title {
+  @apply font-body uppercase text-base font-normal mb-2 text-gray-500;
+}
 
-  & li {
-    @apply list-none p-0 border-b;
-
-    &:last-child {
-      @apply border-none;
-    }
-  }
+.blogRecentPostsList__moreLink {
+  @apply text-gray-700 lowercase underline;
 }

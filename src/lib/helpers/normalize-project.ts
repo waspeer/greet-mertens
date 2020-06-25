@@ -1,18 +1,21 @@
-import { BlogPost } from '../types';
+import { PortfolioProject } from '../types';
 
 import { normalizeCategory } from './normalize-category';
 
 import type {
-  SanityPost,
   Maybe,
   SanityFigure,
   GatsbySanityImageFluidFragment,
   SanitySlug,
   SanityCategory,
   SanityEmoji,
+  SanityProject,
 } from '~/../graphql-types';
 
-type GraphQLData = Pick<SanityPost, 'id' | 'publishedAt' | 'title' | '_rawBody'> & {
+type GraphQLData = Pick<
+  SanityProject,
+  'id' | 'isCurrent' | 'publishedAt' | 'title' | '_rawBody'
+> & {
   categories: Array<
     Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'> & {
       icon?: Maybe<Pick<SanityEmoji, 'native'>>;
@@ -26,16 +29,18 @@ type GraphQLData = Pick<SanityPost, 'id' | 'publishedAt' | 'title' | '_rawBody'>
   >;
 };
 
-export function normalizePost({
+export function normalizeProject({
   _rawBody,
   categories,
+  isCurrent,
   mainImage,
   publishedAt,
   ...rest
-}: GraphQLData): BlogPost {
+}: GraphQLData): PortfolioProject {
   return {
     body: _rawBody,
     categories: categories.map((category) => normalizeCategory(category)),
+    isCurrent: !!isCurrent,
     mainImage: mainImage
       ? {
           alt: mainImage.alt,

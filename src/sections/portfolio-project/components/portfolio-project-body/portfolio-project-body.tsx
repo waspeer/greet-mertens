@@ -1,6 +1,6 @@
-import React from 'react';
 import PortableText from '@sanity/block-content-to-react';
 import { getFluidGatsbyImage } from 'gatsby-source-sanity';
+import React from 'react';
 
 import { Figure } from '../figure';
 import { Player } from '../player';
@@ -61,6 +61,6 @@ const serializers = {
   },
 };
 
-export const BlogPostBody = ({ body }: Props) => {
+export const PortfolioProjectBody = ({ body }: Props) => {
   return <PortableText blocks={body} serializers={serializers} />;
 };

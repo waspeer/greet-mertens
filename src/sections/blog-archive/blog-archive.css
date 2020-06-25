@@ -1,0 +1,3 @@
+.blogArchive__title {
+  @apply font-body uppercase text-base font-normal mb-2 text-gray-500;
+}

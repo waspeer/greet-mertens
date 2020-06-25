@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import type { Category } from '~/lib/types';
 import { BlogCategoriesOverview } from '~/sections/blog-categories-overview/blog-categories-overview';
 
-import type { CategoriesPageQuery } from '../../../graphql-types';
+import type { CategoriesPageQuery } from '~/../graphql-types';
 
 interface Props {
   data: CategoriesPageQuery;
@@ -21,8 +21,8 @@ const CategoriesPage = ({ data }: Props) => {
 };
 
 export const query = graphql`
-  query CategoriesPage {
-    allSanityCategory {
+  query CategoriesPage($ids: [String!]!) {
+    allSanityCategory(filter: { id: { in: $ids } }, sort: { fields: title, order: ASC }) {
       nodes {
         color
         description

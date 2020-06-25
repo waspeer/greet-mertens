@@ -18,11 +18,11 @@ export const CategoryList = ({ categories }: Props) => {
         <li
           key={id}
           style={{
-            backgroundColor: color || '#f5f5f5',
-            color: getContrast(color || '#f5f5f5'),
+            backgroundColor: color ?? '#f5f5f5',
+            color: getContrast(color ?? '#f5f5f5'),
           }}
         >
-          <Link to={getCategoryUrl({ namespace: 'blog', slug })}>
+          <Link to={getCategoryUrl({ namespace: 'portfolio', slug })}>
             {icon && (
               <span role="img" aria-label={icon.description}>
                 {icon.icon}
