@@ -68,3 +68,7 @@ ul.focussedList {
 .container {
   @apply max-w-2xl;
 }
+
+.gentleHeading {
+  @apply font-body uppercase text-base font-normal mb-2 text-gray-500;
+}

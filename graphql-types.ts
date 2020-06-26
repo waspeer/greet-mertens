@@ -5084,12 +5084,10 @@ export type SitePageConnectionGroupArgs = {
 
 export type SitePageContext = {
   id?: Maybe<Scalars['String']>;
-  ids?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type SitePageContextFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
-  ids?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageEdge = {
@@ -5192,7 +5190,6 @@ export type SitePageFieldsEnum =
   | 'internal___type'
   | 'isCreatedByStatefulCreatePages'
   | 'context___id'
-  | 'context___ids'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -5622,20 +5619,7 @@ export type BlogRecentPageQuery = { posts: { edges: Array<{ node: (
         )>, slug: Pick<SanitySlug, 'current'> }
       ) }>, pageInfo: Pick<PageInfo, 'hasNextPage'> } };
 
-export type PortfolioPageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type PortfolioPageQuery = { projects: { nodes: Array<(
-      Pick<SanityProject, 'id' | 'isCurrent' | 'title' | '_rawExcerpt'>
-      & { mainImage?: Maybe<(
-        Pick<SanityFigure, 'alt'>
-        & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-      )>, slug: Pick<SanitySlug, 'current'> }
-    )> } };
-
-export type CategoriesPageQueryVariables = Exact<{
-  ids: Array<Scalars['String']>;
-}>;
+export type CategoriesPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoriesPageQuery = { allSanityCategory: { nodes: Array<(
@@ -5643,16 +5627,11 @@ export type CategoriesPageQuery = { allSanityCategory: { nodes: Array<(
       & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
     )> } };
 
-export type BlogCategoryPageQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
+export type PortfolioPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogCategoryPageQuery = { category?: Maybe<(
-    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-    & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
-  )>, posts: { nodes: Array<(
-      Pick<SanityPost, '_rawExcerpt' | 'id' | 'publishedAt' | 'title'>
+export type PortfolioPageQuery = { projects: { nodes: Array<(
+      Pick<SanityProject, 'id' | 'isCurrent' | 'title' | '_rawExcerpt'>
       & { mainImage?: Maybe<(
         Pick<SanityFigure, 'alt'>
         & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
@@ -5675,15 +5654,21 @@ export type BlogPostPageQuery = { post?: Maybe<(
     )> }
   )> };
 
-export type PortfolioCategoryPageQueryVariables = Exact<{
+export type CategoryPageQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type PortfolioCategoryPageQuery = { category?: Maybe<(
+export type CategoryPageQuery = { category?: Maybe<(
     Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
     & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
-  )>, projects: { nodes: Array<(
+  )>, posts: { nodes: Array<(
+      Pick<SanityPost, '_rawExcerpt' | 'id' | 'publishedAt' | 'title'>
+      & { mainImage?: Maybe<(
+        Pick<SanityFigure, 'alt'>
+        & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
+      )>, slug: Pick<SanitySlug, 'current'> }
+    )> }, projects: { nodes: Array<(
       Pick<SanityProject, '_rawExcerpt' | 'id' | 'isCurrent' | 'publishedAt' | 'title'>
       & { mainImage?: Maybe<(
         Pick<SanityFigure, 'alt'>

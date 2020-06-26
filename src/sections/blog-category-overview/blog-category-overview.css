@@ -1,7 +1,0 @@
-.blogCategoryOverview__navigation {
-  @apply text-xs text-gray-700 mb-4;
-}
-
-.blogCategoryOverview__postPreviews {
-  @apply mt-8;
-}

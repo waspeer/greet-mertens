@@ -1,7 +1,3 @@
-.blogRecentPostsList__title {
-  @apply font-body uppercase text-base font-normal mb-2 text-gray-500;
-}
-
 .blogRecentPostsList__moreLink {
   @apply text-gray-700 lowercase underline;
 }

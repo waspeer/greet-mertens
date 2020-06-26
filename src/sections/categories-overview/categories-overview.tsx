@@ -6,16 +6,16 @@ import { getCategoryUrl } from '~/lib/helpers/get-category-url';
 
 import { CategoryInfo } from './components';
 
-import './blog-categories-overview.css';
+import './categories-overview.css';
 
 interface Props {
   categories: CategoryType[];
 }
 
-export const BlogCategoriesOverview = ({ categories }: Props) => {
+export const CategoriesOverview = ({ categories }: Props) => {
   return (
     <div className="container">
-      <ul className="blogCategoryOverview__list focussedList">
+      <ul className="categoriesOverview__list focussedList">
         {categories.map((category) => (
           <li key={category.id}>
             <Link to={getCategoryUrl(category)}>

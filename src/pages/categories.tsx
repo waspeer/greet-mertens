@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import type { Category } from '~/lib/types';
-import { BlogCategoriesOverview } from '~/sections/blog-categories-overview/blog-categories-overview';
+import { CategoriesOverview } from '~/sections/categories-overview';
 
 import type { CategoriesPageQuery } from '~/../graphql-types';
 
@@ -17,12 +17,12 @@ const CategoriesPage = ({ data }: Props) => {
     ...rest,
   }));
 
-  return <BlogCategoriesOverview categories={categories} />;
+  return <CategoriesOverview categories={categories} />;
 };
 
 export const query = graphql`
-  query CategoriesPage($ids: [String!]!) {
-    allSanityCategory(filter: { id: { in: $ids } }, sort: { fields: title, order: ASC }) {
+  query CategoriesPage {
+    allSanityCategory(sort: { fields: title, order: ASC }) {
       nodes {
         color
         description

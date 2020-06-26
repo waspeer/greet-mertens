@@ -1,25 +1,33 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import { BlogCategoryOverview } from '~/sections/blog-category-overview';
+import { CategoryOverview } from '~/sections/category-overview';
 import { normalizePostPreview } from '~/lib/helpers/normalize-post-preview';
 import { normalizeCategory } from '~/lib/helpers/normalize-category';
+import { normalizeProjectPreview } from '~/lib/helpers/normalize-project-preview';
 
-import type { BlogCategoryPageQuery } from '~/../graphql-types';
+import type { CategoryPageQuery } from '~/../graphql-types';
 
 interface Props {
-  data: BlogCategoryPageQuery;
+  data: CategoryPageQuery;
 }
 
 const BlogCategoryPage = ({ data }: Props) => {
   const category = normalizeCategory(data.category!);
   const postPreviews = data.posts.nodes.map((node) => normalizePostPreview(node));
+  const projectPreviews = data.projects.nodes.map((node) => normalizeProjectPreview(node));
 
-  return <BlogCategoryOverview category={category} postPreviews={postPreviews} />;
+  return (
+    <CategoryOverview
+      category={category}
+      postPreviews={postPreviews}
+      projectPreviews={projectPreviews}
+    />
+  );
 };
 
 export const query = graphql`
-  query BlogCategoryPage($id: String!) {
+  query CategoryPage($id: String!) {
     category: sanityCategory(id: { eq: $id }) {
       color
       description
@@ -45,6 +53,34 @@ export const query = graphql`
       nodes {
         _rawExcerpt
         id
+        mainImage {
+          asset {
+            fluid(maxWidth: 600) {
+              ...GatsbySanityImageFluid
+            }
+          }
+          alt
+        }
+        publishedAt
+        slug {
+          current
+        }
+        title
+      }
+    }
+
+    projects: allSanityProject(
+      sort: { fields: [publishedAt], order: DESC }
+      filter: {
+        categories: { elemMatch: { id: { eq: $id } } }
+        publishedAt: { ne: null }
+        slug: { current: { ne: null } }
+      }
+    ) {
+      nodes {
+        _rawExcerpt
+        id
+        isCurrent
         mainImage {
           asset {
             fluid(maxWidth: 600) {

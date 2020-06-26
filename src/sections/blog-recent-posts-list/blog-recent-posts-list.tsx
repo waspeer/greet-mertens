@@ -14,7 +14,7 @@ interface Props {
 export const BlogRecentPostsList = ({ hasMorePosts, postPreviews }: Props) => {
   return (
     <div className="container">
-      <h2 className="blogRecentPostsList__title">Recente blog posts</h2>
+      <h2 className="gentleHeading">Recente blog posts</h2>
       <BlogPostPreviewList postPreviews={postPreviews} />
       {hasMorePosts && (
         <Link className="blogRecentPostsList__moreLink" to="/blog/archive">

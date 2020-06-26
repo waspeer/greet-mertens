@@ -1,0 +1,31 @@
+.categoryOverview__navigation {
+  @apply text-xs text-gray-700 mb-4;
+}
+
+.categoryOverview__info {
+  @apply mb-8;
+}
+
+.categoryOverview__icon {
+  @apply mr-2;
+}
+
+.categoryOverview__categoryColor {
+  @apply h-1;
+}
+
+.categoryOverview__description {
+  @apply text-sm text-gray-700 mt-2;
+}
+
+.categoryOverview__relatedContent {
+  @apply mt-4;
+
+  & h2 {
+    @apply border-b;
+  }
+}
+
+.categoryOverview__noRelatedContent {
+  @apply text-sm text-gray-700;
+}

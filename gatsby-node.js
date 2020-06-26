@@ -15,7 +15,6 @@ module.exports = {
               current
             }
           }
-          usedCategories: distinct(field: categories___id)
         }
 
         projects: allSanityProject(
@@ -28,7 +27,6 @@ module.exports = {
               current
             }
           }
-          usedCategories: distinct(field: categories___id)
         }
 
         categories: allSanityCategory(filter: { slug: { current: { ne: null } } }) {
@@ -46,10 +44,8 @@ module.exports = {
 
     const postsResult = result.data.posts || {};
     const postNodes = postsResult.nodes || [];
-    const postCategories = postsResult.usedCategories || [];
     const projectsResult = result.data.projects || {};
     const projectNodes = projectsResult.nodes || [];
-    const projectCategories = projectsResult.usedCategories || [];
     const categoryNodes = (result.data.categories || {}).nodes || [];
 
     /**
@@ -70,31 +66,6 @@ module.exports = {
       });
 
     /**
-     * BLOG CATEGORIES PAGE
-     */
-
-    createPage({
-      path: '/blog/categories',
-      component: require.resolve('./src/templates/blog-categories-page.tsx'),
-      context: { ids: postCategories },
-    });
-
-    /**
-     * BLOG CATEGORY PAGES
-     */
-
-    postCategories.forEach((id) => {
-      const slug = categoryNodes.find((category) => category.id === id).slug.current;
-      const path = `/blog/categories/${slug}`;
-
-      createPage({
-        path,
-        component: require.resolve('./src/templates/blog-category-page.tsx'),
-        context: { id },
-      });
-    });
-
-    /**
      * PORTFOLIO PROJECTS
      */
 
@@ -111,16 +82,14 @@ module.exports = {
       });
 
     /**
-     * PORTFOLIO CATEGORY PAGES
+     * CATEGORY PAGES
      */
-
-    projectCategories.forEach((id) => {
-      const slug = categoryNodes.find((category) => category.id === id).slug.current;
-      const path = `/portfolio/categories/${slug}`;
+    categoryNodes.forEach(({ id, slug }) => {
+      const path = `/categories/${slug.current}/`;
 
       createPage({
         path,
-        component: require.resolve('./src/templates/portfolio-category-page.tsx'),
+        component: require.resolve('./src/templates/category-page.tsx'),
         context: { id },
       });
     });
