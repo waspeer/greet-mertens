@@ -39,7 +39,7 @@ export interface PortfolioProject {
   categories: Category[];
   id: string;
   isCurrent: boolean;
-  publishedAt: Date;
+  publishedAt?: Date;
   mainImage?: Image | null;
   title: string;
 }

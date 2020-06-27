@@ -51,7 +51,7 @@ ol {
 
 ul.focussedList {
   & li {
-    @apply transition-opacity;
+    @apply transition-opacity duration-200;
   }
 
   &:hover {

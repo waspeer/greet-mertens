@@ -17,11 +17,10 @@ module.exports = {
           }
         }
 
-        projects: allSanityProject(
-          filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
-        ) {
+        projects: allSanityProject(filter: { slug: { current: { ne: null } } }) {
           nodes {
             id
+            isCurrent
             publishedAt
             slug {
               current
@@ -53,7 +52,7 @@ module.exports = {
      */
 
     postNodes
-      .filter(({ publishedAt }) => !isFuture(new Date(publishedAt)))
+      .filter(({ publishedAt }) => !isFuture(new Date(publishedAt) || !(isCurrent || publishedAt)))
       .forEach(({ id, slug, publishedAt }) => {
         const dateSegment = format(new Date(publishedAt), 'yyyy/MM');
         const path = `/blog/${dateSegment}/${slug.current}/`;
@@ -70,7 +69,7 @@ module.exports = {
      */
 
     projectNodes
-      .filter(({ publishedAt }) => !isFuture(new Date(publishedAt)))
+      .filter(({ isCurrent, publishedAt }) => !isFuture(new Date(publishedAt)))
       .forEach(({ id, slug }) => {
         const path = `/portfolio/project/${slug.current}/`;
 

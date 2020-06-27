@@ -18,6 +18,17 @@
   @apply flex mt-2 mb-4;
 }
 
+.portfolioProject__currentBadge {
+  @apply h-4 rounded-full bg-gray-100 pr-2;
+  @apply text-xs leading-3;
+
+  &::before {
+    content: '⭑';
+    @apply inline-block rounded-full h-4 w-4 mr-1;
+    @apply text-lg leading-3 text-center;
+  }
+}
+
 .portfolioProject__publishedAt {
   @apply text-xs text-gray-500 capitalize;
 }

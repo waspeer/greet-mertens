@@ -12,8 +12,7 @@ interface Props {
 }
 
 export const PortfolioProject = ({ project }: Props) => {
-  const { body, categories, mainImage, publishedAt, title } = project;
-  const formattedDate = format(new Date(publishedAt), 'MMMM yyyy', { locale: nl });
+  const { body, categories, isCurrent, mainImage, publishedAt, title } = project;
 
   return (
     <article>
@@ -21,7 +20,12 @@ export const PortfolioProject = ({ project }: Props) => {
       <div className="portfolioProject__text container">
         <h1 className="portfolioProject__title">{title}</h1>
         <div className="portfolioProject__info">
-          <div className="portfolioProject__publishedAt">{formattedDate}</div>
+          {isCurrent && <div className="portfolioProject__currentBadge">Nog lopend project</div>}
+          {!!publishedAt && (
+            <div className="portfolioProject__publishedAt">
+              {format(new Date(publishedAt), 'MMMM yyyy', { locale: nl })}
+            </div>
+          )}
           {categories[0] && <CategoryList categories={categories} />}
         </div>
         <div className="portfolioProject__body">

@@ -5627,16 +5627,18 @@ export type CategoriesPageQuery = { allSanityCategory: { nodes: Array<(
       & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
     )> } };
 
+export type ProjectPreviewFragment = (
+  Pick<SanityProject, 'id' | 'isCurrent' | 'title' | '_rawExcerpt'>
+  & { mainImage?: Maybe<(
+    Pick<SanityFigure, 'alt'>
+    & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
+  )>, slug: Pick<SanitySlug, 'current'> }
+);
+
 export type PortfolioPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PortfolioPageQuery = { projects: { nodes: Array<(
-      Pick<SanityProject, 'id' | 'isCurrent' | 'title' | '_rawExcerpt'>
-      & { mainImage?: Maybe<(
-        Pick<SanityFigure, 'alt'>
-        & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-      )>, slug: Pick<SanitySlug, 'current'> }
-    )> } };
+export type PortfolioPageQuery = { currentProjects: { nodes: Array<ProjectPreviewFragment> }, publishedProjects: { nodes: Array<ProjectPreviewFragment> } };
 
 export type BlogPostPageQueryVariables = Exact<{
   id: Scalars['String'];

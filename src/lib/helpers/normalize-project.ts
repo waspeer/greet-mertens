@@ -48,7 +48,7 @@ export function normalizeProject({
           fluid: mainImage.asset?.fluid,
         }
       : undefined,
-    publishedAt: new Date(publishedAt),
+    publishedAt: publishedAt && new Date(publishedAt),
     ...rest,
   };
 }

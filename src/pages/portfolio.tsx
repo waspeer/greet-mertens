@@ -11,33 +11,53 @@ interface Props {
 }
 
 const PortfolioPage = ({ data }: Props) => {
-  const projectPreviews = data.projects.nodes.map(normalizeProjectPreview);
+  const currentProjectPreviews = data.currentProjects.nodes.map(normalizeProjectPreview);
+  const publishedProjectPreviews = data.publishedProjects.nodes.map(normalizeProjectPreview);
 
-  return <PortfolioOverview projectPreviews={projectPreviews} />;
+  return (
+    <PortfolioOverview projectPreviews={[...currentProjectPreviews, ...publishedProjectPreviews]} />
+  );
 };
 
 export const query = graphql`
+  fragment ProjectPreview on SanityProject {
+    id
+    isCurrent
+    mainImage {
+      asset {
+        fluid(maxWidth: 700) {
+          ...GatsbySanityImageFluid
+        }
+      }
+      alt
+    }
+    title
+    _rawExcerpt
+    slug {
+      current
+    }
+  }
+
   query PortfolioPage {
-    projects: allSanityProject(
-      filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
+    currentProjects: allSanityProject(
+      filter: { slug: { current: { ne: null } }, isCurrent: { eq: true } }
+      sort: { fields: title, order: ASC }
+    ) {
+      nodes {
+        ...ProjectPreview
+      }
+    }
+
+    publishedProjects: allSanityProject(
+      filter: {
+        slug: { current: { ne: null } }
+        publishedAt: { ne: null }
+        isCurrent: { ne: true }
+      }
       sort: { fields: publishedAt, order: DESC }
     ) {
       nodes {
-        id
-        isCurrent
-        mainImage {
-          asset {
-            fluid(maxWidth: 700) {
-              ...GatsbySanityImageFluid
-            }
-          }
-          alt
-        }
-        title
-        _rawExcerpt
-        slug {
-          current
-        }
+        ...ProjectPreview
       }
     }
   }

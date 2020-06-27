@@ -1,3 +1,26 @@
+.portfolioProjectPreview {
+  @apply relative;
+}
+
+.portfolioProjectPreview__currentBadge {
+  @apply absolute z-10 h-4 rounded-full bg-white pr-2 opacity-75;
+  @apply text-xs align-top leading-3;
+  @apply overflow-hidden transition-all duration-200;
+  top: 0.25rem;
+  left: 0.25rem;
+  max-width: 1rem;
+
+  &::before {
+    content: '⭑';
+    @apply inline-block rounded-full h-4 w-4 mr-1;
+    @apply text-lg leading-3 text-center;
+  }
+}
+
+.portfolioProjectPreview:hover .portfolioProjectPreview__currentBadge {
+  max-width: 10rem;
+}
+
 .portfolioProjectPreview__image {
   @apply bg-gray-100 relative mb-2;
   padding-top: 65%;

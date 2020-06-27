@@ -11,10 +11,11 @@ interface Props {
 }
 
 export const PortfolioProjectPreview = ({ projectPreview }: Props) => {
-  const { mainImage, title, excerpt } = projectPreview;
+  const { isCurrent, mainImage, title, excerpt } = projectPreview;
 
   return (
     <div className="portfolioProjectPreview">
+      {isCurrent && <div className="portfolioProjectPreview__currentBadge">nog lopend project</div>}
       <div className="portfolioProjectPreview__image">
         {mainImage && mainImage.fluid && <Image fluid={mainImage.fluid} alt={mainImage.alt} />}
       </div>
