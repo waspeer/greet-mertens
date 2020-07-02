@@ -3,7 +3,7 @@ import type { Field } from './field';
 
 export type ImageValidator = Validator<ImageValidator>;
 
-export interface ImageType extends DataType {
+export interface ImageType<T extends string = ''> extends DataType {
   type: 'image';
 
   /**
@@ -15,12 +15,14 @@ export interface ImageType extends DataType {
    * option which dictates whether it should be prominent in the edit UI or
    * hidden in a dialog modal behind an edit button.
    */
-  fields?: (Field & {
-    /**
-     * Dictates whether the field should be prominent in the edit UI or hidden
-     * in a dialog modal behind an edit button
-     */
-    isHighlighted?: boolean;
+  fields?: (Field<T> & {
+    options?: {
+      /**
+       * Dictates whether the field should be prominent in the edit UI or hidden
+       * in a dialog modal behind an edit button
+       */
+      isHighlighted?: boolean;
+    };
   })[];
 
   options?: {

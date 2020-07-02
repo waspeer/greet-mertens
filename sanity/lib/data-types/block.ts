@@ -8,7 +8,7 @@ interface BlockEditorProps {
   render?: React.ReactNode;
 }
 
-export interface BlockType extends DataType {
+export interface BlockType<T extends string = ''> extends DataType {
   type: 'block';
 
   /**
@@ -44,13 +44,13 @@ export interface BlockType extends DataType {
       value: 'strong' | 'em' | 'code' | 'underline' | 'strike-through' | string;
       blockEditor?: BlockEditorProps;
     }[];
-    annotations?: (Field & { blockEditor?: BlockEditorProps })[];
+    annotations?: (Field<T> & { blockEditor?: BlockEditorProps })[];
   };
 
   /**
    * An array of inline content types that you can place in running text from the Insert menu.
    */
-  of?: Field[];
+  of?: Field<T>[];
 
   validation?: ValidatorFunction<BlockValidator>;
 }

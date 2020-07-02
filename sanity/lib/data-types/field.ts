@@ -16,17 +16,17 @@ import type { TextType } from './text';
 import type { UrlType } from './url';
 
 export type Field<T extends string = string> =
-  | ArrayType
-  | BlockType
+  | ArrayType<T>
+  | BlockType<T>
   | BooleanType
   | CustomType<T>
   | DateType
   | DatetimeType
-  | FileType
+  | FileType<T>
   | GeoPointType
-  | ImageType
+  | ImageType<T>
   | NumberType
-  | ObjectType
+  | ObjectType<T>
   | ReferenceType
   | SlugType
   | StringType

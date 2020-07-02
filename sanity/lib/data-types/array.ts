@@ -23,13 +23,13 @@ export interface ArrayValidator extends Validator<ArrayValidator> {
   unique(): ArrayValidator;
 }
 
-export interface ArrayType extends DataType {
+export interface ArrayType<T extends string = ''> extends DataType {
   type: 'array';
 
   /**
    * Defines which types are allowed as members of the array.
    */
-  of?: Field[];
+  of?: Field<T>[];
 
   options?: {
     /**

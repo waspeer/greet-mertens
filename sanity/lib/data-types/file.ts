@@ -3,7 +3,7 @@ import { Field } from './field';
 
 export type FileValidator = Validator<FileValidator>;
 
-export interface FileType extends DataType {
+export interface FileType<T extends string = ''> extends DataType {
   type: 'file';
 
   /**
@@ -12,7 +12,7 @@ export interface FileType extends DataType {
    * This is useful for allowing users to add custom metadata related
    * to the usage of this file (see example below).
    */
-  fields?: Field[];
+  fields?: Field<T>[];
 
   options?: {
     /**

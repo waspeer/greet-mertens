@@ -65,7 +65,7 @@ export interface ObjectType<T extends string = ''> extends DataType {
     /**
      * Custom preview component
      */
-    component?: React.ReactElement;
+    component?: React.ReactNode;
 
     /**
      * The selected fields for the preview
@@ -74,7 +74,7 @@ export interface ObjectType<T extends string = ''> extends DataType {
       /**
        * The field that should be used as the thumbnail
        */
-      media?: string | React.ReactElement;
+      media?: React.ReactNode;
 
       /**
        * The field that should be used as the subtitle

@@ -4,6 +4,6 @@ export type CustomTypeValidator = Validator<CustomTypeValidator>;
 
 export interface CustomType<T extends string = string> extends DataType {
   type: T;
-
-  validator?: ValidatorFunction<CustomTypeValidator>;
+  options?: Record<string, any>;
+  validation?: ValidatorFunction<CustomTypeValidator>;
 }
