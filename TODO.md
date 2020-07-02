@@ -32,3 +32,4 @@
 -   [ ] Unsplash toevoegen als image source?
 -   [ ] Generalize components for project + blog (like CategoryList)
 -   [ ] Fetch creditline for unsplash photo's
+-   [ ] Link related blog posts (eg. podcast episodes) to a project
