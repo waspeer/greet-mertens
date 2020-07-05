@@ -1,7 +1,13 @@
+# General
+
 -   [x] Make git repository
 -   [x] Add ESLint etc.
 -   [x] Improve folder structure (sections -> components, eg. tinyhouse)
 -   [x] Merge blog + portfolio categories
+
+# Sanity
+
+-   [ ] Type the structure builder
 
 # Blog Posts
 

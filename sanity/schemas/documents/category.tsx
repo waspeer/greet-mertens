@@ -1,3 +1,6 @@
+import React from 'react';
+import { RiPriceTag3Line } from 'react-icons/ri';
+
 import type { DocumentType } from '../../lib/data-types';
 
 export const Category: DocumentType<'colors' | 'emoji'> = {
@@ -50,4 +53,16 @@ export const Category: DocumentType<'colors' | 'emoji'> = {
       title: 'Description',
     },
   ],
+  preview: {
+    select: {
+      icon: 'icon',
+      title: 'title',
+    },
+    prepare({ icon, title }) {
+      return {
+        media: icon ? <span style={{ fontSize: '1.5rem' }}>{icon.native}</span> : RiPriceTag3Line,
+        title,
+      };
+    },
+  },
 };

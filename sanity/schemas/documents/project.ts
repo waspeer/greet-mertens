@@ -1,5 +1,3 @@
-import { format } from 'date-fns';
-
 import type { DocumentType } from '../../lib/data-types';
 
 export const Project: DocumentType<'bodyText' | 'category' | 'excerptText' | 'figure'> = {

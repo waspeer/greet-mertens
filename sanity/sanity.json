@@ -18,15 +18,21 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [
     {
       "name": "part:@sanity/base/schema",
       "path": "./schemas/schema"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./src/structure.ts"
+    },
+    {
+      "name": "part:@sanity/base/new-document-structure",
+      "path": "./src/new-document-menu.ts"
     }
   ]
 }

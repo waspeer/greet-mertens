@@ -26,6 +26,11 @@ export interface ObjectType<T extends string = ''> extends DataType {
    */
   fieldsets?: {
     /**
+     * Description of the fieldset
+     */
+    description?: string;
+
+    /**
      * Internal name of the fieldset
      */
     name: string;
