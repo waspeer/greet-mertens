@@ -4,6 +4,7 @@ export const Me: DocumentType = {
   name: 'me',
   title: 'Over Mij',
   type: 'document',
+  fieldsets: [{ name: 'contact', title: 'Contact' }],
   fields: [
     {
       name: 'portrait',
@@ -17,6 +18,13 @@ export const Me: DocumentType = {
       rows: 2,
       title: 'Tagline',
       type: 'text',
+    },
+    {
+      fieldset: 'contact',
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+      validation: (Rule) => Rule.email(),
     },
   ],
 };
