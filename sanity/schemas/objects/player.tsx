@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
+import { RiPlayCircleLine } from 'react-icons/ri';
 
 import type { ObjectType } from '../../lib/data-types';
 
@@ -11,6 +12,7 @@ export const Player: ObjectType = {
   name: 'player',
   type: 'object',
   title: 'Player',
+  icon: RiPlayCircleLine,
   fields: [
     {
       name: 'url',

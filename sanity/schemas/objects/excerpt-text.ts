@@ -5,7 +5,6 @@ export const ExcerptText: ArrayType = {
   type: 'array',
   of: [
     {
-      name: 'ExcerptTextBlock',
       title: 'Block',
       type: 'block',
       styles: [{ title: 'Normal', value: 'normal' }],

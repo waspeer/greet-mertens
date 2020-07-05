@@ -1,11 +1,10 @@
 import { ArrayType } from '../../lib/data-types';
 
-export const BodyText: ArrayType = {
+export const BodyText: ArrayType<'figure' | 'player'> = {
   name: 'bodyText',
   type: 'array',
   of: [
     {
-      name: 'bodyTextBlock',
       type: 'block',
       title: 'Block',
       styles: [
@@ -39,13 +38,7 @@ export const BodyText: ArrayType = {
         ],
       },
     },
-    {
-      name: 'bodyTextFigure',
-      type: 'figure',
-    },
-    {
-      name: 'bodyTextPlayer',
-      type: 'player',
-    },
+    { type: 'figure' },
+    { type: 'player' },
   ],
 };

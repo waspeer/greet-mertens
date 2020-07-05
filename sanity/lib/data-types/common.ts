@@ -86,7 +86,7 @@ export interface DataType {
   /**
    * The field name. This will be the key in the data record.
    */
-  name: string;
+  name?: string;
 
   /**
    * If set to true, this field will not be editable in the content studio.

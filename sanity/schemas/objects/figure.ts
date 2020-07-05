@@ -1,9 +1,12 @@
+import { RiImage2Line } from 'react-icons/ri';
+
 import type { ImageType } from '../../lib/data-types';
 
 export const Figure: ImageType = {
   name: 'figure',
   type: 'image',
   title: 'Image',
+  icon: RiImage2Line,
   fields: [
     {
       name: 'caption',
