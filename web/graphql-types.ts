@@ -1347,6 +1347,8 @@ export type Query = {
   allSanityCategory: SanityCategoryConnection;
   sanityFigure?: Maybe<SanityFigure>;
   allSanityFigure: SanityFigureConnection;
+  sanityMe?: Maybe<SanityMe>;
+  allSanityMe: SanityMeConnection;
   sanityPost?: Maybe<SanityPost>;
   allSanityPost: SanityPostConnection;
   sanityProject?: Maybe<SanityProject>;
@@ -1585,6 +1587,31 @@ export type QueryAllSanityFigureArgs = {
 };
 
 
+export type QuerySanityMeArgs = {
+  _id?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  _createdAt?: Maybe<DateQueryOperatorInput>;
+  _updatedAt?: Maybe<DateQueryOperatorInput>;
+  _rev?: Maybe<StringQueryOperatorInput>;
+  _key?: Maybe<StringQueryOperatorInput>;
+  portrait?: Maybe<SanityImageFilterInput>;
+  tagline?: Maybe<StringQueryOperatorInput>;
+  _rawPortrait?: Maybe<JsonQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllSanityMeArgs = {
+  filter?: Maybe<SanityMeFilterInput>;
+  sort?: Maybe<SanityMeSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
 export type QuerySanityPostArgs = {
   _id?: Maybe<StringQueryOperatorInput>;
   _type?: Maybe<StringQueryOperatorInput>;
@@ -1736,7 +1763,6 @@ export type QuerySanitySiteSettingsArgs = {
   _updatedAt?: Maybe<DateQueryOperatorInput>;
   _rev?: Maybe<StringQueryOperatorInput>;
   _key?: Maybe<StringQueryOperatorInput>;
-  title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   keywords?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -3228,6 +3254,14 @@ export type SanityImageDimensionsFilterInput = {
   aspectRatio?: Maybe<FloatQueryOperatorInput>;
 };
 
+export type SanityImageFilterInput = {
+  _key?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  asset?: Maybe<SanityImageAssetFilterInput>;
+  hotspot?: Maybe<SanityImageHotspotFilterInput>;
+  crop?: Maybe<SanityImageCropFilterInput>;
+};
+
 export type SanityImageFixed = {
   base64?: Maybe<Scalars['String']>;
   aspectRatio?: Maybe<Scalars['Float']>;
@@ -3356,6 +3390,270 @@ export type SanityImagePaletteSwatchFilterInput = {
   foreground?: Maybe<StringQueryOperatorInput>;
   population?: Maybe<FloatQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SanityMe = SanityDocument & Node & {
+  _id?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  _createdAt?: Maybe<Scalars['Date']>;
+  _updatedAt?: Maybe<Scalars['Date']>;
+  _rev?: Maybe<Scalars['String']>;
+  _key?: Maybe<Scalars['String']>;
+  portrait?: Maybe<SanityImage>;
+  tagline?: Maybe<Scalars['String']>;
+  _rawPortrait?: Maybe<Scalars['JSON']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type SanityMe_CreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SanityMe_UpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SanityMe_RawPortraitArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+export type SanityMeConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityMeEdge>;
+  nodes: Array<SanityMe>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<SanityMeGroupConnection>;
+};
+
+
+export type SanityMeConnectionDistinctArgs = {
+  field: SanityMeFieldsEnum;
+};
+
+
+export type SanityMeConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: SanityMeFieldsEnum;
+};
+
+export type SanityMeEdge = {
+  next?: Maybe<SanityMe>;
+  node: SanityMe;
+  previous?: Maybe<SanityMe>;
+};
+
+export type SanityMeFieldsEnum = 
+  | '_id'
+  | '_type'
+  | '_createdAt'
+  | '_updatedAt'
+  | '_rev'
+  | '_key'
+  | 'portrait____key'
+  | 'portrait____type'
+  | 'portrait___asset____id'
+  | 'portrait___asset____type'
+  | 'portrait___asset____createdAt'
+  | 'portrait___asset____updatedAt'
+  | 'portrait___asset____rev'
+  | 'portrait___asset____key'
+  | 'portrait___asset___originalFilename'
+  | 'portrait___asset___label'
+  | 'portrait___asset___title'
+  | 'portrait___asset___description'
+  | 'portrait___asset___sha1hash'
+  | 'portrait___asset___extension'
+  | 'portrait___asset___mimeType'
+  | 'portrait___asset___size'
+  | 'portrait___asset___assetId'
+  | 'portrait___asset___path'
+  | 'portrait___asset___url'
+  | 'portrait___asset___metadata____key'
+  | 'portrait___asset___metadata____type'
+  | 'portrait___asset___metadata___lqip'
+  | 'portrait___asset___metadata___hasAlpha'
+  | 'portrait___asset___metadata___isOpaque'
+  | 'portrait___asset___source____key'
+  | 'portrait___asset___source____type'
+  | 'portrait___asset___source___name'
+  | 'portrait___asset___source___sanityId'
+  | 'portrait___asset___source___url'
+  | 'portrait___asset___fixed___base64'
+  | 'portrait___asset___fixed___aspectRatio'
+  | 'portrait___asset___fixed___width'
+  | 'portrait___asset___fixed___height'
+  | 'portrait___asset___fixed___src'
+  | 'portrait___asset___fixed___srcSet'
+  | 'portrait___asset___fixed___srcWebp'
+  | 'portrait___asset___fixed___srcSetWebp'
+  | 'portrait___asset___fluid___base64'
+  | 'portrait___asset___fluid___aspectRatio'
+  | 'portrait___asset___fluid___src'
+  | 'portrait___asset___fluid___srcSet'
+  | 'portrait___asset___fluid___srcWebp'
+  | 'portrait___asset___fluid___srcSetWebp'
+  | 'portrait___asset___fluid___sizes'
+  | 'portrait___asset____rawMetadata'
+  | 'portrait___asset____rawSource'
+  | 'portrait___asset___id'
+  | 'portrait___asset___parent___id'
+  | 'portrait___asset___parent___children'
+  | 'portrait___asset___children'
+  | 'portrait___asset___children___id'
+  | 'portrait___asset___children___children'
+  | 'portrait___asset___internal___content'
+  | 'portrait___asset___internal___contentDigest'
+  | 'portrait___asset___internal___description'
+  | 'portrait___asset___internal___fieldOwners'
+  | 'portrait___asset___internal___ignoreType'
+  | 'portrait___asset___internal___mediaType'
+  | 'portrait___asset___internal___owner'
+  | 'portrait___asset___internal___type'
+  | 'portrait___asset___childImageSharp___id'
+  | 'portrait___asset___childImageSharp___children'
+  | 'portrait___hotspot____key'
+  | 'portrait___hotspot____type'
+  | 'portrait___hotspot___x'
+  | 'portrait___hotspot___y'
+  | 'portrait___hotspot___height'
+  | 'portrait___hotspot___width'
+  | 'portrait___crop____key'
+  | 'portrait___crop____type'
+  | 'portrait___crop___top'
+  | 'portrait___crop___bottom'
+  | 'portrait___crop___left'
+  | 'portrait___crop___right'
+  | 'tagline'
+  | '_rawPortrait'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type SanityMeFilterInput = {
+  _id?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  _createdAt?: Maybe<DateQueryOperatorInput>;
+  _updatedAt?: Maybe<DateQueryOperatorInput>;
+  _rev?: Maybe<StringQueryOperatorInput>;
+  _key?: Maybe<StringQueryOperatorInput>;
+  portrait?: Maybe<SanityImageFilterInput>;
+  tagline?: Maybe<StringQueryOperatorInput>;
+  _rawPortrait?: Maybe<JsonQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type SanityMeGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityMeEdge>;
+  nodes: Array<SanityMe>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type SanityMeSortInput = {
+  fields?: Maybe<Array<Maybe<SanityMeFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
 export type SanityPlayer = {
@@ -4380,7 +4678,6 @@ export type SanitySiteSettings = SanityDocument & Node & {
   _updatedAt?: Maybe<Scalars['Date']>;
   _rev?: Maybe<Scalars['String']>;
   _key?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   keywords?: Maybe<Array<Maybe<Scalars['String']>>>;
   id: Scalars['ID'];
@@ -4439,7 +4736,6 @@ export type SanitySiteSettingsFieldsEnum =
   | '_updatedAt'
   | '_rev'
   | '_key'
-  | 'title'
   | 'description'
   | 'keywords'
   | 'id'
@@ -4536,7 +4832,6 @@ export type SanitySiteSettingsFilterInput = {
   _updatedAt?: Maybe<DateQueryOperatorInput>;
   _rev?: Maybe<StringQueryOperatorInput>;
   _key?: Maybe<StringQueryOperatorInput>;
-  title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   keywords?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -5626,6 +5921,14 @@ export type CategoriesPageQuery = { allSanityCategory: { nodes: Array<(
       Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
       & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
     )> } };
+
+export type IndexPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IndexPageQuery = { sanityMe?: Maybe<(
+    Pick<SanityMe, 'tagline'>
+    & { portrait?: Maybe<{ asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }> }
+  )> };
 
 export type ProjectPreviewFragment = (
   Pick<SanityProject, 'id' | 'isCurrent' | 'title' | '_rawExcerpt'>

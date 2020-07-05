@@ -1,10 +1,34 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import type { BlogPostPreview } from '~/lib/types';
+import { Home } from '~/sections/home';
 
-const IndexPage = () => {
-  return <div className="container">home</div>;
+import { IndexPageQuery } from '~/../graphql-types';
+
+interface Props {
+  data: IndexPageQuery;
+}
+
+const IndexPage = ({ data }: Props) => {
+  const portrait = data.sanityMe?.portrait?.asset?.fluid;
+  const tagline = data.sanityMe?.tagline ?? '';
+
+  return <Home portrait={portrait} tagline={tagline} />;
 };
+
+export const query = graphql`
+  query IndexPage {
+    sanityMe(_id: { eq: "me" }) {
+      tagline
+      portrait {
+        asset {
+          fluid(maxWidth: 1000) {
+            ...GatsbySanityImageFluid
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default IndexPage;
