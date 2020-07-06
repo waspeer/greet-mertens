@@ -1,0 +1,17 @@
+.article__categories {
+  @apply list-none p-0 m-0 ml-4 flex;
+
+  & li {
+    @apply rounded px-2 pb-px mr-2;
+    @apply text-xs lowercase;
+    @apply cursor-default select-none;
+
+    &:last-child {
+      @apply m-0;
+    }
+
+    & span {
+      @apply mr-1;
+    }
+  }
+}

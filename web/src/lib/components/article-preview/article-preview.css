@@ -1,0 +1,35 @@
+.articlePreview {
+  @apply flex flex-row items-stretch mb-6;
+}
+
+.articlePreview__image {
+  @apply w-1/3 mr-6 bg-gray-100 relative;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-top: 65%;
+  }
+
+  & > div {
+    position: absolute !important;
+    @apply top-0 left-0 w-full h-full;
+  }
+}
+
+.articlePreview__text {
+  @apply flex-1;
+}
+
+.articlePreview__text h3,
+.articlePreview__excerpt {
+  @apply mb-2;
+}
+
+.articlePreview__excerpt {
+  @apply text-sm text-gray-800;
+}
+
+.articlePreview__publishedAt {
+  @apply text-xs text-gray-500;
+}

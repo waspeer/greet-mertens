@@ -16,7 +16,7 @@ export interface Category {
   title: string;
 }
 
-export interface BlogPostPreview {
+export interface ArticlePreview {
   excerpt: any[];
   id: string;
   publishedAt: Date;
@@ -25,7 +25,7 @@ export interface BlogPostPreview {
   title: string;
 }
 
-export interface BlogPost {
+export interface Article {
   body: any[];
   categories: Category[];
   id: string;

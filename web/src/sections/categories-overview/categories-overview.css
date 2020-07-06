@@ -1,4 +1,4 @@
-.blogCategoriesOverview__list {
+.categoriesOverview__list {
   & li {
     @apply mb-8;
 

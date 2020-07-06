@@ -16,8 +16,8 @@ const Layout = ({ children }: Props) => {
         </h1>
 
         <nav className="flex flex-grow justify-end text-gray-700" style={{ marginTop: '0.125em' }}>
-          <Link className="mr-4" to="/blog">
-            blog
+          <Link className="mr-4" to="/artikelen">
+            artikelen
           </Link>
           <Link className="mr-4" to="/portfolio">
             portfolio

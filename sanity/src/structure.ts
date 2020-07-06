@@ -1,8 +1,6 @@
 import S from '@sanity/desk-tool/structure-builder';
 import {
   RiArticleLine,
-  RiBook3Line,
-  RiFileEditLine,
   RiFunctionLine,
   RiPriceTag3Line,
   RiSettings3Line,
@@ -21,31 +19,11 @@ export default () =>
       S.listItem()
         .title('Artikelen')
         .icon(RiArticleLine)
-        .child(
-          S.list()
-            .title('Artikelen')
-            .items([
-              S.listItem()
-                .title('Artikelen')
-                .icon(RiFileEditLine)
-                .schemaType('post')
-                .child(S.documentTypeList('post').title('Artikel')),
-            ]),
-        ),
+        .child(S.documentTypeList('article').title('Artikel')),
       S.listItem()
         .title('Portfolio')
         .icon(RiFunctionLine)
-        .child(
-          S.list()
-            .title('Portfolio')
-            .items([
-              S.listItem()
-                .title('Projecten')
-                .icon(RiBook3Line)
-                .schemaType('project')
-                .child(S.documentTypeList('project').title('Project')),
-            ]),
-        ),
+        .child(S.documentTypeList('project').title('Project')),
       S.listItem()
         .title('Categorieën')
         .icon(RiPriceTag3Line)
@@ -67,6 +45,6 @@ export default () =>
       // defined the structure above.
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !['category', 'me', 'post', 'project', 'siteSettings'].includes(listItem.getId()),
+          !['category', 'me', 'article', 'project', 'siteSettings'].includes(listItem.getId()),
       ),
     ]);

@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import { CategoryOverview } from '~/sections/category-overview';
-import { normalizePostPreview } from '~/lib/helpers/normalize-post-preview';
+import { normalizeArticlePreview } from '~/lib/helpers/normalize-article-preview';
 import { normalizeCategory } from '~/lib/helpers/normalize-category';
 import { normalizeProjectPreview } from '~/lib/helpers/normalize-project-preview';
 
@@ -12,15 +12,15 @@ interface Props {
   data: CategoryPageQuery;
 }
 
-const BlogCategoryPage = ({ data }: Props) => {
+const CategoryPage = ({ data }: Props) => {
   const category = normalizeCategory(data.category!);
-  const postPreviews = data.posts.nodes.map((node) => normalizePostPreview(node));
+  const articlePreviews = data.articles.nodes.map((node) => normalizeArticlePreview(node));
   const projectPreviews = data.projects.nodes.map((node) => normalizeProjectPreview(node));
 
   return (
     <CategoryOverview
       category={category}
-      postPreviews={postPreviews}
+      articlePreviews={articlePreviews}
       projectPreviews={projectPreviews}
     />
   );
@@ -42,7 +42,7 @@ export const query = graphql`
       title
     }
 
-    posts: allSanityPost(
+    articles: allSanityArticle(
       sort: { fields: [publishedAt], order: DESC }
       filter: {
         categories: { elemMatch: { id: { eq: $id } } }
@@ -99,4 +99,4 @@ export const query = graphql`
   }
 `;
 
-export default BlogCategoryPage;
+export default CategoryPage;

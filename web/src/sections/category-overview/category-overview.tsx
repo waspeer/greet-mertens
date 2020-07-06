@@ -3,21 +3,21 @@ import React from 'react';
 
 import type {
   Category as CategoryType,
-  BlogPostPreview as BlogPostPreviewType,
+  ArticlePreview as ArticlePreviewType,
   PortfolioProjectPreview as PortfolioProjectPreviewType,
 } from '~/lib/types';
-import { BlogPostPreviewList } from '~/lib/components/blog-post-preview-list';
-import { PortfolioProjectPreviewList } from '~/lib/components/portfolio-project-preview-list';
+import { ArticlePreviewList } from '~/lib/components/article-preview-list';
+import { PortfolioProjectPreviewList } from '~/lib/components/project-preview-list';
 
 import './category-overview.css';
 
 interface Props {
   category: CategoryType;
-  postPreviews: BlogPostPreviewType[];
+  articlePreviews: ArticlePreviewType[];
   projectPreviews: PortfolioProjectPreviewType[];
 }
 
-export const CategoryOverview = ({ category, postPreviews, projectPreviews }: Props) => {
+export const CategoryOverview = ({ category, articlePreviews, projectPreviews }: Props) => {
   const { color, description, icon, title } = category;
   const iconElement = icon && (
     <span className="category__icon" role="img" aria-label={icon.description}>
@@ -50,16 +50,16 @@ export const CategoryOverview = ({ category, postPreviews, projectPreviews }: Pr
         </div>
       )}
 
-      {!!postPreviews.length && (
+      {!!articlePreviews.length && (
         <div className="categoryOverview__relatedContent">
-          <h2 className="gentleHeading">Blog posts in deze categorie</h2>
-          <BlogPostPreviewList postPreviews={postPreviews} />
+          <h2 className="gentleHeading">Artikelen in deze categorie</h2>
+          <ArticlePreviewList articlePreviews={articlePreviews} />
         </div>
       )}
 
-      {!projectPreviews.length && !postPreviews.length && (
+      {!projectPreviews.length && !articlePreviews.length && (
         <div className="categoryOverview__noRelatedContent">
-          Er zijn nog geen projecten of blog posts in deze categorie.
+          Er zijn nog geen projecten of artikelen in deze categorie.
         </div>
       )}
     </div>

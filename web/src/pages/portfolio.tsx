@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import { normalizeProjectPreview } from '~/lib/helpers/normalize-project-preview';
-import { PortfolioOverview } from '~/sections/portfolio-overview/portfolio-overview';
+import { PortfolioOverview } from '~/sections/project-overview/project-overview';
 
 import type { PortfolioPageQuery } from '~/../graphql-types';
 

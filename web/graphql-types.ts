@@ -1343,14 +1343,14 @@ export type Query = {
   allSite: SiteConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  sanityArticle?: Maybe<SanityArticle>;
+  allSanityArticle: SanityArticleConnection;
   sanityCategory?: Maybe<SanityCategory>;
   allSanityCategory: SanityCategoryConnection;
   sanityFigure?: Maybe<SanityFigure>;
   allSanityFigure: SanityFigureConnection;
   sanityMe?: Maybe<SanityMe>;
   allSanityMe: SanityMeConnection;
-  sanityPost?: Maybe<SanityPost>;
-  allSanityPost: SanityPostConnection;
   sanityProject?: Maybe<SanityProject>;
   allSanityProject: SanityProjectConnection;
   sanityFileAsset?: Maybe<SanityFileAsset>;
@@ -1361,6 +1361,8 @@ export type Query = {
   allSanitySiteSettings: SanitySiteSettingsConnection;
   sanitySlug?: Maybe<SanitySlug>;
   allSanitySlug: SanitySlugConnection;
+  sanityPost?: Maybe<SanityPost>;
+  allSanityPost: SanityPostConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -1532,6 +1534,42 @@ export type QueryAllImageSharpArgs = {
 };
 
 
+export type QuerySanityArticleArgs = {
+  _id?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  _createdAt?: Maybe<DateQueryOperatorInput>;
+  _updatedAt?: Maybe<DateQueryOperatorInput>;
+  _rev?: Maybe<StringQueryOperatorInput>;
+  _key?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<SanitySlugFilterInput>;
+  publishedAt?: Maybe<DateQueryOperatorInput>;
+  mainImage?: Maybe<SanityFigureFilterInput>;
+  categories?: Maybe<SanityCategoryFilterListInput>;
+  project?: Maybe<SanityProjectFilterInput>;
+  excerpt?: Maybe<SanityBlockFilterListInput>;
+  body?: Maybe<SanityBlockFilterListInput>;
+  _rawBody?: Maybe<JsonQueryOperatorInput>;
+  _rawExcerpt?: Maybe<JsonQueryOperatorInput>;
+  _rawSlug?: Maybe<JsonQueryOperatorInput>;
+  _rawMainImage?: Maybe<JsonQueryOperatorInput>;
+  _rawCategories?: Maybe<JsonQueryOperatorInput>;
+  _rawProject?: Maybe<JsonQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllSanityArticleArgs = {
+  filter?: Maybe<SanityArticleFilterInput>;
+  sort?: Maybe<SanityArticleSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
 export type QuerySanityCategoryArgs = {
   _id?: Maybe<StringQueryOperatorInput>;
   _type?: Maybe<StringQueryOperatorInput>;
@@ -1608,40 +1646,6 @@ export type QuerySanityMeArgs = {
 export type QueryAllSanityMeArgs = {
   filter?: Maybe<SanityMeFilterInput>;
   sort?: Maybe<SanityMeSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerySanityPostArgs = {
-  _id?: Maybe<StringQueryOperatorInput>;
-  _type?: Maybe<StringQueryOperatorInput>;
-  _createdAt?: Maybe<DateQueryOperatorInput>;
-  _updatedAt?: Maybe<DateQueryOperatorInput>;
-  _rev?: Maybe<StringQueryOperatorInput>;
-  _key?: Maybe<StringQueryOperatorInput>;
-  title?: Maybe<StringQueryOperatorInput>;
-  slug?: Maybe<SanitySlugFilterInput>;
-  publishedAt?: Maybe<DateQueryOperatorInput>;
-  mainImage?: Maybe<SanityFigureFilterInput>;
-  categories?: Maybe<SanityCategoryFilterListInput>;
-  excerpt?: Maybe<SanityBlockFilterListInput>;
-  body?: Maybe<SanityBlockFilterListInput>;
-  _rawBody?: Maybe<JsonQueryOperatorInput>;
-  _rawExcerpt?: Maybe<JsonQueryOperatorInput>;
-  _rawSlug?: Maybe<JsonQueryOperatorInput>;
-  _rawMainImage?: Maybe<JsonQueryOperatorInput>;
-  _rawCategories?: Maybe<JsonQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-};
-
-
-export type QueryAllSanityPostArgs = {
-  filter?: Maybe<SanityPostFilterInput>;
-  sort?: Maybe<SanityPostSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -1800,6 +1804,35 @@ export type QueryAllSanitySlugArgs = {
 };
 
 
+export type QuerySanityPostArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  _id?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  _createdAt?: Maybe<DateQueryOperatorInput>;
+  _rev?: Maybe<StringQueryOperatorInput>;
+  _updatedAt?: Maybe<DateQueryOperatorInput>;
+  body?: Maybe<SanityPostBodyFilterListInput>;
+  categories?: Maybe<SanityPostCategoriesFilterListInput>;
+  excerpt?: Maybe<SanityPostExcerptFilterListInput>;
+  mainImage?: Maybe<SanityPostMainImageFilterInput>;
+  publishedAt?: Maybe<DateQueryOperatorInput>;
+  slug?: Maybe<SanityPostSlugFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  project?: Maybe<SanityPostProjectFilterInput>;
+};
+
+
+export type QueryAllSanityPostArgs = {
+  filter?: Maybe<SanityPostFilterInput>;
+  sort?: Maybe<SanityPostSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
 export type QuerySiteBuildMetadataArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -1839,6 +1872,704 @@ export type QueryAllSitePluginArgs = {
   sort?: Maybe<SitePluginSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
+};
+
+export type SanityArticle = SanityDocument & Node & {
+  _id?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  _createdAt?: Maybe<Scalars['Date']>;
+  _updatedAt?: Maybe<Scalars['Date']>;
+  _rev?: Maybe<Scalars['String']>;
+  _key?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  slug: SanitySlug;
+  publishedAt?: Maybe<Scalars['Date']>;
+  mainImage?: Maybe<SanityFigure>;
+  categories: Array<SanityCategory>;
+  project?: Maybe<SanityProject>;
+  excerpt?: Maybe<Array<Maybe<SanityBlock>>>;
+  body?: Maybe<Array<Maybe<SanityBlock>>>;
+  _rawBody?: Maybe<Scalars['JSON']>;
+  _rawExcerpt?: Maybe<Scalars['JSON']>;
+  _rawSlug?: Maybe<Scalars['JSON']>;
+  _rawMainImage?: Maybe<Scalars['JSON']>;
+  _rawCategories?: Maybe<Scalars['JSON']>;
+  _rawProject?: Maybe<Scalars['JSON']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type SanityArticle_CreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SanityArticle_UpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SanityArticlePublishedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SanityArticle_RawBodyArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityArticle_RawExcerptArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityArticle_RawSlugArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityArticle_RawMainImageArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityArticle_RawCategoriesArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityArticle_RawProjectArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+export type SanityArticleConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityArticleEdge>;
+  nodes: Array<SanityArticle>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<SanityArticleGroupConnection>;
+};
+
+
+export type SanityArticleConnectionDistinctArgs = {
+  field: SanityArticleFieldsEnum;
+};
+
+
+export type SanityArticleConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: SanityArticleFieldsEnum;
+};
+
+export type SanityArticleEdge = {
+  next?: Maybe<SanityArticle>;
+  node: SanityArticle;
+  previous?: Maybe<SanityArticle>;
+};
+
+export type SanityArticleFieldsEnum = 
+  | '_id'
+  | '_type'
+  | '_createdAt'
+  | '_updatedAt'
+  | '_rev'
+  | '_key'
+  | 'title'
+  | 'slug____key'
+  | 'slug____type'
+  | 'slug___current'
+  | 'slug___id'
+  | 'slug___parent___id'
+  | 'slug___parent___parent___id'
+  | 'slug___parent___parent___children'
+  | 'slug___parent___children'
+  | 'slug___parent___children___id'
+  | 'slug___parent___children___children'
+  | 'slug___parent___internal___content'
+  | 'slug___parent___internal___contentDigest'
+  | 'slug___parent___internal___description'
+  | 'slug___parent___internal___fieldOwners'
+  | 'slug___parent___internal___ignoreType'
+  | 'slug___parent___internal___mediaType'
+  | 'slug___parent___internal___owner'
+  | 'slug___parent___internal___type'
+  | 'slug___children'
+  | 'slug___children___id'
+  | 'slug___children___parent___id'
+  | 'slug___children___parent___children'
+  | 'slug___children___children'
+  | 'slug___children___children___id'
+  | 'slug___children___children___children'
+  | 'slug___children___internal___content'
+  | 'slug___children___internal___contentDigest'
+  | 'slug___children___internal___description'
+  | 'slug___children___internal___fieldOwners'
+  | 'slug___children___internal___ignoreType'
+  | 'slug___children___internal___mediaType'
+  | 'slug___children___internal___owner'
+  | 'slug___children___internal___type'
+  | 'slug___internal___content'
+  | 'slug___internal___contentDigest'
+  | 'slug___internal___description'
+  | 'slug___internal___fieldOwners'
+  | 'slug___internal___ignoreType'
+  | 'slug___internal___mediaType'
+  | 'slug___internal___owner'
+  | 'slug___internal___type'
+  | 'publishedAt'
+  | 'mainImage____key'
+  | 'mainImage____type'
+  | 'mainImage___caption'
+  | 'mainImage___alt'
+  | 'mainImage___asset____id'
+  | 'mainImage___asset____type'
+  | 'mainImage___asset____createdAt'
+  | 'mainImage___asset____updatedAt'
+  | 'mainImage___asset____rev'
+  | 'mainImage___asset____key'
+  | 'mainImage___asset___originalFilename'
+  | 'mainImage___asset___label'
+  | 'mainImage___asset___title'
+  | 'mainImage___asset___description'
+  | 'mainImage___asset___sha1hash'
+  | 'mainImage___asset___extension'
+  | 'mainImage___asset___mimeType'
+  | 'mainImage___asset___size'
+  | 'mainImage___asset___assetId'
+  | 'mainImage___asset___path'
+  | 'mainImage___asset___url'
+  | 'mainImage___asset___metadata____key'
+  | 'mainImage___asset___metadata____type'
+  | 'mainImage___asset___metadata___lqip'
+  | 'mainImage___asset___metadata___hasAlpha'
+  | 'mainImage___asset___metadata___isOpaque'
+  | 'mainImage___asset___source____key'
+  | 'mainImage___asset___source____type'
+  | 'mainImage___asset___source___name'
+  | 'mainImage___asset___source___sanityId'
+  | 'mainImage___asset___source___url'
+  | 'mainImage___asset___fixed___base64'
+  | 'mainImage___asset___fixed___aspectRatio'
+  | 'mainImage___asset___fixed___width'
+  | 'mainImage___asset___fixed___height'
+  | 'mainImage___asset___fixed___src'
+  | 'mainImage___asset___fixed___srcSet'
+  | 'mainImage___asset___fixed___srcWebp'
+  | 'mainImage___asset___fixed___srcSetWebp'
+  | 'mainImage___asset___fluid___base64'
+  | 'mainImage___asset___fluid___aspectRatio'
+  | 'mainImage___asset___fluid___src'
+  | 'mainImage___asset___fluid___srcSet'
+  | 'mainImage___asset___fluid___srcWebp'
+  | 'mainImage___asset___fluid___srcSetWebp'
+  | 'mainImage___asset___fluid___sizes'
+  | 'mainImage___asset____rawMetadata'
+  | 'mainImage___asset____rawSource'
+  | 'mainImage___asset___id'
+  | 'mainImage___asset___parent___id'
+  | 'mainImage___asset___parent___children'
+  | 'mainImage___asset___children'
+  | 'mainImage___asset___children___id'
+  | 'mainImage___asset___children___children'
+  | 'mainImage___asset___internal___content'
+  | 'mainImage___asset___internal___contentDigest'
+  | 'mainImage___asset___internal___description'
+  | 'mainImage___asset___internal___fieldOwners'
+  | 'mainImage___asset___internal___ignoreType'
+  | 'mainImage___asset___internal___mediaType'
+  | 'mainImage___asset___internal___owner'
+  | 'mainImage___asset___internal___type'
+  | 'mainImage___asset___childImageSharp___id'
+  | 'mainImage___asset___childImageSharp___children'
+  | 'mainImage___hotspot____key'
+  | 'mainImage___hotspot____type'
+  | 'mainImage___hotspot___x'
+  | 'mainImage___hotspot___y'
+  | 'mainImage___hotspot___height'
+  | 'mainImage___hotspot___width'
+  | 'mainImage___crop____key'
+  | 'mainImage___crop____type'
+  | 'mainImage___crop___top'
+  | 'mainImage___crop___bottom'
+  | 'mainImage___crop___left'
+  | 'mainImage___crop___right'
+  | 'mainImage____rawAsset'
+  | 'mainImage____rawHotspot'
+  | 'mainImage____rawCrop'
+  | 'mainImage___id'
+  | 'mainImage___parent___id'
+  | 'mainImage___parent___parent___id'
+  | 'mainImage___parent___parent___children'
+  | 'mainImage___parent___children'
+  | 'mainImage___parent___children___id'
+  | 'mainImage___parent___children___children'
+  | 'mainImage___parent___internal___content'
+  | 'mainImage___parent___internal___contentDigest'
+  | 'mainImage___parent___internal___description'
+  | 'mainImage___parent___internal___fieldOwners'
+  | 'mainImage___parent___internal___ignoreType'
+  | 'mainImage___parent___internal___mediaType'
+  | 'mainImage___parent___internal___owner'
+  | 'mainImage___parent___internal___type'
+  | 'mainImage___children'
+  | 'mainImage___children___id'
+  | 'mainImage___children___parent___id'
+  | 'mainImage___children___parent___children'
+  | 'mainImage___children___children'
+  | 'mainImage___children___children___id'
+  | 'mainImage___children___children___children'
+  | 'mainImage___children___internal___content'
+  | 'mainImage___children___internal___contentDigest'
+  | 'mainImage___children___internal___description'
+  | 'mainImage___children___internal___fieldOwners'
+  | 'mainImage___children___internal___ignoreType'
+  | 'mainImage___children___internal___mediaType'
+  | 'mainImage___children___internal___owner'
+  | 'mainImage___children___internal___type'
+  | 'mainImage___internal___content'
+  | 'mainImage___internal___contentDigest'
+  | 'mainImage___internal___description'
+  | 'mainImage___internal___fieldOwners'
+  | 'mainImage___internal___ignoreType'
+  | 'mainImage___internal___mediaType'
+  | 'mainImage___internal___owner'
+  | 'mainImage___internal___type'
+  | 'categories'
+  | 'categories____id'
+  | 'categories____type'
+  | 'categories____createdAt'
+  | 'categories____updatedAt'
+  | 'categories____rev'
+  | 'categories____key'
+  | 'categories___title'
+  | 'categories___slug____key'
+  | 'categories___slug____type'
+  | 'categories___slug___current'
+  | 'categories___slug___id'
+  | 'categories___slug___parent___id'
+  | 'categories___slug___parent___children'
+  | 'categories___slug___children'
+  | 'categories___slug___children___id'
+  | 'categories___slug___children___children'
+  | 'categories___slug___internal___content'
+  | 'categories___slug___internal___contentDigest'
+  | 'categories___slug___internal___description'
+  | 'categories___slug___internal___fieldOwners'
+  | 'categories___slug___internal___ignoreType'
+  | 'categories___slug___internal___mediaType'
+  | 'categories___slug___internal___owner'
+  | 'categories___slug___internal___type'
+  | 'categories___icon____key'
+  | 'categories___icon____type'
+  | 'categories___icon___sanityId'
+  | 'categories___icon___name'
+  | 'categories___icon___colons'
+  | 'categories___icon___text'
+  | 'categories___icon___emoticons'
+  | 'categories___icon___short_names'
+  | 'categories___icon___skin'
+  | 'categories___icon___unified'
+  | 'categories___icon___native'
+  | 'categories___icon___imageUrl'
+  | 'categories___icon___keywords'
+  | 'categories___icon___customCategory'
+  | 'categories___color'
+  | 'categories___description'
+  | 'categories____rawSlug'
+  | 'categories____rawIcon'
+  | 'categories___id'
+  | 'categories___parent___id'
+  | 'categories___parent___parent___id'
+  | 'categories___parent___parent___children'
+  | 'categories___parent___children'
+  | 'categories___parent___children___id'
+  | 'categories___parent___children___children'
+  | 'categories___parent___internal___content'
+  | 'categories___parent___internal___contentDigest'
+  | 'categories___parent___internal___description'
+  | 'categories___parent___internal___fieldOwners'
+  | 'categories___parent___internal___ignoreType'
+  | 'categories___parent___internal___mediaType'
+  | 'categories___parent___internal___owner'
+  | 'categories___parent___internal___type'
+  | 'categories___children'
+  | 'categories___children___id'
+  | 'categories___children___parent___id'
+  | 'categories___children___parent___children'
+  | 'categories___children___children'
+  | 'categories___children___children___id'
+  | 'categories___children___children___children'
+  | 'categories___children___internal___content'
+  | 'categories___children___internal___contentDigest'
+  | 'categories___children___internal___description'
+  | 'categories___children___internal___fieldOwners'
+  | 'categories___children___internal___ignoreType'
+  | 'categories___children___internal___mediaType'
+  | 'categories___children___internal___owner'
+  | 'categories___children___internal___type'
+  | 'categories___internal___content'
+  | 'categories___internal___contentDigest'
+  | 'categories___internal___description'
+  | 'categories___internal___fieldOwners'
+  | 'categories___internal___ignoreType'
+  | 'categories___internal___mediaType'
+  | 'categories___internal___owner'
+  | 'categories___internal___type'
+  | 'project____id'
+  | 'project____type'
+  | 'project____createdAt'
+  | 'project____updatedAt'
+  | 'project____rev'
+  | 'project____key'
+  | 'project___title'
+  | 'project___isCurrent'
+  | 'project___slug____key'
+  | 'project___slug____type'
+  | 'project___slug___current'
+  | 'project___slug___id'
+  | 'project___slug___parent___id'
+  | 'project___slug___parent___children'
+  | 'project___slug___children'
+  | 'project___slug___children___id'
+  | 'project___slug___children___children'
+  | 'project___slug___internal___content'
+  | 'project___slug___internal___contentDigest'
+  | 'project___slug___internal___description'
+  | 'project___slug___internal___fieldOwners'
+  | 'project___slug___internal___ignoreType'
+  | 'project___slug___internal___mediaType'
+  | 'project___slug___internal___owner'
+  | 'project___slug___internal___type'
+  | 'project___publishedAt'
+  | 'project___mainImage____key'
+  | 'project___mainImage____type'
+  | 'project___mainImage___caption'
+  | 'project___mainImage___alt'
+  | 'project___mainImage___asset____id'
+  | 'project___mainImage___asset____type'
+  | 'project___mainImage___asset____createdAt'
+  | 'project___mainImage___asset____updatedAt'
+  | 'project___mainImage___asset____rev'
+  | 'project___mainImage___asset____key'
+  | 'project___mainImage___asset___originalFilename'
+  | 'project___mainImage___asset___label'
+  | 'project___mainImage___asset___title'
+  | 'project___mainImage___asset___description'
+  | 'project___mainImage___asset___sha1hash'
+  | 'project___mainImage___asset___extension'
+  | 'project___mainImage___asset___mimeType'
+  | 'project___mainImage___asset___size'
+  | 'project___mainImage___asset___assetId'
+  | 'project___mainImage___asset___path'
+  | 'project___mainImage___asset___url'
+  | 'project___mainImage___asset____rawMetadata'
+  | 'project___mainImage___asset____rawSource'
+  | 'project___mainImage___asset___id'
+  | 'project___mainImage___asset___children'
+  | 'project___mainImage___hotspot____key'
+  | 'project___mainImage___hotspot____type'
+  | 'project___mainImage___hotspot___x'
+  | 'project___mainImage___hotspot___y'
+  | 'project___mainImage___hotspot___height'
+  | 'project___mainImage___hotspot___width'
+  | 'project___mainImage___crop____key'
+  | 'project___mainImage___crop____type'
+  | 'project___mainImage___crop___top'
+  | 'project___mainImage___crop___bottom'
+  | 'project___mainImage___crop___left'
+  | 'project___mainImage___crop___right'
+  | 'project___mainImage____rawAsset'
+  | 'project___mainImage____rawHotspot'
+  | 'project___mainImage____rawCrop'
+  | 'project___mainImage___id'
+  | 'project___mainImage___parent___id'
+  | 'project___mainImage___parent___children'
+  | 'project___mainImage___children'
+  | 'project___mainImage___children___id'
+  | 'project___mainImage___children___children'
+  | 'project___mainImage___internal___content'
+  | 'project___mainImage___internal___contentDigest'
+  | 'project___mainImage___internal___description'
+  | 'project___mainImage___internal___fieldOwners'
+  | 'project___mainImage___internal___ignoreType'
+  | 'project___mainImage___internal___mediaType'
+  | 'project___mainImage___internal___owner'
+  | 'project___mainImage___internal___type'
+  | 'project___categories'
+  | 'project___categories____id'
+  | 'project___categories____type'
+  | 'project___categories____createdAt'
+  | 'project___categories____updatedAt'
+  | 'project___categories____rev'
+  | 'project___categories____key'
+  | 'project___categories___title'
+  | 'project___categories___slug____key'
+  | 'project___categories___slug____type'
+  | 'project___categories___slug___current'
+  | 'project___categories___slug___id'
+  | 'project___categories___slug___children'
+  | 'project___categories___icon____key'
+  | 'project___categories___icon____type'
+  | 'project___categories___icon___sanityId'
+  | 'project___categories___icon___name'
+  | 'project___categories___icon___colons'
+  | 'project___categories___icon___text'
+  | 'project___categories___icon___emoticons'
+  | 'project___categories___icon___short_names'
+  | 'project___categories___icon___skin'
+  | 'project___categories___icon___unified'
+  | 'project___categories___icon___native'
+  | 'project___categories___icon___imageUrl'
+  | 'project___categories___icon___keywords'
+  | 'project___categories___icon___customCategory'
+  | 'project___categories___color'
+  | 'project___categories___description'
+  | 'project___categories____rawSlug'
+  | 'project___categories____rawIcon'
+  | 'project___categories___id'
+  | 'project___categories___parent___id'
+  | 'project___categories___parent___children'
+  | 'project___categories___children'
+  | 'project___categories___children___id'
+  | 'project___categories___children___children'
+  | 'project___categories___internal___content'
+  | 'project___categories___internal___contentDigest'
+  | 'project___categories___internal___description'
+  | 'project___categories___internal___fieldOwners'
+  | 'project___categories___internal___ignoreType'
+  | 'project___categories___internal___mediaType'
+  | 'project___categories___internal___owner'
+  | 'project___categories___internal___type'
+  | 'project___excerpt'
+  | 'project___excerpt____key'
+  | 'project___excerpt____type'
+  | 'project___excerpt___sanityChildren'
+  | 'project___excerpt___sanityChildren____key'
+  | 'project___excerpt___sanityChildren____type'
+  | 'project___excerpt___sanityChildren___marks'
+  | 'project___excerpt___sanityChildren___text'
+  | 'project___excerpt___style'
+  | 'project___excerpt___list'
+  | 'project___body'
+  | 'project___body____key'
+  | 'project___body____type'
+  | 'project___body___sanityChildren'
+  | 'project___body___sanityChildren____key'
+  | 'project___body___sanityChildren____type'
+  | 'project___body___sanityChildren___marks'
+  | 'project___body___sanityChildren___text'
+  | 'project___body___style'
+  | 'project___body___list'
+  | 'project____rawBody'
+  | 'project____rawExcerpt'
+  | 'project____rawSlug'
+  | 'project____rawMainImage'
+  | 'project____rawCategories'
+  | 'project___id'
+  | 'project___parent___id'
+  | 'project___parent___parent___id'
+  | 'project___parent___parent___children'
+  | 'project___parent___children'
+  | 'project___parent___children___id'
+  | 'project___parent___children___children'
+  | 'project___parent___internal___content'
+  | 'project___parent___internal___contentDigest'
+  | 'project___parent___internal___description'
+  | 'project___parent___internal___fieldOwners'
+  | 'project___parent___internal___ignoreType'
+  | 'project___parent___internal___mediaType'
+  | 'project___parent___internal___owner'
+  | 'project___parent___internal___type'
+  | 'project___children'
+  | 'project___children___id'
+  | 'project___children___parent___id'
+  | 'project___children___parent___children'
+  | 'project___children___children'
+  | 'project___children___children___id'
+  | 'project___children___children___children'
+  | 'project___children___internal___content'
+  | 'project___children___internal___contentDigest'
+  | 'project___children___internal___description'
+  | 'project___children___internal___fieldOwners'
+  | 'project___children___internal___ignoreType'
+  | 'project___children___internal___mediaType'
+  | 'project___children___internal___owner'
+  | 'project___children___internal___type'
+  | 'project___internal___content'
+  | 'project___internal___contentDigest'
+  | 'project___internal___description'
+  | 'project___internal___fieldOwners'
+  | 'project___internal___ignoreType'
+  | 'project___internal___mediaType'
+  | 'project___internal___owner'
+  | 'project___internal___type'
+  | 'excerpt'
+  | 'excerpt____key'
+  | 'excerpt____type'
+  | 'excerpt___sanityChildren'
+  | 'excerpt___sanityChildren____key'
+  | 'excerpt___sanityChildren____type'
+  | 'excerpt___sanityChildren___marks'
+  | 'excerpt___sanityChildren___text'
+  | 'excerpt___style'
+  | 'excerpt___list'
+  | 'body'
+  | 'body____key'
+  | 'body____type'
+  | 'body___sanityChildren'
+  | 'body___sanityChildren____key'
+  | 'body___sanityChildren____type'
+  | 'body___sanityChildren___marks'
+  | 'body___sanityChildren___text'
+  | 'body___style'
+  | 'body___list'
+  | '_rawBody'
+  | '_rawExcerpt'
+  | '_rawSlug'
+  | '_rawMainImage'
+  | '_rawCategories'
+  | '_rawProject'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type SanityArticleFilterInput = {
+  _id?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  _createdAt?: Maybe<DateQueryOperatorInput>;
+  _updatedAt?: Maybe<DateQueryOperatorInput>;
+  _rev?: Maybe<StringQueryOperatorInput>;
+  _key?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<SanitySlugFilterInput>;
+  publishedAt?: Maybe<DateQueryOperatorInput>;
+  mainImage?: Maybe<SanityFigureFilterInput>;
+  categories?: Maybe<SanityCategoryFilterListInput>;
+  project?: Maybe<SanityProjectFilterInput>;
+  excerpt?: Maybe<SanityBlockFilterListInput>;
+  body?: Maybe<SanityBlockFilterListInput>;
+  _rawBody?: Maybe<JsonQueryOperatorInput>;
+  _rawExcerpt?: Maybe<JsonQueryOperatorInput>;
+  _rawSlug?: Maybe<JsonQueryOperatorInput>;
+  _rawMainImage?: Maybe<JsonQueryOperatorInput>;
+  _rawCategories?: Maybe<JsonQueryOperatorInput>;
+  _rawProject?: Maybe<JsonQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type SanityArticleGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityArticleEdge>;
+  nodes: Array<SanityArticle>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type SanityArticleSortInput = {
+  fields?: Maybe<Array<Maybe<SanityArticleFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
 export type SanityAssetSourceData = {
@@ -3667,29 +4398,24 @@ export type SanityPlayer = {
   caption?: Maybe<Scalars['String']>;
 };
 
-export type SanityPost = SanityDocument & Node & {
-  _id?: Maybe<Scalars['String']>;
-  _type?: Maybe<Scalars['String']>;
-  _createdAt?: Maybe<Scalars['Date']>;
-  _updatedAt?: Maybe<Scalars['Date']>;
-  _rev?: Maybe<Scalars['String']>;
-  _key?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-  slug: SanitySlug;
-  publishedAt?: Maybe<Scalars['Date']>;
-  mainImage?: Maybe<SanityFigure>;
-  categories: Array<SanityCategory>;
-  excerpt?: Maybe<Array<Maybe<SanityBlock>>>;
-  body?: Maybe<Array<Maybe<SanityBlock>>>;
-  _rawBody?: Maybe<Scalars['JSON']>;
-  _rawExcerpt?: Maybe<Scalars['JSON']>;
-  _rawSlug?: Maybe<Scalars['JSON']>;
-  _rawMainImage?: Maybe<Scalars['JSON']>;
-  _rawCategories?: Maybe<Scalars['JSON']>;
+export type SanityPost = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
+  _id?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  _createdAt?: Maybe<Scalars['Date']>;
+  _rev?: Maybe<Scalars['String']>;
+  _updatedAt?: Maybe<Scalars['Date']>;
+  body?: Maybe<Array<Maybe<SanityPostBody>>>;
+  categories?: Maybe<Array<Maybe<SanityPostCategories>>>;
+  excerpt?: Maybe<Array<Maybe<SanityPostExcerpt>>>;
+  mainImage?: Maybe<SanityPostMainImage>;
+  publishedAt?: Maybe<Scalars['Date']>;
+  slug?: Maybe<SanityPostSlug>;
+  title?: Maybe<Scalars['String']>;
+  project?: Maybe<SanityPostProject>;
 };
 
 
@@ -3716,29 +4442,56 @@ export type SanityPostPublishedAtArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
-
-export type SanityPost_RawBodyArgs = {
-  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+export type SanityPostBody = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  children?: Maybe<Array<Maybe<SanityPostBodyChildren>>>;
+  style?: Maybe<Scalars['String']>;
 };
 
-
-export type SanityPost_RawExcerptArgs = {
-  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+export type SanityPostBodyChildren = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  marks?: Maybe<Array<Maybe<Scalars['String']>>>;
+  text?: Maybe<Scalars['String']>;
 };
 
-
-export type SanityPost_RawSlugArgs = {
-  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+export type SanityPostBodyChildrenFilterInput = {
+  _key?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  marks?: Maybe<StringQueryOperatorInput>;
+  text?: Maybe<StringQueryOperatorInput>;
 };
 
-
-export type SanityPost_RawMainImageArgs = {
-  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+export type SanityPostBodyChildrenFilterListInput = {
+  elemMatch?: Maybe<SanityPostBodyChildrenFilterInput>;
 };
 
+export type SanityPostBodyFilterInput = {
+  _key?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  children?: Maybe<SanityPostBodyChildrenFilterListInput>;
+  style?: Maybe<StringQueryOperatorInput>;
+};
 
-export type SanityPost_RawCategoriesArgs = {
-  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+export type SanityPostBodyFilterListInput = {
+  elemMatch?: Maybe<SanityPostBodyFilterInput>;
+};
+
+export type SanityPostCategories = {
+  _key?: Maybe<Scalars['String']>;
+  _ref?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+};
+
+export type SanityPostCategoriesFilterInput = {
+  _key?: Maybe<StringQueryOperatorInput>;
+  _ref?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SanityPostCategoriesFilterListInput = {
+  elemMatch?: Maybe<SanityPostCategoriesFilterInput>;
 };
 
 export type SanityPostConnection = {
@@ -3768,279 +4521,43 @@ export type SanityPostEdge = {
   previous?: Maybe<SanityPost>;
 };
 
+export type SanityPostExcerpt = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  children?: Maybe<Array<Maybe<SanityPostExcerptChildren>>>;
+  style?: Maybe<Scalars['String']>;
+};
+
+export type SanityPostExcerptChildren = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  marks?: Maybe<Array<Maybe<Scalars['String']>>>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type SanityPostExcerptChildrenFilterInput = {
+  _key?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  marks?: Maybe<StringQueryOperatorInput>;
+  text?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SanityPostExcerptChildrenFilterListInput = {
+  elemMatch?: Maybe<SanityPostExcerptChildrenFilterInput>;
+};
+
+export type SanityPostExcerptFilterInput = {
+  _key?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  children?: Maybe<SanityPostExcerptChildrenFilterListInput>;
+  style?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SanityPostExcerptFilterListInput = {
+  elemMatch?: Maybe<SanityPostExcerptFilterInput>;
+};
+
 export type SanityPostFieldsEnum = 
-  | '_id'
-  | '_type'
-  | '_createdAt'
-  | '_updatedAt'
-  | '_rev'
-  | '_key'
-  | 'title'
-  | 'slug____key'
-  | 'slug____type'
-  | 'slug___current'
-  | 'slug___id'
-  | 'slug___parent___id'
-  | 'slug___parent___parent___id'
-  | 'slug___parent___parent___children'
-  | 'slug___parent___children'
-  | 'slug___parent___children___id'
-  | 'slug___parent___children___children'
-  | 'slug___parent___internal___content'
-  | 'slug___parent___internal___contentDigest'
-  | 'slug___parent___internal___description'
-  | 'slug___parent___internal___fieldOwners'
-  | 'slug___parent___internal___ignoreType'
-  | 'slug___parent___internal___mediaType'
-  | 'slug___parent___internal___owner'
-  | 'slug___parent___internal___type'
-  | 'slug___children'
-  | 'slug___children___id'
-  | 'slug___children___parent___id'
-  | 'slug___children___parent___children'
-  | 'slug___children___children'
-  | 'slug___children___children___id'
-  | 'slug___children___children___children'
-  | 'slug___children___internal___content'
-  | 'slug___children___internal___contentDigest'
-  | 'slug___children___internal___description'
-  | 'slug___children___internal___fieldOwners'
-  | 'slug___children___internal___ignoreType'
-  | 'slug___children___internal___mediaType'
-  | 'slug___children___internal___owner'
-  | 'slug___children___internal___type'
-  | 'slug___internal___content'
-  | 'slug___internal___contentDigest'
-  | 'slug___internal___description'
-  | 'slug___internal___fieldOwners'
-  | 'slug___internal___ignoreType'
-  | 'slug___internal___mediaType'
-  | 'slug___internal___owner'
-  | 'slug___internal___type'
-  | 'publishedAt'
-  | 'mainImage____key'
-  | 'mainImage____type'
-  | 'mainImage___caption'
-  | 'mainImage___alt'
-  | 'mainImage___asset____id'
-  | 'mainImage___asset____type'
-  | 'mainImage___asset____createdAt'
-  | 'mainImage___asset____updatedAt'
-  | 'mainImage___asset____rev'
-  | 'mainImage___asset____key'
-  | 'mainImage___asset___originalFilename'
-  | 'mainImage___asset___label'
-  | 'mainImage___asset___title'
-  | 'mainImage___asset___description'
-  | 'mainImage___asset___sha1hash'
-  | 'mainImage___asset___extension'
-  | 'mainImage___asset___mimeType'
-  | 'mainImage___asset___size'
-  | 'mainImage___asset___assetId'
-  | 'mainImage___asset___path'
-  | 'mainImage___asset___url'
-  | 'mainImage___asset___metadata____key'
-  | 'mainImage___asset___metadata____type'
-  | 'mainImage___asset___metadata___lqip'
-  | 'mainImage___asset___metadata___hasAlpha'
-  | 'mainImage___asset___metadata___isOpaque'
-  | 'mainImage___asset___source____key'
-  | 'mainImage___asset___source____type'
-  | 'mainImage___asset___source___name'
-  | 'mainImage___asset___source___sanityId'
-  | 'mainImage___asset___source___url'
-  | 'mainImage___asset___fixed___base64'
-  | 'mainImage___asset___fixed___aspectRatio'
-  | 'mainImage___asset___fixed___width'
-  | 'mainImage___asset___fixed___height'
-  | 'mainImage___asset___fixed___src'
-  | 'mainImage___asset___fixed___srcSet'
-  | 'mainImage___asset___fixed___srcWebp'
-  | 'mainImage___asset___fixed___srcSetWebp'
-  | 'mainImage___asset___fluid___base64'
-  | 'mainImage___asset___fluid___aspectRatio'
-  | 'mainImage___asset___fluid___src'
-  | 'mainImage___asset___fluid___srcSet'
-  | 'mainImage___asset___fluid___srcWebp'
-  | 'mainImage___asset___fluid___srcSetWebp'
-  | 'mainImage___asset___fluid___sizes'
-  | 'mainImage___asset____rawMetadata'
-  | 'mainImage___asset____rawSource'
-  | 'mainImage___asset___id'
-  | 'mainImage___asset___parent___id'
-  | 'mainImage___asset___parent___children'
-  | 'mainImage___asset___children'
-  | 'mainImage___asset___children___id'
-  | 'mainImage___asset___children___children'
-  | 'mainImage___asset___internal___content'
-  | 'mainImage___asset___internal___contentDigest'
-  | 'mainImage___asset___internal___description'
-  | 'mainImage___asset___internal___fieldOwners'
-  | 'mainImage___asset___internal___ignoreType'
-  | 'mainImage___asset___internal___mediaType'
-  | 'mainImage___asset___internal___owner'
-  | 'mainImage___asset___internal___type'
-  | 'mainImage___asset___childImageSharp___id'
-  | 'mainImage___asset___childImageSharp___children'
-  | 'mainImage___hotspot____key'
-  | 'mainImage___hotspot____type'
-  | 'mainImage___hotspot___x'
-  | 'mainImage___hotspot___y'
-  | 'mainImage___hotspot___height'
-  | 'mainImage___hotspot___width'
-  | 'mainImage___crop____key'
-  | 'mainImage___crop____type'
-  | 'mainImage___crop___top'
-  | 'mainImage___crop___bottom'
-  | 'mainImage___crop___left'
-  | 'mainImage___crop___right'
-  | 'mainImage____rawAsset'
-  | 'mainImage____rawHotspot'
-  | 'mainImage____rawCrop'
-  | 'mainImage___id'
-  | 'mainImage___parent___id'
-  | 'mainImage___parent___parent___id'
-  | 'mainImage___parent___parent___children'
-  | 'mainImage___parent___children'
-  | 'mainImage___parent___children___id'
-  | 'mainImage___parent___children___children'
-  | 'mainImage___parent___internal___content'
-  | 'mainImage___parent___internal___contentDigest'
-  | 'mainImage___parent___internal___description'
-  | 'mainImage___parent___internal___fieldOwners'
-  | 'mainImage___parent___internal___ignoreType'
-  | 'mainImage___parent___internal___mediaType'
-  | 'mainImage___parent___internal___owner'
-  | 'mainImage___parent___internal___type'
-  | 'mainImage___children'
-  | 'mainImage___children___id'
-  | 'mainImage___children___parent___id'
-  | 'mainImage___children___parent___children'
-  | 'mainImage___children___children'
-  | 'mainImage___children___children___id'
-  | 'mainImage___children___children___children'
-  | 'mainImage___children___internal___content'
-  | 'mainImage___children___internal___contentDigest'
-  | 'mainImage___children___internal___description'
-  | 'mainImage___children___internal___fieldOwners'
-  | 'mainImage___children___internal___ignoreType'
-  | 'mainImage___children___internal___mediaType'
-  | 'mainImage___children___internal___owner'
-  | 'mainImage___children___internal___type'
-  | 'mainImage___internal___content'
-  | 'mainImage___internal___contentDigest'
-  | 'mainImage___internal___description'
-  | 'mainImage___internal___fieldOwners'
-  | 'mainImage___internal___ignoreType'
-  | 'mainImage___internal___mediaType'
-  | 'mainImage___internal___owner'
-  | 'mainImage___internal___type'
-  | 'categories'
-  | 'categories____id'
-  | 'categories____type'
-  | 'categories____createdAt'
-  | 'categories____updatedAt'
-  | 'categories____rev'
-  | 'categories____key'
-  | 'categories___title'
-  | 'categories___slug____key'
-  | 'categories___slug____type'
-  | 'categories___slug___current'
-  | 'categories___slug___id'
-  | 'categories___slug___parent___id'
-  | 'categories___slug___parent___children'
-  | 'categories___slug___children'
-  | 'categories___slug___children___id'
-  | 'categories___slug___children___children'
-  | 'categories___slug___internal___content'
-  | 'categories___slug___internal___contentDigest'
-  | 'categories___slug___internal___description'
-  | 'categories___slug___internal___fieldOwners'
-  | 'categories___slug___internal___ignoreType'
-  | 'categories___slug___internal___mediaType'
-  | 'categories___slug___internal___owner'
-  | 'categories___slug___internal___type'
-  | 'categories___icon____key'
-  | 'categories___icon____type'
-  | 'categories___icon___sanityId'
-  | 'categories___icon___name'
-  | 'categories___icon___colons'
-  | 'categories___icon___text'
-  | 'categories___icon___emoticons'
-  | 'categories___icon___short_names'
-  | 'categories___icon___skin'
-  | 'categories___icon___unified'
-  | 'categories___icon___native'
-  | 'categories___icon___imageUrl'
-  | 'categories___icon___keywords'
-  | 'categories___icon___customCategory'
-  | 'categories___color'
-  | 'categories___description'
-  | 'categories____rawSlug'
-  | 'categories____rawIcon'
-  | 'categories___id'
-  | 'categories___parent___id'
-  | 'categories___parent___parent___id'
-  | 'categories___parent___parent___children'
-  | 'categories___parent___children'
-  | 'categories___parent___children___id'
-  | 'categories___parent___children___children'
-  | 'categories___parent___internal___content'
-  | 'categories___parent___internal___contentDigest'
-  | 'categories___parent___internal___description'
-  | 'categories___parent___internal___fieldOwners'
-  | 'categories___parent___internal___ignoreType'
-  | 'categories___parent___internal___mediaType'
-  | 'categories___parent___internal___owner'
-  | 'categories___parent___internal___type'
-  | 'categories___children'
-  | 'categories___children___id'
-  | 'categories___children___parent___id'
-  | 'categories___children___parent___children'
-  | 'categories___children___children'
-  | 'categories___children___children___id'
-  | 'categories___children___children___children'
-  | 'categories___children___internal___content'
-  | 'categories___children___internal___contentDigest'
-  | 'categories___children___internal___description'
-  | 'categories___children___internal___fieldOwners'
-  | 'categories___children___internal___ignoreType'
-  | 'categories___children___internal___mediaType'
-  | 'categories___children___internal___owner'
-  | 'categories___children___internal___type'
-  | 'categories___internal___content'
-  | 'categories___internal___contentDigest'
-  | 'categories___internal___description'
-  | 'categories___internal___fieldOwners'
-  | 'categories___internal___ignoreType'
-  | 'categories___internal___mediaType'
-  | 'categories___internal___owner'
-  | 'categories___internal___type'
-  | 'excerpt'
-  | 'excerpt____key'
-  | 'excerpt____type'
-  | 'excerpt___sanityChildren'
-  | 'excerpt___sanityChildren____key'
-  | 'excerpt___sanityChildren____type'
-  | 'excerpt___sanityChildren___marks'
-  | 'excerpt___sanityChildren___text'
-  | 'excerpt___style'
-  | 'excerpt___list'
-  | 'body'
-  | 'body____key'
-  | 'body____type'
-  | 'body___sanityChildren'
-  | 'body___sanityChildren____key'
-  | 'body___sanityChildren____type'
-  | 'body___sanityChildren___marks'
-  | 'body___sanityChildren___text'
-  | 'body___style'
-  | 'body___list'
-  | '_rawBody'
-  | '_rawExcerpt'
-  | '_rawSlug'
-  | '_rawMainImage'
-  | '_rawCategories'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -4126,31 +4643,64 @@ export type SanityPostFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | '_id'
+  | '_type'
+  | '_createdAt'
+  | '_rev'
+  | '_updatedAt'
+  | 'body'
+  | 'body____key'
+  | 'body____type'
+  | 'body___children'
+  | 'body___children____key'
+  | 'body___children____type'
+  | 'body___children___marks'
+  | 'body___children___text'
+  | 'body___style'
+  | 'categories'
+  | 'categories____key'
+  | 'categories____ref'
+  | 'categories____type'
+  | 'excerpt'
+  | 'excerpt____key'
+  | 'excerpt____type'
+  | 'excerpt___children'
+  | 'excerpt___children____key'
+  | 'excerpt___children____type'
+  | 'excerpt___children___marks'
+  | 'excerpt___children___text'
+  | 'excerpt___style'
+  | 'mainImage____type'
+  | 'mainImage___alt'
+  | 'mainImage___asset____ref'
+  | 'mainImage___asset____type'
+  | 'mainImage___caption'
+  | 'publishedAt'
+  | 'slug____type'
+  | 'slug___current'
+  | 'title'
+  | 'project____ref'
+  | 'project____type';
 
 export type SanityPostFilterInput = {
-  _id?: Maybe<StringQueryOperatorInput>;
-  _type?: Maybe<StringQueryOperatorInput>;
-  _createdAt?: Maybe<DateQueryOperatorInput>;
-  _updatedAt?: Maybe<DateQueryOperatorInput>;
-  _rev?: Maybe<StringQueryOperatorInput>;
-  _key?: Maybe<StringQueryOperatorInput>;
-  title?: Maybe<StringQueryOperatorInput>;
-  slug?: Maybe<SanitySlugFilterInput>;
-  publishedAt?: Maybe<DateQueryOperatorInput>;
-  mainImage?: Maybe<SanityFigureFilterInput>;
-  categories?: Maybe<SanityCategoryFilterListInput>;
-  excerpt?: Maybe<SanityBlockFilterListInput>;
-  body?: Maybe<SanityBlockFilterListInput>;
-  _rawBody?: Maybe<JsonQueryOperatorInput>;
-  _rawExcerpt?: Maybe<JsonQueryOperatorInput>;
-  _rawSlug?: Maybe<JsonQueryOperatorInput>;
-  _rawMainImage?: Maybe<JsonQueryOperatorInput>;
-  _rawCategories?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  _id?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  _createdAt?: Maybe<DateQueryOperatorInput>;
+  _rev?: Maybe<StringQueryOperatorInput>;
+  _updatedAt?: Maybe<DateQueryOperatorInput>;
+  body?: Maybe<SanityPostBodyFilterListInput>;
+  categories?: Maybe<SanityPostCategoriesFilterListInput>;
+  excerpt?: Maybe<SanityPostExcerptFilterListInput>;
+  mainImage?: Maybe<SanityPostMainImageFilterInput>;
+  publishedAt?: Maybe<DateQueryOperatorInput>;
+  slug?: Maybe<SanityPostSlugFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  project?: Maybe<SanityPostProjectFilterInput>;
 };
 
 export type SanityPostGroupConnection = {
@@ -4160,6 +4710,50 @@ export type SanityPostGroupConnection = {
   pageInfo: PageInfo;
   field: Scalars['String'];
   fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type SanityPostMainImage = {
+  _type?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']>;
+  asset?: Maybe<SanityPostMainImageAsset>;
+  caption?: Maybe<Scalars['String']>;
+};
+
+export type SanityPostMainImageAsset = {
+  _ref?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+};
+
+export type SanityPostMainImageAssetFilterInput = {
+  _ref?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SanityPostMainImageFilterInput = {
+  _type?: Maybe<StringQueryOperatorInput>;
+  alt?: Maybe<StringQueryOperatorInput>;
+  asset?: Maybe<SanityPostMainImageAssetFilterInput>;
+  caption?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SanityPostProject = {
+  _ref?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+};
+
+export type SanityPostProjectFilterInput = {
+  _ref?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SanityPostSlug = {
+  _type?: Maybe<Scalars['String']>;
+  current?: Maybe<Scalars['String']>;
+};
+
+export type SanityPostSlugFilterInput = {
+  _type?: Maybe<StringQueryOperatorInput>;
+  current?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SanityPostSortInput = {
@@ -5896,22 +6490,22 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
-export type BlogArchivePageQueryVariables = Exact<{ [key: string]: never; }>;
+export type ArticleArchivePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogArchivePageQuery = { posts: { edges: Array<{ node: (
-        Pick<SanityPost, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
+export type ArticleArchivePageQuery = { articles: { edges: Array<{ node: (
+        Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
         & { mainImage?: Maybe<(
           Pick<SanityFigure, 'alt'>
           & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
         )>, slug: Pick<SanitySlug, 'current'> }
       ) }> } };
 
-export type BlogRecentPageQueryVariables = Exact<{ [key: string]: never; }>;
+export type ArticlesPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogRecentPageQuery = { posts: { edges: Array<{ node: (
-        Pick<SanityPost, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
+export type ArticlesPageQuery = { articles: { edges: Array<{ node: (
+        Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
         & { mainImage?: Maybe<(
           Pick<SanityFigure, 'alt'>
           & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
@@ -5952,13 +6546,13 @@ export type PortfolioPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PortfolioPageQuery = { currentProjects: { nodes: Array<ProjectPreviewFragment> }, publishedProjects: { nodes: Array<ProjectPreviewFragment> } };
 
-export type BlogPostPageQueryVariables = Exact<{
+export type ArticlePageQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type BlogPostPageQuery = { post?: Maybe<(
-    Pick<SanityPost, 'id' | 'publishedAt' | 'title' | '_rawBody'>
+export type ArticlePageQuery = { article?: Maybe<(
+    Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawBody'>
     & { categories: Array<(
       Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
       & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
@@ -5976,8 +6570,8 @@ export type CategoryPageQueryVariables = Exact<{
 export type CategoryPageQuery = { category?: Maybe<(
     Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
     & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
-  )>, posts: { nodes: Array<(
-      Pick<SanityPost, '_rawExcerpt' | 'id' | 'publishedAt' | 'title'>
+  )>, articles: { nodes: Array<(
+      Pick<SanityArticle, '_rawExcerpt' | 'id' | 'publishedAt' | 'title'>
       & { mainImage?: Maybe<(
         Pick<SanityFigure, 'alt'>
         & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
@@ -5995,7 +6589,7 @@ export type PortfolioProjectPageQueryVariables = Exact<{
 }>;
 
 
-export type PortfolioProjectPageQuery = { post?: Maybe<(
+export type PortfolioProjectPageQuery = { project?: Maybe<(
     Pick<SanityProject, 'id' | 'isCurrent' | 'publishedAt' | 'title' | '_rawBody'>
     & { categories: Array<(
       Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>

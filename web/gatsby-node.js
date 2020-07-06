@@ -5,7 +5,7 @@ module.exports = {
     const { createPage } = actions;
     const result = await graphql(/* GraphQL */ `
       query createPagesQuery {
-        posts: allSanityPost(
+        articles: allSanityArticle(
           filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
         ) {
           nodes {
@@ -41,25 +41,25 @@ module.exports = {
 
     if (result.errors) throw result.errors;
 
-    const postsResult = result.data.posts || {};
-    const postNodes = postsResult.nodes || [];
+    const articlesResult = result.data.articles || {};
+    const articleNodes = articlesResult.nodes || [];
     const projectsResult = result.data.projects || {};
     const projectNodes = projectsResult.nodes || [];
     const categoryNodes = (result.data.categories || {}).nodes || [];
 
     /**
-     * BLOG POSTS
+     * ARTICLES
      */
 
-    postNodes
+    articleNodes
       .filter(({ publishedAt }) => !isFuture(new Date(publishedAt) || !(isCurrent || publishedAt)))
       .forEach(({ id, slug, publishedAt }) => {
         const dateSegment = format(new Date(publishedAt), 'yyyy/MM');
-        const path = `/blog/${dateSegment}/${slug.current}/`;
+        const path = `/artikelen/${dateSegment}/${slug.current}/`;
 
         createPage({
           path,
-          component: require.resolve('./src/templates/blog-post-page.tsx'),
+          component: require.resolve('./src/templates/article-page.tsx'),
           context: { id },
         });
       });
@@ -75,7 +75,7 @@ module.exports = {
 
         createPage({
           path,
-          component: require.resolve('./src/templates/portfolio-project-page.tsx'),
+          component: require.resolve('./src/templates/project-page.tsx'),
           context: { id },
         });
       });
@@ -112,7 +112,7 @@ module.exports = {
         current: String!
       }
 
-      type SanityPost implements Node {
+      type SanityArticle implements Node {
         _rawBody: JSON!
         _rawExcerpt: JSON!
         categories: [SanityCategory!]!
