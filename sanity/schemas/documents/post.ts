@@ -5,20 +5,19 @@ import type { DocumentType } from '../../lib/data-types';
 export const Post: DocumentType<'bodyText' | 'category' | 'excerptText' | 'figure'> = {
   name: 'post',
   type: 'document',
-  title: 'Blog Post',
+  title: 'Artikel',
   fields: [
     {
       name: 'title',
       type: 'string',
-      title: 'Title',
-      description: 'Titles should be catchy, descriptive, and not too long',
+      title: 'Titel',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'slug',
       type: 'slug',
       title: 'Slug',
-      description: 'Some frontends will require a slug to be set to be able to show the post',
+      description: 'Dit is onderdeel van de URL naar de post.',
       options: {
         source: 'title',
         maxLength: 96,
@@ -28,27 +27,27 @@ export const Post: DocumentType<'bodyText' | 'category' | 'excerptText' | 'figur
     {
       name: 'publishedAt',
       type: 'datetime',
-      title: 'Published at',
-      description: 'This can be used to schedule post for publishing',
+      title: 'Gepubliceerd op',
+      description: 'Hiermee kun je inplannen wanneer het artikel openbaar wordt',
     },
     {
       name: 'mainImage',
       type: 'figure',
-      title: 'Main image',
+      title: 'Afbeelding',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'excerpt',
       type: 'excerptText',
-      title: 'Excerpt',
+      title: 'Samenvatting',
       description:
-        'This ends up on summary pages, on Google, when people share your post in social media.',
+        "Deze tekst wordt gebruikt op samenvattingpagina's, voor Google, en wanneer mensen de post delen op social media.",
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'categories',
       type: 'array',
-      title: 'Categories',
+      title: 'Categorieën',
       of: [
         {
           name: 'category',
@@ -66,7 +65,7 @@ export const Post: DocumentType<'bodyText' | 'category' | 'excerptText' | 'figur
     {
       name: 'body',
       type: 'bodyText',
-      title: 'Body',
+      title: 'Inhoud',
       validation: (Rule) => Rule.required(),
     },
   ],
@@ -79,7 +78,7 @@ export const Post: DocumentType<'bodyText' | 'category' | 'excerptText' | 'figur
     },
     prepare({ media, publishedAt, slug, title = 'Geen titel' }) {
       const dateSegment = format(new Date(publishedAt), 'yyyy/MM');
-      const path = `blog/${dateSegment}/${slug.current}/`;
+      const path = `artikelen/${dateSegment}/${slug.current}/`;
 
       return {
         title,
