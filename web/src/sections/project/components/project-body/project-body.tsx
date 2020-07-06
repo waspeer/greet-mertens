@@ -61,6 +61,6 @@ const serializers = {
   },
 };
 
-export const PortfolioProjectBody = ({ body }: Props) => {
+export const ProjectBody = ({ body }: Props) => {
   return <PortableText blocks={body} serializers={serializers} />;
 };

@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { PortfolioProjectPreview } from '~/lib/types';
-import { PortfolioProjectPreviewList } from '~/lib/components/project-preview-list';
+import { ProjectPreview } from '~/lib/types';
+import { ProjectPreviewList } from '~/lib/components/project-preview-list';
 
 interface Props {
-  projectPreviews: PortfolioProjectPreview[];
+  projectPreviews: ProjectPreview[];
 }
 
-export const PortfolioOverview = ({ projectPreviews }: Props) => {
+export const ProjectOverview = ({ projectPreviews }: Props) => {
   return (
     <div className="container">
       <h2 className="gentleHeading">Projecten</h2>
-      <PortfolioProjectPreviewList projectPreviews={projectPreviews} />
+      <ProjectPreviewList projectPreviews={projectPreviews} />
     </div>
   );
 };

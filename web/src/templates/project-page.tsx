@@ -2,22 +2,26 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import { normalizeProject } from '~/lib/helpers/normalize-project';
-import { PortfolioProject } from '~/sections/project';
+import { Project } from '~/sections/project';
+import { normalizeArticlePreview } from '~/lib/helpers/normalize-article-preview';
 
-import { PortfolioProjectPageQuery } from '~/../graphql-types';
+import { ProjectPageQuery } from '~/../graphql-types';
 
 interface Props {
-  data: PortfolioProjectPageQuery;
+  data: ProjectPageQuery;
 }
 
-const PortfolioProjectPage = ({ data }: Props) => {
+const ProjectPage = ({ data }: Props) => {
   const project = normalizeProject(data.project!);
+  const relatedArticlePreviews = data.relatedArticles.edges.map(({ node }) =>
+    normalizeArticlePreview(node),
+  );
 
-  return <PortfolioProject project={project} />;
+  return <Project project={project} relatedArticlePreviews={relatedArticlePreviews} />;
 };
 
 export const query = graphql`
-  query PortfolioProjectPage($id: String!) {
+  query ProjectPage($id: String!) {
     project: sanityProject(id: { eq: $id }) {
       categories {
         color
@@ -46,7 +50,36 @@ export const query = graphql`
       title
       _rawBody
     }
+
+    relatedArticles: allSanityArticle(
+      filter: {
+        project: { id: { eq: $id } }
+        slug: { current: { ne: null } }
+        publishedAt: { ne: null }
+      }
+      sort: { fields: [publishedAt], order: DESC }
+    ) {
+      edges {
+        node {
+          id
+          publishedAt
+          mainImage {
+            asset {
+              fluid(maxWidth: 700) {
+                ...GatsbySanityImageFluid
+              }
+            }
+            alt
+          }
+          title
+          _rawExcerpt
+          slug {
+            current
+          }
+        }
+      }
+    }
   }
 `;
 
-export default PortfolioProjectPage;
+export default ProjectPage;

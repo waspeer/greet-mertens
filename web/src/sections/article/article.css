@@ -27,15 +27,11 @@
 
   & h2,
   & h3 {
-    @apply font-body mt-8 -mb-4;
-  }
-
-  & h2 {
-    @apply text-2xl;
+    @apply mt-8 -mb-4;
   }
 
   & h3 {
-    @apply text-xl;
+    @apply font-body font-light text-xl;
   }
 
   & p {

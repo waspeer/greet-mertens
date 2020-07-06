@@ -1,4 +1,4 @@
-import { PortfolioProject } from '../types';
+import { Project } from '../types';
 
 import { normalizeCategory } from './normalize-category';
 
@@ -36,7 +36,7 @@ export function normalizeProject({
   mainImage,
   publishedAt,
   ...rest
-}: GraphQLData): PortfolioProject {
+}: GraphQLData): Project {
   return {
     body: _rawBody,
     categories: categories.map((category) => normalizeCategory(category)),

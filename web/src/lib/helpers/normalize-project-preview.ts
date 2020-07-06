@@ -1,4 +1,4 @@
-import type { PortfolioProjectPreview } from '../types';
+import type { ProjectPreview } from '../types';
 
 import type {
   Maybe,
@@ -24,7 +24,7 @@ export function normalizeProjectPreview({
   mainImage,
   slug,
   ...rest
-}: GraphQLData): PortfolioProjectPreview {
+}: GraphQLData): ProjectPreview {
   return {
     excerpt: _rawExcerpt,
     isCurrent: !!isCurrent,

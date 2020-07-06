@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 
 import { normalizeProjectPreview } from '~/lib/helpers/normalize-project-preview';
-import { PortfolioOverview } from '~/sections/project-overview/project-overview';
+import { ProjectOverview } from '~/sections/project-overview/project-overview';
 
 import type { PortfolioPageQuery } from '~/../graphql-types';
 
@@ -15,7 +15,7 @@ const PortfolioPage = ({ data }: Props) => {
   const publishedProjectPreviews = data.publishedProjects.nodes.map(normalizeProjectPreview);
 
   return (
-    <PortfolioOverview projectPreviews={[...currentProjectPreviews, ...publishedProjectPreviews]} />
+    <ProjectOverview projectPreviews={[...currentProjectPreviews, ...publishedProjectPreviews]} />
   );
 };
 

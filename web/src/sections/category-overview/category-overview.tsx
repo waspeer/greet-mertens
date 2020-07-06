@@ -4,17 +4,17 @@ import React from 'react';
 import type {
   Category as CategoryType,
   ArticlePreview as ArticlePreviewType,
-  PortfolioProjectPreview as PortfolioProjectPreviewType,
+  ProjectPreview as ProjectPreviewType,
 } from '~/lib/types';
 import { ArticlePreviewList } from '~/lib/components/article-preview-list';
-import { PortfolioProjectPreviewList } from '~/lib/components/project-preview-list';
+import { ProjectPreviewList } from '~/lib/components/project-preview-list';
 
 import './category-overview.css';
 
 interface Props {
   category: CategoryType;
   articlePreviews: ArticlePreviewType[];
-  projectPreviews: PortfolioProjectPreviewType[];
+  projectPreviews: ProjectPreviewType[];
 }
 
 export const CategoryOverview = ({ category, articlePreviews, projectPreviews }: Props) => {
@@ -46,7 +46,7 @@ export const CategoryOverview = ({ category, articlePreviews, projectPreviews }:
       {!!projectPreviews.length && (
         <div className="categoryOverview__relatedContent">
           <h2 className="gentleHeading">Projecten in deze categorie</h2>
-          <PortfolioProjectPreviewList projectPreviews={projectPreviews} />
+          <ProjectPreviewList projectPreviews={projectPreviews} />
         </div>
       )}
 

@@ -6584,12 +6584,12 @@ export type CategoryPageQuery = { category?: Maybe<(
       )>, slug: Pick<SanitySlug, 'current'> }
     )> } };
 
-export type PortfolioProjectPageQueryVariables = Exact<{
+export type ProjectPageQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type PortfolioProjectPageQuery = { project?: Maybe<(
+export type ProjectPageQuery = { project?: Maybe<(
     Pick<SanityProject, 'id' | 'isCurrent' | 'publishedAt' | 'title' | '_rawBody'>
     & { categories: Array<(
       Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
@@ -6598,7 +6598,13 @@ export type PortfolioProjectPageQuery = { project?: Maybe<(
       Pick<SanityFigure, 'alt' | 'caption'>
       & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
     )> }
-  )> };
+  )>, relatedArticles: { edges: Array<{ node: (
+        Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
+        & { mainImage?: Maybe<(
+          Pick<SanityFigure, 'alt'>
+          & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
+        )>, slug: Pick<SanitySlug, 'current'> }
+      ) }> } };
 
 export type GatsbySanityImageFixedFragment = Pick<SanityImageFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
 

@@ -1,4 +1,4 @@
-.portfolioProject__mainImage {
+.project__mainImage {
   height: 75vh;
 
   @screen md {
@@ -6,19 +6,19 @@
   }
 }
 
-.portfolioProject__text {
+.project__text {
   @apply pt-4;
 }
 
-.portfolioProject__title {
+.project__title {
   @apply text-5xl;
 }
 
-.portfolioProject__info {
+.project__info {
   @apply flex mt-2 mb-4;
 }
 
-.portfolioProject__currentBadge {
+.project__currentBadge {
   @apply h-4 rounded-full bg-gray-100 pr-2;
   @apply text-xs leading-3;
 
@@ -29,20 +29,24 @@
   }
 }
 
-.portfolioProject__publishedAt {
+.project__publishedAt {
   @apply text-xs text-gray-500 capitalize;
 }
 
-.portfolioProject__body {
+.project__body {
   @apply pb-8;
 
   & h2,
   & h3 {
-    @apply font-body mt-8 -mb-4;
+    @apply mt-8 -mb-4;
   }
 
   & h2 {
     @apply text-2xl;
+  }
+
+  & h3 {
+    @apply font-body;
   }
 
   & h3 {
@@ -56,5 +60,11 @@
   & .figure,
   & .player {
     @apply mt-8 -mx-8;
+  }
+}
+
+.project__relatedArticles {
+  & h2 {
+    @apply border-b;
   }
 }

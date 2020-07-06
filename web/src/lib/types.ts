@@ -34,7 +34,7 @@ export interface Article {
   title: string;
 }
 
-export interface PortfolioProject {
+export interface Project {
   body: any[];
   categories: Category[];
   id: string;
@@ -44,7 +44,7 @@ export interface PortfolioProject {
   title: string;
 }
 
-export interface PortfolioProjectPreview {
+export interface ProjectPreview {
   excerpt: any[];
   id: string;
   isCurrent: boolean;
