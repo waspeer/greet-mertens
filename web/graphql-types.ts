@@ -1596,6 +1596,7 @@ export type QuerySanityMeArgs = {
   _key?: Maybe<StringQueryOperatorInput>;
   portrait?: Maybe<SanityImageFilterInput>;
   tagline?: Maybe<StringQueryOperatorInput>;
+  email?: Maybe<StringQueryOperatorInput>;
   _rawPortrait?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -3401,6 +3402,7 @@ export type SanityMe = SanityDocument & Node & {
   _key?: Maybe<Scalars['String']>;
   portrait?: Maybe<SanityImage>;
   tagline?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
   _rawPortrait?: Maybe<Scalars['JSON']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -3538,6 +3540,7 @@ export type SanityMeFieldsEnum =
   | 'portrait___crop___left'
   | 'portrait___crop___right'
   | 'tagline'
+  | 'email'
   | '_rawPortrait'
   | 'id'
   | 'parent___id'
@@ -3635,6 +3638,7 @@ export type SanityMeFilterInput = {
   _key?: Maybe<StringQueryOperatorInput>;
   portrait?: Maybe<SanityImageFilterInput>;
   tagline?: Maybe<StringQueryOperatorInput>;
+  email?: Maybe<StringQueryOperatorInput>;
   _rawPortrait?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -5922,11 +5926,16 @@ export type CategoriesPageQuery = { allSanityCategory: { nodes: Array<(
       & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
     )> } };
 
+export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ContactPageQuery = { sanityMe?: Maybe<Pick<SanityMe, 'email'>> };
+
 export type IndexPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type IndexPageQuery = { sanityMe?: Maybe<(
-    Pick<SanityMe, 'tagline'>
+    Pick<SanityMe, 'email' | 'tagline'>
     & { portrait?: Maybe<{ asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }> }
   )> };
 

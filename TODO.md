@@ -4,6 +4,13 @@
 -   [x] Add ESLint etc.
 -   [x] Improve folder structure (sections -> components, eg. tinyhouse)
 -   [x] Merge blog + portfolio categories
+-   [ ] Check studio required fields for me schema + add to graphql definitions gatsby
+-   [ ] -   Selectie 3x posts / projecten op homepage
+-   Badge artikel/project
+-   Referentie project -> artikel
+-   Blog -> artikelen
+-   Bij artikelen serif font voor kopjes 
+-   Leesbaarheid bij categorien
 
 # Sanity
 
@@ -30,7 +37,7 @@
 
 # Home
 
--   [ ] Add home page to Sanity
+-   [x] Add home page to Sanity
 
 # Future
 

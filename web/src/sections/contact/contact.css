@@ -1,0 +1,5 @@
+.contact__email {
+  @apply text-sm text-gray-500 relative;
+
+  bottom: -1em;
+}

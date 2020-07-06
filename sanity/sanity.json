@@ -14,11 +14,14 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "emoji-picker",
-    "color-list"
+    "color-list",
+    "asset-source-unsplash"
   ],
   "env": {
     "development": {
-      "plugins": ["@sanity/vision"]
+      "plugins": [
+        "@sanity/vision"
+      ]
     }
   },
   "parts": [

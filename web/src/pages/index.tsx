@@ -10,15 +10,17 @@ interface Props {
 }
 
 const IndexPage = ({ data }: Props) => {
+  const email = data.sanityMe?.email ?? '';
   const portrait = data.sanityMe?.portrait?.asset?.fluid;
   const tagline = data.sanityMe?.tagline ?? '';
 
-  return <Home portrait={portrait} tagline={tagline} />;
+  return <Home email={email} portrait={portrait} tagline={tagline} />;
 };
 
 export const query = graphql`
   query IndexPage {
     sanityMe(_id: { eq: "me" }) {
+      email
       tagline
       portrait {
         asset {

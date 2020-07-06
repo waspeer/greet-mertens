@@ -58,6 +58,12 @@ export const Post: DocumentType<'bodyText' | 'category' | 'excerptText' | 'figur
       ],
     },
     {
+      name: 'project',
+      title: 'Project',
+      type: 'reference',
+      to: [{ type: 'project' }],
+    },
+    {
       name: 'body',
       type: 'bodyText',
       title: 'Body',

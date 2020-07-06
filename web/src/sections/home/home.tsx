@@ -1,14 +1,16 @@
 import Image from 'gatsby-image';
 import React from 'react';
+import { Link } from 'gatsby';
 
 import './home.css';
 
 interface Props {
+  email: string;
   portrait?: any;
   tagline: string;
 }
 
-export const Home = ({ portrait, tagline }: Props) => {
+export const Home = ({ email, portrait, tagline }: Props) => {
   return (
     <div className="home">
       <div className="home__portrait">
@@ -17,6 +19,9 @@ export const Home = ({ portrait, tagline }: Props) => {
       <div className="home__text">
         <h2>Greet Mertens</h2>
         <div>{tagline}</div>
+        <Link className="home__email" to={`mailto:${email}`}>
+          {email}
+        </Link>
       </div>
     </div>
   );
