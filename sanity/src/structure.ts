@@ -19,22 +19,17 @@ export default () =>
         .child(S.editor().id('me').schemaType('me').documentId('me').title('Over Mij')),
       S.divider(),
       S.listItem()
-        .title('Blog')
+        .title('Artikelen')
         .icon(RiArticleLine)
         .child(
           S.list()
-            .title('Blog')
+            .title('Artikelen')
             .items([
               S.listItem()
                 .title('Artikelen')
                 .icon(RiFileEditLine)
                 .schemaType('post')
                 .child(S.documentTypeList('post').title('Artikel')),
-              S.listItem()
-                .title('Categorieën')
-                .icon(RiPriceTag3Line)
-                .schemaType('category')
-                .child(S.documentTypeList('category').title('Categorie')),
             ]),
         ),
       S.listItem()
@@ -49,13 +44,13 @@ export default () =>
                 .icon(RiBook3Line)
                 .schemaType('project')
                 .child(S.documentTypeList('project').title('Project')),
-              S.listItem()
-                .title('Categorieën')
-                .icon(RiPriceTag3Line)
-                .schemaType('category')
-                .child(S.documentTypeList('category').title('Categorie')),
             ]),
         ),
+      S.listItem()
+        .title('Categorieën')
+        .icon(RiPriceTag3Line)
+        .schemaType('category')
+        .child(S.documentTypeList('category').title('Categorie')),
       S.divider(),
       S.listItem()
         .title('Instellingen')
