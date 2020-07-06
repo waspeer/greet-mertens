@@ -1,0 +1,21 @@
+.layout__header {
+  @apply p-4 flex items-center;
+
+  & h1 {
+    @apply text-2xl m-0;
+  }
+
+  & nav {
+    @apply flex flex-grow justify-end text-gray-700;
+
+    margin-top: 0.125em;
+
+    & a {
+      @apply mr-4;
+
+      &:last-child {
+        @apply mr-0;
+      }
+    }
+  }
+}

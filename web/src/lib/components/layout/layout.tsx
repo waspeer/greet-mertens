@@ -2,6 +2,7 @@ import { Link } from 'gatsby';
 import React from 'react';
 
 import '~/styles/tailwind.css';
+import './layout.css';
 
 interface Props {
   children: React.ReactNode;
@@ -10,18 +11,14 @@ interface Props {
 const Layout = ({ children }: Props) => {
   return (
     <div>
-      <header className="p-4 flex items-center">
-        <h1 className="text-2xl m-0">
+      <header className="layout__header">
+        <h1>
           <Link to="/">Greet Mertens</Link>
         </h1>
 
-        <nav className="flex flex-grow justify-end text-gray-700" style={{ marginTop: '0.125em' }}>
-          <Link className="mr-4" to="/artikelen">
-            artikelen
-          </Link>
-          <Link className="mr-4" to="/portfolio">
-            portfolio
-          </Link>
+        <nav style={{}}>
+          <Link to="/artikelen">artikelen</Link>
+          <Link to="/portfolio">portfolio</Link>
           <Link to="/contact">contact</Link>
         </nav>
       </header>
