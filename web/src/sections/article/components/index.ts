@@ -1,3 +1,3 @@
 export * from './article-body';
 export * from './categories';
-export * from './figure';
+export * from '../../../lib/components/figure';

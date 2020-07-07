@@ -1663,7 +1663,10 @@ export type QuerySanityMeArgs = {
   portrait?: Maybe<SanityImageFilterInput>;
   tagline?: Maybe<StringQueryOperatorInput>;
   email?: Maybe<StringQueryOperatorInput>;
+  phone?: Maybe<StringQueryOperatorInput>;
+  bio?: Maybe<SanityBlockFilterListInput>;
   _rawPortrait?: Maybe<JsonQueryOperatorInput>;
+  _rawBio?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -4889,7 +4892,10 @@ export type SanityMe = SanityDocument & Node & {
   portrait?: Maybe<SanityImage>;
   tagline?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  bio?: Maybe<Array<Maybe<SanityBlock>>>;
   _rawPortrait?: Maybe<Scalars['JSON']>;
+  _rawBio?: Maybe<Scalars['JSON']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -4914,6 +4920,11 @@ export type SanityMe_UpdatedAtArgs = {
 
 
 export type SanityMe_RawPortraitArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityMe_RawBioArgs = {
   resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
 };
 
@@ -5027,7 +5038,19 @@ export type SanityMeFieldsEnum =
   | 'portrait___crop___right'
   | 'tagline'
   | 'email'
+  | 'phone'
+  | 'bio'
+  | 'bio____key'
+  | 'bio____type'
+  | 'bio___sanityChildren'
+  | 'bio___sanityChildren____key'
+  | 'bio___sanityChildren____type'
+  | 'bio___sanityChildren___marks'
+  | 'bio___sanityChildren___text'
+  | 'bio___style'
+  | 'bio___list'
   | '_rawPortrait'
+  | '_rawBio'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -5125,7 +5148,10 @@ export type SanityMeFilterInput = {
   portrait?: Maybe<SanityImageFilterInput>;
   tagline?: Maybe<StringQueryOperatorInput>;
   email?: Maybe<StringQueryOperatorInput>;
+  phone?: Maybe<StringQueryOperatorInput>;
+  bio?: Maybe<SanityBlockFilterListInput>;
   _rawPortrait?: Maybe<JsonQueryOperatorInput>;
+  _rawBio?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -7290,7 +7316,7 @@ export type CategoriesPageQuery = { allSanityCategory: { nodes: Array<(
 export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ContactPageQuery = { sanityMe?: Maybe<Pick<SanityMe, 'email'>> };
+export type ContactPageQuery = { sanityMe?: Maybe<Pick<SanityMe, '_rawBio' | 'email' | 'phone'>> };
 
 export type IndexPageQueryVariables = Exact<{ [key: string]: never; }>;
 

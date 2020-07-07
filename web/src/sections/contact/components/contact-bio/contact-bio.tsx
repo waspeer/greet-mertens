@@ -4,29 +4,13 @@ import React from 'react';
 
 import { Figure } from '~/lib/components/figure';
 
-import { Player } from '../player';
-
 interface Props {
-  body: any[];
+  bio: any[];
+  className?: string;
 }
 
 const serializers = {
   types: {
-    block: (props: any) => {
-      const { children, node } = props;
-      const style = node.style || 'normal';
-
-      if (style === 'heading') {
-        return <h2>{children}</h2>;
-      }
-
-      if (style === 'subheading') {
-        return <h3>{children}</h3>;
-      }
-
-      return PortableText.defaultSerializers.types.block(props);
-    },
-
     figure: ({ node }: any) => {
       if (!node || !node.asset || !node.asset._ref) {
         return null;
@@ -51,17 +35,13 @@ const serializers = {
         />
       );
     },
-
-    player: ({ node }: any) => {
-      if (!node || !node.url) {
-        return null;
-      }
-
-      return <Player caption={node.caption} url={node.url} />;
-    },
   },
 };
 
-export const ProjectBody = ({ body }: Props) => {
-  return <PortableText blocks={body} serializers={serializers} />;
+export const ContactBio = ({ bio, className }: Props) => {
+  return (
+    <div className={className}>
+      <PortableText blocks={bio} serializers={serializers} />
+    </div>
+  );
 };

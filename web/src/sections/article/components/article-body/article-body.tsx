@@ -2,7 +2,7 @@ import React from 'react';
 import PortableText from '@sanity/block-content-to-react';
 import { getFluidGatsbyImage } from 'gatsby-source-sanity';
 
-import { Figure } from '../figure';
+import { Figure } from '../../../../lib/components/figure';
 import { Player } from '../player';
 
 interface Props {

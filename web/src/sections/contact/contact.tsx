@@ -1,22 +1,25 @@
+import PortableText from '@sanity/block-content-to-react';
 import React from 'react';
-import { Link } from 'gatsby';
 
+import { ContactBio } from './components/contact-bio';
 import './contact.css';
 
 interface Props {
+  bio?: any;
   email: string;
+  phone: string;
 }
 
-const Contact = ({ email }: Props) => {
+const Contact = ({ bio, email, phone }: Props) => {
   return (
-    <div className="container">
-      <div>
-        Heb je ideeën voor een leuk project? Of wil je iets anders met mij bespreken? Stuur me een
-        berichtje!
-      </div>
-      <Link className="contact__email" to={`mailto:${email}`}>
+    <div className="contact container">
+      <ContactBio bio={bio} className="contact__bio" />
+      <a className="contact__email" href={`mailto:${email}`}>
         {email}
-      </Link>
+      </a>
+      <a className="contact__phone" href={`tel:${phone}`}>
+        {phone}
+      </a>
     </div>
   );
 };

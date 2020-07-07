@@ -1,5 +1,16 @@
-.contact__email {
-  @apply text-sm text-gray-500 relative;
+.contact {
+  @apply mt-4;
+}
+
+.contact__bio {
+  & p {
+    @apply mb-4;
+  }
+}
+
+.contact__email,
+.contact__phone {
+  @apply text-sm text-gray-500 relative block;
 
   bottom: -1em;
 }
