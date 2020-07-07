@@ -1,6 +1,7 @@
-import React from 'react';
 import { graphql } from 'gatsby';
+import React from 'react';
 
+import { normalizeProjectPreview } from '~/lib/helpers/normalize-project-preview';
 import { Home } from '~/sections/home';
 
 import { IndexPageQuery } from '~/../graphql-types';
@@ -10,16 +11,26 @@ interface Props {
 }
 
 const IndexPage = ({ data }: Props) => {
-  const email = data.sanityMe?.email ?? '';
-  const portrait = data.sanityMe?.portrait?.asset?.fluid;
-  const tagline = data.sanityMe?.tagline ?? '';
+  const email = data.me?.email ?? '';
+  const portrait = data.me?.portrait?.asset?.fluid;
+  const tagline = data.me?.tagline ?? '';
+  const projectHighlights = data.highlights?.projects?.map((projectPreview) =>
+    normalizeProjectPreview(projectPreview!),
+  );
 
-  return <Home email={email} portrait={portrait} tagline={tagline} />;
+  return (
+    <Home
+      email={email}
+      portrait={portrait}
+      projectHighlights={projectHighlights}
+      tagline={tagline}
+    />
+  );
 };
 
 export const query = graphql`
   query IndexPage {
-    sanityMe(_id: { eq: "me" }) {
+    me: sanityMe(_id: { eq: "me" }) {
       email
       tagline
       portrait {
@@ -28,6 +39,12 @@ export const query = graphql`
             ...GatsbySanityImageFluid
           }
         }
+      }
+    }
+
+    highlights: sanityHighlights(_id: { eq: "highlights" }) {
+      projects {
+        ...ProjectPreview
       }
     }
   }

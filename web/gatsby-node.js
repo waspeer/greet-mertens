@@ -131,6 +131,10 @@ module.exports = {
         slug: SanitySlug!
         title: String!
       }
+
+      type SanityHighlight implements Node {
+        projects: [SanityProject!]
+      }
     `;
 
     createTypes(typeDefs);

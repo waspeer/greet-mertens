@@ -1,20 +1,16 @@
 .home {
   @screen md {
-    @apply flex flex-row items-center mt-6;
+    @apply flex flex-row mt-6;
+
+    min-height: 250px;
   }
 }
 
 .home__portrait {
   @screen md {
-    @apply w-1/2 relative;
+    @apply w-1/2 relative flex-1 self-stretch;
 
-    left: -1em;
-
-    &::before {
-      content: '';
-      display: block;
-      padding-top: 56.25%;
-    }
+    left: -0.5rem;
 
     & .gatsby-image-wrapper {
       @apply inset-0;
@@ -25,19 +21,21 @@
 }
 
 .home__text {
-  @apply text-center px-4 mt-6 text-lg;
+  @apply text-center px-4 mt-6 text-lg flex-1;
 
   & h2 {
     @apply text-5xl;
   }
 
   @screen md {
-    @apply text-left p-0;
+    @apply text-left p-0 pt-4 flex flex-col px-2 mt-0 self-end;
   }
 }
 
 .home__email {
-  @apply text-sm text-gray-500 relative;
+  @apply text-sm text-gray-500 relative mt-4 block;
+}
 
-  bottom: -1em;
+.home__projectHighlights {
+  @apply mt-4 -mb-2;
 }

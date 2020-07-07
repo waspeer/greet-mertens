@@ -12,15 +12,16 @@ import './project-preview-list.css';
 interface Props {
   className?: string;
   projectPreviews: ProjectPreviewType[];
+  type?: 'normal' | 'slim';
 }
 
-export const ProjectPreviewList = ({ className, projectPreviews }: Props) => {
+export const ProjectPreviewList = ({ className, projectPreviews, type }: Props) => {
   return (
     <ul className={classNames('projectPreviewList', 'focussedList', className)}>
       {projectPreviews.map((projectPreview) => (
         <li key={projectPreview.id}>
           <Link to={getProjectUrl(projectPreview)}>
-            <ProjectPreview projectPreview={projectPreview} />
+            <ProjectPreview projectPreview={projectPreview} type={type} />
           </Link>
         </li>
       ))}
