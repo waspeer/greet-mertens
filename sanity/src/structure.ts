@@ -4,6 +4,7 @@ import {
   RiFunctionLine,
   RiPriceTag3Line,
   RiSettings3Line,
+  RiStarLine,
   RiUser3Line,
 } from 'react-icons/ri';
 
@@ -25,6 +26,16 @@ export default () =>
         .icon(RiFunctionLine)
         .child(S.documentTypeList('project').title('Project')),
       S.listItem()
+        .title('Uitgelichte Projecten')
+        .icon(RiStarLine)
+        .child(
+          S.editor()
+            .id('highlights')
+            .schemaType('highlights')
+            .documentId('highlights')
+            .title('Uitgelichte Projecten'),
+        ),
+      S.listItem()
         .title('Categorieën')
         .icon(RiPriceTag3Line)
         .schemaType('category')
@@ -45,6 +56,8 @@ export default () =>
       // defined the structure above.
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !['category', 'me', 'article', 'project', 'siteSettings'].includes(listItem.getId()),
+          !['category', 'highlights', 'me', 'article', 'project', 'siteSettings'].includes(
+            listItem.getId(),
+          ),
       ),
     ]);

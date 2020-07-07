@@ -11,6 +11,7 @@ import { BodyText } from './objects/body-text';
 import { ExcerptText } from './objects/excerpt-text';
 import { Figure } from './objects/figure';
 import { Player } from './objects/player';
+import { Highlights } from './documents/highlights';
 
 export default createSchema({
   name: 'default',
@@ -24,6 +25,7 @@ export default createSchema({
     // DOCUMENTS
     Article,
     Category,
+    Highlights,
     Me,
     Project,
     Settings,
