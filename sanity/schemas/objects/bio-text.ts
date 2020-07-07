@@ -36,5 +36,6 @@ export const BioText: ArrayType<'figure' | 'player'> = {
         ],
       },
     },
+    { type: 'figure' },
   ],
 };
