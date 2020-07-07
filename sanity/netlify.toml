@@ -1,7 +1,9 @@
 [build]
   command = "yarn build"
   ignore = "git diff --quiet HEAD^ HEAD ."
-  publish = "public"
+  publish = "dist"
 
-[[plugins]]
-  package = "netlify-plugin-gatsby-cache"
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
