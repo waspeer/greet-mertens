@@ -3,9 +3,11 @@ import { nl } from 'date-fns/locale';
 import React from 'react';
 
 import { ArticlePreviewList } from '~/lib/components/article-preview-list';
+import { Figure } from '~/lib/components/figure';
 import type { ArticlePreview as ArticlePreviewType, Project as ProjectType } from '~/lib/types';
 
-import { CategoryList, Figure, ProjectBody } from './components';
+import { CategoryList, ProjectBody } from './components';
+
 import './project.css';
 
 interface Props {
@@ -33,7 +35,7 @@ export const Project = ({ project, relatedArticlePreviews }: Props) => {
         <div className="project__body">
           <ProjectBody body={body} />
         </div>
-        {relatedArticlePreviews && (
+        {!!relatedArticlePreviews.length && (
           <div className="project__relatedArticles">
             <h2 className="gentleHeading">Gerelateerde artikelen</h2>
 

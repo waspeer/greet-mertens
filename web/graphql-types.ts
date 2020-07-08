@@ -2656,6 +2656,8 @@ export type SanityBlockFilterListInput = {
   elemMatch?: Maybe<SanityBlockFilterInput>;
 };
 
+export type SanityBlockOrFigure = SanityBlock | SanityFigure;
+
 export type SanityBlockOrFigureOrPlayer = SanityBlock | SanityFigure | SanityPlayer;
 
 export type SanityCategory = SanityDocument & Node & {
