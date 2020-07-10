@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Link, useStaticQuery, graphql } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import { GatsbySeo } from 'gatsby-plugin-next-seo';
 import React from 'react';
 
-import '~/styles/tailwind.css';
-import './layout.css';
-import { sanityImageUrlBuilder } from '../helpers/sanity-image-url-builder';
 import { getSanityOpenGraphImage } from '../helpers/get-sanity-image-open-graph-url';
 
 import { LayoutQuery } from '~/../graphql-types';
+
+import '~/styles/tailwind.css';
+import './layout.css';
 
 interface Props {
   children: React.ReactNode;
