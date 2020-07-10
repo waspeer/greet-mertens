@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactPlayer from 'react-player';
 import { RiPlayCircleLine } from 'react-icons/ri';
+import ReactPlayer from 'react-player';
 
 import type { ObjectType } from '../../lib/data-types';
 
