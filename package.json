@@ -9,5 +9,7 @@
     "dev:sanity": "yarn --cwd sanity dev",
     "dev:web": "yarn --cwd web dev"
   },
-  "dependencies": {}
+  "dependencies": {
+    "gatsby-plugin-manifest": "^2.4.18"
+  }
 }

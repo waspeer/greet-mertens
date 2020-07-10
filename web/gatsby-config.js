@@ -30,5 +30,17 @@ module.exports = {
       },
     },
     'gatsby-plugin-next-seo',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: path.resolve(__dirname, 'src/icon.png'),
+        name: 'Greet Mertens',
+        short_name: 'Greet Mertens',
+        start_url: '/',
+        background_color: '#FFF',
+        theme_color: '#000',
+        display: 'standalone',
+      },
+    },
   ],
 };
