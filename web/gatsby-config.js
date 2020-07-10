@@ -26,8 +26,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-layout',
       options: {
-        component: path.join(__dirname, 'src/lib/components/layout'),
+        component: path.join(__dirname, 'src/lib/layout'),
       },
     },
+    'gatsby-plugin-next-seo',
   ],
 };

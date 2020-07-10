@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { GatsbySeo } from 'gatsby-plugin-next-seo';
 
 import type { Category } from '~/lib/types';
 import { CategoriesOverview } from '~/sections/categories-overview';
@@ -17,7 +18,13 @@ const CategoriesPage = ({ data }: Props) => {
     ...rest,
   }));
 
-  return <CategoriesOverview categories={categories} />;
+  return (
+    <>
+      <GatsbySeo title="Categorieën" openGraph={{ title: 'Categorieën' }} />
+
+      <CategoriesOverview categories={categories} />
+    </>
+  );
 };
 
 export const query = graphql`

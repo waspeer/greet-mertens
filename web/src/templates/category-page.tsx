@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { GatsbySeo } from 'gatsby-plugin-next-seo';
 
 import { CategoryOverview } from '~/sections/category-overview';
 import { normalizeArticlePreview } from '~/lib/helpers/normalize-article-preview';
@@ -18,11 +19,22 @@ const CategoryPage = ({ data }: Props) => {
   const projectPreviews = data.projects.nodes.map((node) => normalizeProjectPreview(node));
 
   return (
-    <CategoryOverview
-      category={category}
-      articlePreviews={articlePreviews}
-      projectPreviews={projectPreviews}
-    />
+    <>
+      <GatsbySeo
+        description={category.description ?? ''}
+        title={category.title}
+        openGraph={{
+          description: category.description ?? '',
+          title: category.title ?? '',
+        }}
+      />
+
+      <CategoryOverview
+        category={category}
+        articlePreviews={articlePreviews}
+        projectPreviews={projectPreviews}
+      />
+    </>
   );
 };
 
@@ -51,21 +63,7 @@ export const query = graphql`
       }
     ) {
       nodes {
-        _rawExcerpt
-        id
-        mainImage {
-          asset {
-            fluid(maxWidth: 600) {
-              ...GatsbySanityImageFluid
-            }
-          }
-          alt
-        }
-        publishedAt
-        slug {
-          current
-        }
-        title
+        ...ArticlePreview
       }
     }
 
@@ -78,22 +76,7 @@ export const query = graphql`
       }
     ) {
       nodes {
-        _rawExcerpt
-        id
-        isCurrent
-        mainImage {
-          asset {
-            fluid(maxWidth: 600) {
-              ...GatsbySanityImageFluid
-            }
-          }
-          alt
-        }
-        publishedAt
-        slug {
-          current
-        }
-        title
+        ...ProjectPreview
       }
     }
   }

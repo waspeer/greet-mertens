@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { GatsbySeo } from 'gatsby-plugin-next-seo';
 
 import { normalizeArticlePreview } from '~/lib/helpers/normalize-article-preview';
 import { ArticleArchive } from '~/sections/article-archive';
@@ -13,7 +14,13 @@ interface Props {
 const Archive = ({ data }: Props) => {
   const articlePreviews = data.articles.edges.map(({ node }) => normalizeArticlePreview(node));
 
-  return <ArticleArchive articlePreviews={articlePreviews} />;
+  return (
+    <>
+      <GatsbySeo title="Archief" openGraph={{ title: 'Archief' }} />
+
+      <ArticleArchive articlePreviews={articlePreviews} />
+    </>
+  );
 };
 
 export const query = graphql`

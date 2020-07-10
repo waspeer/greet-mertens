@@ -28,7 +28,7 @@ export const CategoryOverview = ({ category, articlePreviews, projectPreviews }:
   return (
     <div className="container">
       <div className="categoryOverview__navigation">
-        <Link to="/categories">&lt; Naar alle categorieën</Link>
+        <Link to="/categorieen">&lt; Naar alle categorieën</Link>
       </div>
 
       <div className="categoryOverview__info">

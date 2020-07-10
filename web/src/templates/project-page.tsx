@@ -1,9 +1,12 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { GatsbySeo } from 'gatsby-plugin-next-seo';
 
 import { normalizeProject } from '~/lib/helpers/normalize-project';
 import { Project } from '~/sections/project';
 import { normalizeArticlePreview } from '~/lib/helpers/normalize-article-preview';
+import { sanityBlocksToPlainText } from '~/lib/helpers/sanity-blocks-to-plain-text';
+import { getSanityOpenGraphImage } from '~/lib/helpers/get-sanity-image-open-graph-url';
 
 import { ProjectPageQuery } from '~/../graphql-types';
 
@@ -16,39 +19,38 @@ const ProjectPage = ({ data }: Props) => {
   const relatedArticlePreviews = data.relatedArticles.edges.map(({ node }) =>
     normalizeArticlePreview(node),
   );
+  const description = sanityBlocksToPlainText(data.project!._rawExcerpt);
 
-  return <Project project={project} relatedArticlePreviews={relatedArticlePreviews} />;
+  return (
+    <>
+      <GatsbySeo
+        description={description}
+        title={project.title}
+        openGraph={{
+          description,
+          title: project.title,
+          images: [
+            getSanityOpenGraphImage(
+              data.project?.mainImage,
+              project.mainImage?.alt ?? project.title,
+            ),
+          ],
+        }}
+      />
+
+      <Project project={project} relatedArticlePreviews={relatedArticlePreviews} />
+    </>
+  );
 };
 
 export const query = graphql`
   query ProjectPage($id: String!) {
     project: sanityProject(id: { eq: $id }) {
-      categories {
-        color
-        description
-        icon {
-          native
-        }
-        id
-        slug {
-          current
-        }
-        title
-      }
-      id
-      isCurrent
+      ...Project
+      _rawExcerpt
       mainImage {
-        alt
-        asset {
-          fluid {
-            ...GatsbySanityImageFluid
-          }
-        }
-        caption
+        ...TransformableFigure
       }
-      publishedAt
-      title
-      _rawBody
     }
 
     relatedArticles: allSanityArticle(
@@ -61,21 +63,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          id
-          publishedAt
-          mainImage {
-            asset {
-              fluid(maxWidth: 700) {
-                ...GatsbySanityImageFluid
-              }
-            }
-            alt
-          }
-          title
-          _rawExcerpt
-          slug {
-            current
-          }
+          ...ArticlePreview
         }
       }
     }

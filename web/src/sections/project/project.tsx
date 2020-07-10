@@ -9,6 +9,7 @@ import type { ArticlePreview as ArticlePreviewType, Project as ProjectType } fro
 import { CategoryList, ProjectBody } from './components';
 
 import './project.css';
+import { graphql } from 'gatsby';
 
 interface Props {
   project: ProjectType;
@@ -46,3 +47,34 @@ export const Project = ({ project, relatedArticlePreviews }: Props) => {
     </article>
   );
 };
+
+export const query = graphql`
+  fragment Project on SanityProject {
+    categories {
+      color
+      description
+      icon {
+        native
+      }
+      id
+      slug {
+        current
+      }
+      title
+    }
+    id
+    isCurrent
+    mainImage {
+      alt
+      asset {
+        fluid {
+          ...GatsbySanityImageFluid
+        }
+      }
+      caption
+    }
+    publishedAt
+    title
+    _rawBody
+  }
+`;

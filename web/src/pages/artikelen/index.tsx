@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { GatsbySeo } from 'gatsby-plugin-next-seo';
 
 import { ArticleRecentList } from '~/sections/article-recent-list';
 import { normalizeArticlePreview } from '~/lib/helpers/normalize-article-preview';
@@ -14,10 +15,14 @@ const ArticlesPage = ({ data }: Props) => {
   const articlePreviews = data.articles.edges.map(({ node }) => normalizeArticlePreview(node));
 
   return (
-    <ArticleRecentList
-      hasMoreArticles={data.articles.pageInfo.hasNextPage}
-      articlePreviews={articlePreviews}
-    />
+    <>
+      <GatsbySeo title="Artikelen" openGraph={{ title: 'Artikelen' }} />
+
+      <ArticleRecentList
+        hasMoreArticles={data.articles.pageInfo.hasNextPage}
+        articlePreviews={articlePreviews}
+      />
+    </>
   );
 };
 

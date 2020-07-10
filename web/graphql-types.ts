@@ -7293,6 +7293,15 @@ export type ProjectPreviewFragment = (
   )>, slug: Pick<SanitySlug, 'current'> }
 );
 
+export type LayoutQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LayoutQuery = { me?: Maybe<{ portrait?: Maybe<TransformableImageFragment> }>, settings?: Maybe<Pick<SanitySiteSettings, 'description'>> };
+
+export type TransformableImageFragment = { crop?: Maybe<Pick<SanityImageCrop, '_key' | '_type' | 'top' | 'bottom' | 'left' | 'right'>>, hotspot?: Maybe<Pick<SanityImageHotspot, '_key' | '_type' | 'x' | 'y' | 'height' | 'width'>>, asset?: Maybe<Pick<SanityImageAsset, '_id'>> };
+
+export type TransformableFigureFragment = { crop?: Maybe<Pick<SanityImageCrop, '_key' | '_type' | 'top' | 'bottom' | 'left' | 'right'>>, hotspot?: Maybe<Pick<SanityImageHotspot, '_key' | '_type' | 'x' | 'y' | 'height' | 'width'>>, asset?: Maybe<Pick<SanityImageAsset, '_id'>> };
+
 export type ArticleArchivePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -7324,10 +7333,32 @@ export type IndexPageQuery = { me?: Maybe<(
     & { portrait?: Maybe<{ asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }> }
   )>, highlights?: Maybe<{ projects?: Maybe<Array<Maybe<ProjectPreviewFragment>>> }> };
 
-export type PortfolioPageQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProjectsPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PortfolioPageQuery = { currentProjects: { nodes: Array<ProjectPreviewFragment> }, publishedProjects: { nodes: Array<ProjectPreviewFragment> } };
+export type ProjectsPageQuery = { currentProjects: { nodes: Array<ProjectPreviewFragment> }, publishedProjects: { nodes: Array<ProjectPreviewFragment> } };
+
+export type ArticleFragment = (
+  Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawBody'>
+  & { categories: Array<(
+    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
+    & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
+  )>, mainImage?: Maybe<(
+    Pick<SanityFigure, 'alt' | 'caption'>
+    & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
+  )> }
+);
+
+export type ProjectFragment = (
+  Pick<SanityProject, 'id' | 'isCurrent' | 'publishedAt' | 'title' | '_rawBody'>
+  & { categories: Array<(
+    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
+    & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
+  )>, mainImage?: Maybe<(
+    Pick<SanityFigure, 'alt' | 'caption'>
+    & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
+  )> }
+);
 
 export type ArticlePageQueryVariables = Exact<{
   id: Scalars['String'];
@@ -7335,14 +7366,9 @@ export type ArticlePageQueryVariables = Exact<{
 
 
 export type ArticlePageQuery = { article?: Maybe<(
-    Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawBody'>
-    & { categories: Array<(
-      Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-      & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
-    )>, mainImage?: Maybe<(
-      Pick<SanityFigure, 'alt' | 'caption'>
-      & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-    )> }
+    Pick<SanityArticle, '_rawExcerpt'>
+    & { mainImage?: Maybe<TransformableFigureFragment> }
+    & ArticleFragment
   )> };
 
 export type CategoryPageQueryVariables = Exact<{
@@ -7353,19 +7379,7 @@ export type CategoryPageQueryVariables = Exact<{
 export type CategoryPageQuery = { category?: Maybe<(
     Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
     & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
-  )>, articles: { nodes: Array<(
-      Pick<SanityArticle, '_rawExcerpt' | 'id' | 'publishedAt' | 'title'>
-      & { mainImage?: Maybe<(
-        Pick<SanityFigure, 'alt'>
-        & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-      )>, slug: Pick<SanitySlug, 'current'> }
-    )> }, projects: { nodes: Array<(
-      Pick<SanityProject, '_rawExcerpt' | 'id' | 'isCurrent' | 'publishedAt' | 'title'>
-      & { mainImage?: Maybe<(
-        Pick<SanityFigure, 'alt'>
-        & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-      )>, slug: Pick<SanitySlug, 'current'> }
-    )> } };
+  )>, articles: { nodes: Array<ArticlePreviewFragment> }, projects: { nodes: Array<ProjectPreviewFragment> } };
 
 export type ProjectPageQueryVariables = Exact<{
   id: Scalars['String'];
@@ -7373,21 +7387,10 @@ export type ProjectPageQueryVariables = Exact<{
 
 
 export type ProjectPageQuery = { project?: Maybe<(
-    Pick<SanityProject, 'id' | 'isCurrent' | 'publishedAt' | 'title' | '_rawBody'>
-    & { categories: Array<(
-      Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-      & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
-    )>, mainImage?: Maybe<(
-      Pick<SanityFigure, 'alt' | 'caption'>
-      & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-    )> }
-  )>, relatedArticles: { edges: Array<{ node: (
-        Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
-        & { mainImage?: Maybe<(
-          Pick<SanityFigure, 'alt'>
-          & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-        )>, slug: Pick<SanitySlug, 'current'> }
-      ) }> } };
+    Pick<SanityProject, '_rawExcerpt'>
+    & { mainImage?: Maybe<TransformableFigureFragment> }
+    & ProjectFragment
+  )>, relatedArticles: { edges: Array<{ node: ArticlePreviewFragment }> } };
 
 export type GatsbySanityImageFixedFragment = Pick<SanityImageFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
 

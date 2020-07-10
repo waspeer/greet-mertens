@@ -5,7 +5,9 @@ import React from 'react';
 import type { Article as ArticleType } from '~/lib/types';
 
 import { CategoryList, Figure, ArticleBody } from './components';
+
 import './article.css';
+import { graphql } from 'gatsby';
 
 interface Props {
   article: ArticleType;
@@ -34,3 +36,33 @@ export const Article = ({ article }: Props) => {
     </article>
   );
 };
+
+export const query = graphql`
+  fragment Article on SanityArticle {
+    categories {
+      color
+      description
+      icon {
+        native
+      }
+      id
+      slug {
+        current
+      }
+      title
+    }
+    id
+    mainImage {
+      alt
+      asset {
+        fluid {
+          ...GatsbySanityImageFluid
+        }
+      }
+      caption
+    }
+    publishedAt
+    title
+    _rawBody
+  }
+`;
