@@ -1,4 +1,3 @@
-import PortableText from '@sanity/block-content-to-react';
 import React from 'react';
 
 import { ContactBio } from './components/contact-bio';

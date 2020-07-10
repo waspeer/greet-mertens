@@ -1,13 +1,12 @@
 import { differenceInDays, format, formatDistanceToNow } from 'date-fns';
 import { nl } from 'date-fns/locale';
+import { graphql } from 'gatsby';
 import React from 'react';
 
 import type { Article as ArticleType } from '~/lib/types';
 
-import { CategoryList, Figure, ArticleBody } from './components';
-
 import './article.css';
-import { graphql } from 'gatsby';
+import { ArticleBody, CategoryList, Figure } from './components';
 
 interface Props {
   article: ArticleType;

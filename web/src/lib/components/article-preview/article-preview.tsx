@@ -1,13 +1,12 @@
 import PortableText from '@sanity/block-content-to-react';
 import { format } from 'date-fns';
 import { nl as locale } from 'date-fns/locale';
+import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import React from 'react';
 
 import type { ArticlePreview as ArticlePreviewType } from '~/lib/types';
-
 import './article-preview.css';
-import { graphql } from 'gatsby';
 
 interface Props {
   articlePreview: Pick<

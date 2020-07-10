@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { nl } from 'date-fns/locale';
+import { graphql } from 'gatsby';
 import React from 'react';
 
 import { ArticlePreviewList } from '~/lib/components/article-preview-list';
@@ -7,9 +8,7 @@ import { Figure } from '~/lib/components/figure';
 import type { ArticlePreview as ArticlePreviewType, Project as ProjectType } from '~/lib/types';
 
 import { CategoryList, ProjectBody } from './components';
-
 import './project.css';
-import { graphql } from 'gatsby';
 
 interface Props {
   project: ProjectType;
