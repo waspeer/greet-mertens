@@ -29,7 +29,7 @@ export const Me: DocumentType<'bioText'> = {
       name: 'email',
       title: 'Email',
       type: 'string',
-      validation: (Rule) => Rule.email(),
+      validation: (Rule) => Rule.email().error('Moet een geldig email adres zijn'),
     },
     {
       fieldset: 'contact',

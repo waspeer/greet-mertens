@@ -5,10 +5,11 @@ import type { ImageType } from '../../lib/data-types';
 export const Figure: ImageType = {
   name: 'figure',
   type: 'image',
-  title: 'Image',
+  title: 'Afbeelding',
   icon: RiImage2Line,
   fields: [
     {
+      description: 'Dit wordt onder de afbeelding weergegeven',
       name: 'caption',
       type: 'string',
       title: 'Caption',
@@ -18,12 +19,16 @@ export const Figure: ImageType = {
       },
     },
     {
+      description:
+        'Beschrijf wat er in de afbeelding staat. Deze tekst wordt gebruikt door middelen voor slechtzienden.',
       name: 'alt',
       type: 'string',
-      title: 'Alternative text',
-      description: 'Important for SEO and accessiblity.',
-      validation: (Rule) => Rule.error('You have to fill out the alternative text.').required(),
-      options: { isHighlighted: true },
+      title: 'Alternatieve Tekst',
+      validation: (Rule) => Rule.required().error('Alternatieve Tekst is een verplicht veld'),
+      options: {
+        isHighlighted: true,
+      },
     },
   ],
+  validation: (Rule) => Rule.required().error('Selecteer een afbeelding'),
 };

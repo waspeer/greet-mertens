@@ -5,17 +5,17 @@ export const ExcerptText: ArrayType = {
   type: 'array',
   of: [
     {
-      title: 'Block',
       type: 'block',
-      styles: [{ title: 'Normal', value: 'normal' }],
+      styles: [{ title: 'Normaal', value: 'normal' }],
       lists: [],
       marks: {
         decorators: [
-          { title: 'Strong', value: 'strong' },
-          { title: 'Emphasis', value: 'em' },
+          { title: 'Vetgedrukt', value: 'strong' },
+          { title: 'Cursief', value: 'em' },
         ],
         annotations: [],
       },
     },
   ],
+  validation: (Rule) => Rule.required().error('Vul een samenvatting in'),
 };

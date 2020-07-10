@@ -8,51 +8,50 @@ export const Project: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
     {
       name: 'title',
       type: 'string',
-      title: 'Title',
-      description: 'Titles should be catchy, descriptive, and not too long',
-      validation: (Rule) => Rule.required(),
+      title: 'Titel',
+      validation: (Rule) => Rule.required().error('Vul een titel in'),
     },
     {
       name: 'isCurrent',
       type: 'boolean',
-      title: 'Currently working on',
-      description: "Show the project as 'currently working on'",
+      title: 'Nog lopend project',
+      description: "Laat het project zien als 'nog lopend project'",
     },
     {
       name: 'slug',
       type: 'slug',
       title: 'Slug',
-      description: 'Some frontends will require a slug to be set to be able to show the project',
+      description: 'Dit is onderdeel van de URL',
       options: {
         source: 'title',
         maxLength: 96,
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error('Vul of genereer een slug'),
     },
     {
       name: 'publishedAt',
       type: 'datetime',
-      title: 'Published at',
-      description: 'This can be used to schedule project for publishing',
+      title: 'Gepubliceerd op',
+      description: 'Hiermee kun je inplannen wanneer het project openbaar wordt',
     },
     {
       name: 'mainImage',
       type: 'figure',
-      title: 'Main image',
-      validation: (Rule) => Rule.required(),
+      title: 'Afbeelding',
+      validation: (Rule) => Rule.required().error('Selecteer een afbeelding'),
     },
     {
       name: 'excerpt',
       type: 'excerptText',
-      title: 'Excerpt',
+      title: 'Samenvatting',
       description:
-        'This ends up on summary pages, on Google, when people share your project on social media.',
-      validation: (Rule) => Rule.required(),
+        "Deze tekst wordt gebruikt op samenvattingpagina's, voor Google, en wanneer mensen de post delen op social media.",
+      validation: (Rule) => Rule.required().error('Vul een samenvatting in'),
     },
     {
       name: 'categories',
       type: 'array',
-      title: 'Categories',
+      title: 'Categorieën',
       of: [
         {
           name: 'category',
@@ -64,8 +63,8 @@ export const Project: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
     {
       name: 'body',
       type: 'bodyText',
-      title: 'Body',
-      validation: (Rule) => Rule.required(),
+      title: 'Inhoud',
+      validation: (Rule) => Rule.required().error('Inhoud is een verplicht veld'),
     },
   ],
   preview: {

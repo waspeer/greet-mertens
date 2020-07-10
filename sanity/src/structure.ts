@@ -18,13 +18,13 @@ export default () =>
         .child(S.editor().id('me').schemaType('me').documentId('me').title('Over Mij')),
       S.divider(),
       S.listItem()
+        .title('Projecten')
+        .icon(RiFunctionLine)
+        .child(S.documentTypeList('project').title('Project')),
+      S.listItem()
         .title('Artikelen')
         .icon(RiArticleLine)
         .child(S.documentTypeList('article').title('Artikel')),
-      S.listItem()
-        .title('Portfolio')
-        .icon(RiFunctionLine)
-        .child(S.documentTypeList('project').title('Project')),
       S.listItem()
         .title('Uitgelichte Projecten')
         .icon(RiStarLine)

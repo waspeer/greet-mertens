@@ -19,14 +19,14 @@ export const Player: ObjectType = {
       type: 'url',
       title: 'URL',
       description:
-        'Enter a url for YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia, Mixcloud, or DailyMotion',
+        'Vul een link in naar YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia, Mixcloud, of DailyMotion',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'caption',
       type: 'string',
       title: 'Caption',
-      description: 'Short description',
+      description: 'Korte beschrijving',
     },
   ],
   preview: {

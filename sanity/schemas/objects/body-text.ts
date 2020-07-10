@@ -6,27 +6,26 @@ export const BodyText: ArrayType<'figure' | 'player'> = {
   of: [
     {
       type: 'block',
-      title: 'Block',
       styles: [
-        { title: 'Normal', value: 'normal' },
-        { title: 'Heading', value: 'h2' },
-        { title: 'Sub-Heading', value: 'h3' },
+        { title: 'Normaal', value: 'normal' },
+        { title: 'Kop', value: 'h2' },
+        { title: 'Subkop', value: 'h3' },
         { title: 'Quote', value: 'blockquote' },
       ],
       lists: [
-        { title: 'Bullet', value: 'bullet' },
-        { title: 'Number', value: 'number' },
+        { title: 'Opsomming', value: 'bullet' },
+        { title: 'Genummerd', value: 'number' },
       ],
       marks: {
         decorators: [
-          { title: 'Strong', value: 'strong' },
-          { title: 'Emphasis', value: 'em' },
+          { title: 'Vetgedrukt', value: 'strong' },
+          { title: 'Cursief', value: 'em' },
         ],
         annotations: [
           {
             name: 'link',
             type: 'object',
-            title: 'URL',
+            title: 'Link',
             fields: [
               {
                 title: 'URL',
@@ -41,4 +40,5 @@ export const BodyText: ArrayType<'figure' | 'player'> = {
     { type: 'figure' },
     { type: 'player' },
   ],
+  validation: (Rule) => Rule.required().error('Tekst mag niet leeg zijn'),
 };

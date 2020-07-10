@@ -8,23 +8,23 @@ export const BioText: ArrayType<'figure' | 'player'> = {
       type: 'block',
       title: 'Block',
       styles: [
-        { title: 'Normal', value: 'normal' },
+        { title: 'Normaal', value: 'normal' },
         { title: 'Quote', value: 'blockquote' },
       ],
       lists: [
-        { title: 'Bullet', value: 'bullet' },
-        { title: 'Number', value: 'number' },
+        { title: 'Opsomming', value: 'bullet' },
+        { title: 'Genummerd', value: 'number' },
       ],
       marks: {
         decorators: [
-          { title: 'Strong', value: 'strong' },
-          { title: 'Emphasis', value: 'em' },
+          { title: 'Vetgedrukt', value: 'strong' },
+          { title: 'Cursief', value: 'em' },
         ],
         annotations: [
           {
             name: 'link',
             type: 'object',
-            title: 'URL',
+            title: 'Link',
             fields: [
               {
                 title: 'URL',

@@ -3,22 +3,22 @@ import type { DocumentType } from '../../lib/data-types';
 export const Settings: DocumentType = {
   name: 'siteSettings',
   type: 'document',
-  title: 'Site Settings',
+  title: 'Instellingen',
   fieldsets: [{ name: 'seo', title: 'SEO', description: 'Gegevens voor zoekmachines' }],
   fields: [
     {
       name: 'description',
       type: 'text',
       fieldset: 'seo',
-      title: 'Description',
-      description: 'Describe your blog for search engines and social media.',
+      title: 'Beschrijving',
+      description: 'Beschrijf je website voor zoekmachines en social media',
     },
     {
       name: 'keywords',
       type: 'array',
       fieldset: 'seo',
-      title: 'Keywords',
-      description: 'Add keywords that describes your blog.',
+      title: 'Sleutelwoorden',
+      description: 'Voeg sleutelwoorden toe die jouw website beschrijven.',
       of: [{ name: 'keyword', type: 'string' }],
       options: { layout: 'tags' },
     },

@@ -11,7 +11,7 @@ export const Article: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
       name: 'title',
       type: 'string',
       title: 'Titel',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error('Titel is een verplicht veld'),
     },
     {
       name: 'slug',
@@ -22,7 +22,7 @@ export const Article: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
         source: 'title',
         maxLength: 96,
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error('Slug is een verplicht veld'),
     },
     {
       name: 'publishedAt',
@@ -34,7 +34,7 @@ export const Article: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
       name: 'mainImage',
       type: 'figure',
       title: 'Afbeelding',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error('Afbeelding is een verplicht veld'),
     },
     {
       name: 'excerpt',
@@ -42,7 +42,7 @@ export const Article: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
       title: 'Samenvatting',
       description:
         "Deze tekst wordt gebruikt op samenvattingpagina's, voor Google, en wanneer mensen de post delen op social media.",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error('Samenvatting is een verplicht veld'),
     },
     {
       name: 'categories',
@@ -66,7 +66,7 @@ export const Article: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
       name: 'body',
       type: 'bodyText',
       title: 'Inhoud',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error('Inhoud is een verplicht veld'),
     },
   ],
   preview: {
@@ -77,8 +77,8 @@ export const Article: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
       title: 'title',
     },
     prepare({ media, publishedAt, slug, title = 'Geen titel' }) {
-      const dateSegment = format(new Date(publishedAt), 'yyyy/MM');
-      const path = `artikelen/${dateSegment}/${slug.current}/`;
+      const dateSegment = publishedAt && format(new Date(publishedAt), 'yyyy/MM');
+      const path = `artikelen/${dateSegment}/${slug?.current}/`;
 
       return {
         title,

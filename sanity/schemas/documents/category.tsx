@@ -6,15 +6,16 @@ import type { DocumentType } from '../../lib/data-types';
 export const Category: DocumentType<'colors' | 'emoji'> = {
   name: 'category',
   type: 'document',
-  title: 'Category',
+  title: 'Categorie',
   fields: [
     {
       name: 'title',
       type: 'string',
-      title: 'Title',
-      validation: (Rule) => Rule.required(),
+      title: 'Titel',
+      validation: (Rule) => Rule.required().error('Vul een titel in'),
     },
     {
+      description: 'Dit is onderdeel van de URL',
       name: 'slug',
       type: 'slug',
       title: 'Slug',
@@ -22,12 +23,13 @@ export const Category: DocumentType<'colors' | 'emoji'> = {
         source: 'title',
         maxLength: 96,
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().error('Vul een slug in'),
     },
     {
+      description: 'Geef de categorie optioneel een pictogram',
       name: 'icon',
       type: 'emoji',
-      title: 'Icon',
+      title: 'Pictogram',
       options: {
         hideSummary: true,
       },
@@ -35,22 +37,21 @@ export const Category: DocumentType<'colors' | 'emoji'> = {
     {
       name: 'color',
       type: 'colors',
-      title: 'Color',
+      title: 'Kleur',
       options: {
         list: [
           { title: 'Onyx', value: '#303633' },
           { title: 'Mint', value: '#8BE8CB' },
-          { title: 'Mint', value: '#8BE8CB' },
-          { title: 'Blueish', value: '#7EA2AA' },
-          { title: 'Greyish', value: '#888DA7' },
-          { title: 'Pinkish', value: '#9C7A97' },
+          { title: 'Blueish', value: '#9CB8BF' },
+          { title: 'Greyish', value: '#B0B3C4' },
+          { title: 'Pinkish', value: '#C2ADBF' },
         ],
       },
     },
     {
       name: 'description',
       type: 'text',
-      title: 'Description',
+      title: 'Beschrijving',
     },
   ],
   preview: {
