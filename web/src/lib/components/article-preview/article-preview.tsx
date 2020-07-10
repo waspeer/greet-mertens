@@ -5,7 +5,9 @@ import Image from 'gatsby-image';
 import React from 'react';
 
 import type { ArticlePreview as ArticlePreviewType } from '~/lib/types';
+
 import './article-preview.css';
+import { graphql } from 'gatsby';
 
 interface Props {
   articlePreview: Pick<
@@ -34,3 +36,23 @@ export const ArticlePreview = ({ articlePreview }: Props) => {
     </div>
   );
 };
+
+export const query = graphql`
+  fragment ArticlePreview on SanityArticle {
+    id
+    publishedAt
+    mainImage {
+      asset {
+        fluid(maxWidth: 700) {
+          ...GatsbySanityImageFluid
+        }
+      }
+      alt
+    }
+    title
+    _rawExcerpt
+    slug {
+      current
+    }
+  }
+`;

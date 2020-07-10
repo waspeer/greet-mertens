@@ -7277,6 +7277,14 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
+export type ArticlePreviewFragment = (
+  Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
+  & { mainImage?: Maybe<(
+    Pick<SanityFigure, 'alt'>
+    & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
+  )>, slug: Pick<SanitySlug, 'current'> }
+);
+
 export type ProjectPreviewFragment = (
   Pick<SanityProject, 'id' | 'isCurrent' | 'title' | '_rawExcerpt'>
   & { mainImage?: Maybe<(
@@ -7288,24 +7296,12 @@ export type ProjectPreviewFragment = (
 export type ArticleArchivePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ArticleArchivePageQuery = { articles: { edges: Array<{ node: (
-        Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
-        & { mainImage?: Maybe<(
-          Pick<SanityFigure, 'alt'>
-          & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-        )>, slug: Pick<SanitySlug, 'current'> }
-      ) }> } };
+export type ArticleArchivePageQuery = { articles: { edges: Array<{ node: ArticlePreviewFragment }> } };
 
 export type ArticlesPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ArticlesPageQuery = { articles: { edges: Array<{ node: (
-        Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawExcerpt'>
-        & { mainImage?: Maybe<(
-          Pick<SanityFigure, 'alt'>
-          & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-        )>, slug: Pick<SanitySlug, 'current'> }
-      ) }>, pageInfo: Pick<PageInfo, 'hasNextPage'> } };
+export type ArticlesPageQuery = { articles: { edges: Array<{ node: ArticlePreviewFragment }>, pageInfo: Pick<PageInfo, 'hasNextPage'> } };
 
 export type CategoriesPageQueryVariables = Exact<{ [key: string]: never; }>;
 

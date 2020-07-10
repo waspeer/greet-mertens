@@ -25,21 +25,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          id
-          publishedAt
-          mainImage {
-            asset {
-              fluid(maxWidth: 700) {
-                ...GatsbySanityImageFluid
-              }
-            }
-            alt
-          }
-          title
-          _rawExcerpt
-          slug {
-            current
-          }
+          ...ArticlePreview
         }
       }
     }

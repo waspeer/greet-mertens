@@ -20,24 +20,6 @@ const PortfolioPage = ({ data }: Props) => {
 };
 
 export const query = graphql`
-  fragment ProjectPreview on SanityProject {
-    id
-    isCurrent
-    mainImage {
-      asset {
-        fluid(maxWidth: 700) {
-          ...GatsbySanityImageFluid
-        }
-      }
-      alt
-    }
-    title
-    _rawExcerpt
-    slug {
-      current
-    }
-  }
-
   query PortfolioPage {
     currentProjects: allSanityProject(
       filter: { slug: { current: { ne: null } }, isCurrent: { eq: true } }
