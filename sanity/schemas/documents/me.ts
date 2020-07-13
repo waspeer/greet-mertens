@@ -10,6 +10,7 @@ export const Me: DocumentType<'bioText'> = {
       name: 'portrait',
       title: 'Portret',
       type: 'image',
+      validation: (Rule) => Rule.required().error('Kies een portret foto'),
     },
     {
       description:
