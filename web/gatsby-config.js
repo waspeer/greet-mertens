@@ -19,8 +19,8 @@ module.exports = {
         projectId: process.env.GATSBY_SANITY_PROJECT_ID,
         dataset: process.env.GATSBY_SANITY_DATASET,
         token: process.env.SANITY_TOKEN,
-        watchMode: true,
-        overlayDrafts: true,
+        watchMode: process.env.NODE_ENV === 'development',
+        overlayDrafts: process.env.NODE_ENV === 'development',
       },
     },
     {
