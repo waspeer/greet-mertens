@@ -1,0 +1,9 @@
+.categoryBadge {
+  @apply rounded px-2 pb-px;
+  @apply text-xs lowercase;
+  @apply cursor-default select-none;
+
+  & span {
+    @apply mr-1;
+  }
+}

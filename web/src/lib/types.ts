@@ -71,6 +71,7 @@ export interface Project {
 }
 
 export interface ProjectPreview {
+  categories: Category[];
   excerpt: any[];
   id: string;
   isCurrent: boolean;

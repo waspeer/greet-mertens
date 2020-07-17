@@ -4,7 +4,9 @@ import Image from 'gatsby-image';
 import React from 'react';
 
 import type { ProjectPreview as ProjectPreviewType } from '~/lib/types';
+
 import './project-preview.css';
+import { CategoryBadge } from '../category-badge';
 
 interface Props {
   projectPreview: Omit<ProjectPreviewType, 'slug'>;
@@ -12,7 +14,7 @@ interface Props {
 }
 
 export const ProjectPreview = ({ projectPreview, type = 'normal' }: Props) => {
-  const { isCurrent, mainImage, title, excerpt } = projectPreview;
+  const { categories, isCurrent, mainImage, title, excerpt } = projectPreview;
 
   return (
     <div className="projectPreview">
@@ -24,6 +26,9 @@ export const ProjectPreview = ({ projectPreview, type = 'normal' }: Props) => {
       {type === 'normal' && (
         <div className="projectPreview__text">
           <h3>{title}</h3>
+          {!!categories.length && (
+            <CategoryBadge category={categories[0]} className="projectPreview__category" />
+          )}
           <div className="projectPreview__excerpt">
             <PortableText blocks={excerpt} />
           </div>
@@ -35,6 +40,18 @@ export const ProjectPreview = ({ projectPreview, type = 'normal' }: Props) => {
 
 export const query = graphql`
   fragment ProjectPreview on SanityProject {
+    categories {
+      color
+      description
+      icon {
+        native
+      }
+      id
+      slug {
+        current
+      }
+      title
+    }
     id
     isCurrent
     mainImage {

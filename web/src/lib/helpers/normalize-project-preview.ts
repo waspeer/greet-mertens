@@ -1,31 +1,21 @@
 import type { ProjectPreview } from '../types';
 
-import type {
-  Maybe,
-  SanityFigure,
-  GatsbySanityImageFluidFragment,
-  SanitySlug,
-  SanityProject,
-} from '~/../graphql-types';
+import { normalizeCategory } from './normalize-category';
 
-type GraphQLData = Pick<
-  SanityProject,
-  'id' | 'isCurrent' | 'publishedAt' | 'title' | '_rawExcerpt'
-> & {
-  mainImage?: Maybe<
-    Pick<SanityFigure, 'alt'> & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
-  >;
-  slug: Pick<SanitySlug, 'current'>;
-};
+import type { ProjectPreviewFragment } from '~/../graphql-types';
+
+type GraphQLData = ProjectPreviewFragment;
 
 export function normalizeProjectPreview({
   _rawExcerpt,
+  categories,
   isCurrent,
   mainImage,
   slug,
   ...rest
 }: GraphQLData): ProjectPreview {
   return {
+    categories: categories.map((category) => normalizeCategory(category)),
     excerpt: _rawExcerpt,
     isCurrent: !!isCurrent,
     mainImage: mainImage

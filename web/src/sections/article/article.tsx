@@ -1,14 +1,14 @@
 import { differenceInDays, format, formatDistanceToNow } from 'date-fns';
 import { nl } from 'date-fns/locale';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import React from 'react';
 
+import { CategoryBadge } from '~/lib/components/category-badge';
 import { SanityBodyText } from '~/lib/components/sanity-body-text';
 import { SanityFigure } from '~/lib/components/sanity-figure';
+import { getCategoryUrl } from '~/lib/helpers/get-category-url';
 import type { Article as ArticleType } from '~/lib/types';
-
 import './article.css';
-import { CategoryList } from './components';
 
 interface Props {
   article: ArticleType;
@@ -28,7 +28,17 @@ export const Article = ({ article }: Props) => {
         <h1 className="article__title">{title}</h1>
         <div className="article__info">
           <div className="article__publishedAt">{formattedDate}</div>
-          {categories[0] && <CategoryList categories={categories} />}
+          {!!categories.length && (
+            <ul className="article__categories">
+              {categories.map((category) => (
+                <li key={category.id}>
+                  <Link to={getCategoryUrl(category)}>
+                    <CategoryBadge category={category} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div className="article__body">
           <SanityBodyText body={body} />

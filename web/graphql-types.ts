@@ -7769,7 +7769,10 @@ export type ArticlePreviewFragment = (
 
 export type ProjectPreviewFragment = (
   Pick<SanityProject, 'id' | 'isCurrent' | 'title' | '_rawExcerpt'>
-  & { mainImage?: Maybe<(
+  & { categories: Array<(
+    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
+    & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
+  )>, mainImage?: Maybe<(
     Pick<SanityFigure, 'alt'>
     & { asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }> }
   )>, slug: Pick<SanitySlug, 'current'> }
