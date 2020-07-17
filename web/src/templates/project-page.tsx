@@ -48,9 +48,6 @@ export const query = graphql`
     project: sanityProject(id: { eq: $id }) {
       ...Project
       _rawExcerpt
-      mainImage {
-        ...TransformableFigure
-      }
     }
 
     relatedArticles: allSanityArticle(

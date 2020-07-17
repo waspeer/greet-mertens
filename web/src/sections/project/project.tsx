@@ -4,10 +4,11 @@ import { graphql } from 'gatsby';
 import React from 'react';
 
 import { ArticlePreviewList } from '~/lib/components/article-preview-list';
-import { Figure } from '~/lib/components/figure';
+import { SanityBodyText } from '~/lib/components/sanity-body-text';
+import { SanityFigure } from '~/lib/components/sanity-figure';
 import type { ArticlePreview as ArticlePreviewType, Project as ProjectType } from '~/lib/types';
 
-import { CategoryList, ProjectBody } from './components';
+import { CategoryList } from './components';
 import './project.css';
 
 interface Props {
@@ -20,7 +21,7 @@ export const Project = ({ project, relatedArticlePreviews }: Props) => {
 
   return (
     <article>
-      {mainImage && <Figure className="project__mainImage" image={mainImage} />}
+      {mainImage && <SanityFigure className="project__mainImage" image={mainImage} />}
       <div className="project__text container">
         <h1 className="project__title">{title}</h1>
         <div className="project__info">
@@ -33,7 +34,7 @@ export const Project = ({ project, relatedArticlePreviews }: Props) => {
           {categories[0] && <CategoryList categories={categories} />}
         </div>
         <div className="project__body">
-          <ProjectBody body={body} />
+          <SanityBodyText body={body} />
         </div>
         {!!relatedArticlePreviews.length && (
           <div className="project__relatedArticles">
@@ -64,13 +65,7 @@ export const query = graphql`
     id
     isCurrent
     mainImage {
-      alt
-      asset {
-        fluid {
-          ...GatsbySanityImageFluid
-        }
-      }
-      caption
+      ...TransformableFigure
     }
     publishedAt
     title

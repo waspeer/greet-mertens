@@ -47,9 +47,6 @@ export const query = graphql`
     article: sanityArticle(id: { eq: $id }) {
       ...Article
       _rawExcerpt
-      mainImage {
-        ...TransformableFigure
-      }
     }
   }
 `;

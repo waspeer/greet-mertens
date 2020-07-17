@@ -1,3 +1,4 @@
+import { isFuture } from 'date-fns';
 import React from 'react';
 import { graphql } from 'gatsby';
 import { GatsbySeo } from 'gatsby-plugin-next-seo';
@@ -13,7 +14,9 @@ interface Props {
 
 const ProjectsPage = ({ data }: Props) => {
   const currentProjectPreviews = data.currentProjects.nodes.map(normalizeProjectPreview);
-  const publishedProjectPreviews = data.publishedProjects.nodes.map(normalizeProjectPreview);
+  const publishedProjectPreviews = data.publishedProjects.nodes
+    .filter(({ publishedAt }) => !isFuture(new Date(publishedAt)))
+    .map(normalizeProjectPreview);
 
   return (
     <>
@@ -45,6 +48,7 @@ export const query = graphql`
     ) {
       nodes {
         ...ProjectPreview
+        publishedAt
       }
     }
   }

@@ -52,7 +52,7 @@ module.exports = {
      */
 
     articleNodes
-      .filter(({ publishedAt }) => !isFuture(new Date(publishedAt) || !(isCurrent || publishedAt)))
+      .filter(({ publishedAt }) => publishedAt)
       .forEach(({ id, slug, publishedAt }) => {
         const dateSegment = format(new Date(publishedAt), 'yyyy/MM');
         const path = `/artikelen/${dateSegment}/${slug.current}/`;
@@ -69,7 +69,7 @@ module.exports = {
      */
 
     projectNodes
-      .filter(({ isCurrent, publishedAt }) => !isFuture(new Date(publishedAt)))
+      .filter(({ isCurrent, publishedAt }) => isCurrent || publishedAt)
       .forEach(({ id, slug }) => {
         const path = `/portfolio/project/${slug.current}/`;
 
@@ -100,6 +100,29 @@ module.exports = {
       type SanityCategory implements Node {
         title: String!
         slug: SanitySlug!
+      }
+
+      type SanityImageCrop implements Node {
+        bottom: Float!
+        left: Float!
+        right: Float!
+        top: Float!
+      }
+
+      type SanityImageHotspot implements Node {
+        height: Float!
+        width: Float!
+        x: Float!
+        y: Float!
+      }
+
+      type SanityImageMetadata implements Node {
+        lqip: String!
+      }
+
+      type SanityImageAsset implements Node {
+        _id: String!
+        metadata: SanityImageMetadata!
       }
 
       type SanityFigure implements Node {

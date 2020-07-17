@@ -2,7 +2,7 @@ import PortableText from '@sanity/block-content-to-react';
 import { getFluidGatsbyImage } from 'gatsby-source-sanity';
 import React from 'react';
 
-import { Figure } from '~/lib/components/figure';
+import { GatsbyFigure } from '~/lib/components/gatsby-figure';
 
 interface Props {
   bio: any[];
@@ -26,7 +26,7 @@ const serializers = {
       );
 
       return (
-        <Figure
+        <GatsbyFigure
           image={{
             alt: node.alt,
             caption: node.caption,

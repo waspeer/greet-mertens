@@ -4,12 +4,11 @@ import { normalizeCategory } from './normalize-category';
 
 import type {
   Maybe,
-  SanityFigure,
-  GatsbySanityImageFluidFragment,
-  SanitySlug,
   SanityCategory,
   SanityEmoji,
   SanityProject,
+  SanitySlug,
+  TransformableFigureFragment,
 } from '~/../graphql-types';
 
 type GraphQLData = Pick<
@@ -22,11 +21,7 @@ type GraphQLData = Pick<
       slug: Pick<SanitySlug, 'current'>;
     }
   >;
-  mainImage?: Maybe<
-    Pick<SanityFigure, 'alt' | 'caption'> & {
-      asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }>;
-    }
-  >;
+  mainImage?: Maybe<TransformableFigureFragment>;
 };
 
 export function normalizeProject({
@@ -38,17 +33,18 @@ export function normalizeProject({
   ...rest
 }: GraphQLData): Project {
   return {
+    ...rest,
     body: _rawBody,
     categories: categories.map((category) => normalizeCategory(category)),
     isCurrent: !!isCurrent,
-    mainImage: mainImage
+    mainImage: mainImage?.asset
       ? {
-          alt: mainImage.alt,
-          caption: mainImage.caption,
-          fluid: mainImage.asset?.fluid,
+          ...mainImage,
+          asset: {
+            ...mainImage.asset,
+          },
         }
       : undefined,
     publishedAt: publishedAt && new Date(publishedAt),
-    ...rest,
   };
 }

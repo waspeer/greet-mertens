@@ -3,10 +3,12 @@ import { nl } from 'date-fns/locale';
 import { graphql } from 'gatsby';
 import React from 'react';
 
+import { SanityBodyText } from '~/lib/components/sanity-body-text';
+import { SanityFigure } from '~/lib/components/sanity-figure';
 import type { Article as ArticleType } from '~/lib/types';
 
 import './article.css';
-import { ArticleBody, CategoryList, Figure } from './components';
+import { CategoryList } from './components';
 
 interface Props {
   article: ArticleType;
@@ -21,7 +23,7 @@ export const Article = ({ article }: Props) => {
 
   return (
     <article>
-      {mainImage && <Figure className="article__mainImage" image={mainImage} />}
+      {mainImage && <SanityFigure className="article__mainImage" image={mainImage} />}
       <div className="article__text container">
         <h1 className="article__title">{title}</h1>
         <div className="article__info">
@@ -29,7 +31,7 @@ export const Article = ({ article }: Props) => {
           {categories[0] && <CategoryList categories={categories} />}
         </div>
         <div className="article__body">
-          <ArticleBody body={body} />
+          <SanityBodyText body={body} />
         </div>
       </div>
     </article>
@@ -52,13 +54,7 @@ export const query = graphql`
     }
     id
     mainImage {
-      alt
-      asset {
-        fluid {
-          ...GatsbySanityImageFluid
-        }
-      }
-      caption
+      ...TransformableFigure
     }
     publishedAt
     title

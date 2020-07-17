@@ -2,9 +2,8 @@ import PortableText from '@sanity/block-content-to-react';
 import { getFluidGatsbyImage } from 'gatsby-source-sanity';
 import React from 'react';
 
-import { Figure } from '~/lib/components/figure';
-
 import { Player } from '../player';
+import { GatsbyFigure } from '../gatsby-figure';
 
 interface Props {
   body: any[];
@@ -42,7 +41,7 @@ const serializers = {
       );
 
       return (
-        <Figure
+        <GatsbyFigure
           image={{
             alt: node.alt,
             caption: node.caption,
@@ -62,6 +61,6 @@ const serializers = {
   },
 };
 
-export const ProjectBody = ({ body }: Props) => {
+export const SanityBodyText = ({ body }: Props) => {
   return <PortableText blocks={body} serializers={serializers} />;
 };

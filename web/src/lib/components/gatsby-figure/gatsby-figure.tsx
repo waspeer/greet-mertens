@@ -5,14 +5,14 @@ import React from 'react';
 import { CaptionedMedia } from '~/lib/components/captioned-media';
 import type { Image as ImageType } from '~/lib/types';
 
-import './figure.css';
+import './gatsby-figure.css';
 
 interface Props {
   className?: string;
   image: ImageType;
 }
 
-export const Figure = ({ className, image }: Props) => {
+export const GatsbyFigure = ({ className, image }: Props) => {
   const media = image.fluid && <GatsbyImage alt={image.alt} fluid={image.fluid} />;
 
   return (

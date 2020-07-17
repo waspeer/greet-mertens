@@ -4,6 +4,32 @@ export interface Image {
   fluid: any;
 }
 
+export interface TransformableImage {
+  asset: {
+    _id: string;
+    metadata: {
+      lqip: string;
+    };
+  };
+  crop?: {
+    bottom: number;
+    left: number;
+    right: number;
+    top: number;
+  } | null;
+  hotspot?: {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+  } | null;
+}
+
+export interface TransformableFigure extends TransformableImage {
+  alt: string;
+  caption?: string | null;
+}
+
 export interface Category {
   color?: string | null;
   description?: string | null;
@@ -30,7 +56,7 @@ export interface Article {
   categories: Category[];
   id: string;
   publishedAt: Date;
-  mainImage?: Image | null;
+  mainImage?: TransformableFigure | null;
   title: string;
 }
 
@@ -40,7 +66,7 @@ export interface Project {
   id: string;
   isCurrent: boolean;
   publishedAt?: Date;
-  mainImage?: Image | null;
+  mainImage?: TransformableFigure | null;
   title: string;
 }
 

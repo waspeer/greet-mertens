@@ -3,13 +3,12 @@ import { Article } from '../types';
 import { normalizeCategory } from './normalize-category';
 
 import type {
-  SanityArticle,
   Maybe,
-  SanityFigure,
-  GatsbySanityImageFluidFragment,
-  SanitySlug,
+  SanityArticle,
   SanityCategory,
   SanityEmoji,
+  SanitySlug,
+  TransformableFigureFragment,
 } from '~/../graphql-types';
 
 type GraphQLData = Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawBody'> & {
@@ -19,11 +18,7 @@ type GraphQLData = Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawBod
       slug: Pick<SanitySlug, 'current'>;
     }
   >;
-  mainImage?: Maybe<
-    Pick<SanityFigure, 'alt' | 'caption'> & {
-      asset?: Maybe<{ fluid?: Maybe<GatsbySanityImageFluidFragment> }>;
-    }
-  >;
+  mainImage?: Maybe<TransformableFigureFragment>;
 };
 
 export function normalizeArticle({
@@ -36,11 +31,12 @@ export function normalizeArticle({
   return {
     body: _rawBody,
     categories: categories.map((category) => normalizeCategory(category)),
-    mainImage: mainImage
+    mainImage: mainImage?.asset
       ? {
-          alt: mainImage.alt,
-          caption: mainImage.caption,
-          fluid: mainImage.asset?.fluid,
+          ...mainImage,
+          asset: {
+            ...mainImage.asset,
+          },
         }
       : undefined,
     publishedAt: new Date(publishedAt),
