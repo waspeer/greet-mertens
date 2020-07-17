@@ -1,44 +1,40 @@
+import { format } from 'date-fns';
+
 import type { DocumentType } from '../../lib/data-types';
 
-export const Project: DocumentType<'bodyText' | 'category' | 'excerptText' | 'figure'> = {
-  name: 'project',
+export const Article: DocumentType<'articleBody' | 'category' | 'excerptText' | 'figure'> = {
+  name: 'article',
   type: 'document',
-  title: 'Project',
+  title: 'Artikel',
   fields: [
     {
       name: 'title',
       type: 'string',
       title: 'Titel',
-      validation: (Rule) => Rule.required().error('Vul een titel in'),
-    },
-    {
-      name: 'isCurrent',
-      type: 'boolean',
-      title: 'Nog lopend project',
-      description: "Laat het project zien als 'nog lopend project'",
+      validation: (Rule) => Rule.required().error('Titel is een verplicht veld'),
     },
     {
       name: 'slug',
       type: 'slug',
       title: 'Slug',
-      description: 'Dit is onderdeel van de URL',
+      description: 'Dit is onderdeel van de URL naar de post.',
       options: {
         source: 'title',
         maxLength: 96,
       },
-      validation: (Rule) => Rule.required().error('Vul of genereer een slug'),
+      validation: (Rule) => Rule.required().error('Slug is een verplicht veld'),
     },
     {
       name: 'publishedAt',
       type: 'datetime',
       title: 'Gepubliceerd op',
-      description: 'Hiermee kun je inplannen wanneer het project openbaar wordt',
+      description: 'Hiermee kun je inplannen wanneer het artikel openbaar wordt',
     },
     {
       name: 'mainImage',
       type: 'figure',
       title: 'Afbeelding',
-      validation: (Rule) => Rule.required().error('Selecteer een afbeelding'),
+      validation: (Rule) => Rule.required().error('Afbeelding is een verplicht veld'),
     },
     {
       name: 'excerpt',
@@ -46,7 +42,7 @@ export const Project: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
       title: 'Samenvatting',
       description:
         "Deze tekst wordt gebruikt op samenvattingpagina's, voor Google, en wanneer mensen de post delen op social media.",
-      validation: (Rule) => Rule.required().error('Vul een samenvatting in'),
+      validation: (Rule) => Rule.required().error('Samenvatting is een verplicht veld'),
     },
     {
       name: 'categories',
@@ -61,26 +57,33 @@ export const Project: DocumentType<'bodyText' | 'category' | 'excerptText' | 'fi
       ],
     },
     {
+      name: 'project',
+      title: 'Project',
+      type: 'reference',
+      to: [{ type: 'project' }],
+    },
+    {
       name: 'body',
-      type: 'bodyText',
+      type: 'articleBody',
       title: 'Inhoud',
       validation: (Rule) => Rule.required().error('Inhoud is een verplicht veld'),
     },
   ],
   preview: {
     select: {
-      isCurrent: 'isCurrent',
       media: 'mainImage',
       publishedAt: 'publishedAt',
       slug: 'slug',
       title: 'title',
     },
-    prepare({ isCurrent, media, publishedAt, slug, title = 'Geen titel' }) {
-      const path = `portfolio/project/${slug?.current}/`;
+    prepare({ media, publishedAt, slug, title = 'Geen titel' }) {
+      const dateSegment = publishedAt && format(new Date(publishedAt), 'yyyy/MM');
+      const path = `artikelen/${dateSegment}/${slug?.current}/`;
+
       return {
         title,
         media,
-        subtitle: publishedAt || isCurrent ? path : 'Niet gepubliceerd',
+        subtitle: publishedAt ? path : 'Niet gepubliceerd',
       };
     },
   },

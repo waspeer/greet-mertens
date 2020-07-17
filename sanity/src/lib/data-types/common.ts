@@ -89,6 +89,54 @@ export interface DataType {
   name?: string;
 
   /**
+   * Use this to implement an override for the default preview for this type.
+   */
+  preview?: {
+    /**
+     * Custom preview component
+     */
+    component?: React.ReactNode;
+
+    /**
+     * The selected fields for the preview
+     */
+    select?: {
+      /**
+       * The field that should be used as the thumbnail
+       */
+      media?: React.ReactNode;
+
+      /**
+       * The field that should be used as the subtitle
+       */
+      subtitle?: string;
+
+      /**
+       * The field that should be used as the title
+       */
+      title?: string;
+
+      /**
+       * Reference other fields
+       */
+      [key: string]: any;
+    };
+
+    /**
+     * Function to reformat the selected fields
+     */
+    prepare?(selection: {
+      subtitle: any;
+      title: any;
+      [key: string]: any;
+    }): {
+      media?: React.ReactNode;
+      subtitle?: string;
+      title: string;
+    };
+  };
+
+  /**
    * If set to true, this field will not be editable in the content studio.
    */
   readOnly?: boolean;

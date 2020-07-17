@@ -19,23 +19,21 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [
     {
       "name": "part:@sanity/base/schema",
-      "path": "./schemas/schema"
+      "path": "./src/schemas/schema"
     },
     {
       "name": "part:@sanity/desk-tool/structure",
-      "path": "./src/structure.ts"
+      "path": "./src/studio/structure.ts"
     },
     {
       "name": "part:@sanity/base/new-document-structure",
-      "path": "./src/new-document-menu.ts"
+      "path": "./src/studio/new-document-menu.ts"
     }
   ]
 }

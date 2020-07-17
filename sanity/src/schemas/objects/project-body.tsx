@@ -1,7 +1,7 @@
 import { ArrayType } from '../../lib/data-types';
 
-export const BodyText: ArrayType<'figure' | 'player'> = {
-  name: 'bodyText',
+export const ProjectBody: ArrayType<'figure' | 'player' | 'projectRelatedArticles'> = {
+  name: 'projectBody',
   type: 'array',
   of: [
     {
@@ -39,6 +39,6 @@ export const BodyText: ArrayType<'figure' | 'player'> = {
     },
     { type: 'figure' },
     { type: 'player' },
+    { type: 'projectRelatedArticles' },
   ],
-  validation: (Rule) => Rule.required().error('Tekst mag niet leeg zijn'),
 };

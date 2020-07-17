@@ -907,7 +907,7 @@
   resolved "https://registry.yarnpkg.com/@sanity/cli/-/cli-1.149.18.tgz#2b357e2efd7cf39082956b9064ef97de6193023c"
   integrity sha512-HF/mMuyUwBhaBB4wi4EgG/eC52fDIWj17I0s0ykydKtrvGl+OyCzPnsQE4nuj59RMWJXaL7/5ErGOMg4Mf0lww==
 
-"@sanity/client@1.149.18":
+"@sanity/client@1.149.18", "@sanity/client@^1.149.13":
   version "1.149.18"
   resolved "https://registry.yarnpkg.com/@sanity/client/-/client-1.149.18.tgz#b69da5a9339ced013de961971e737133e1501e8a"
   integrity sha512-yuJt7t56jkgrSkg3rXGSsrD81+a/0CLnj18JyTqLWAkojihqD2/KjYy0XOTELFUVk74Z6d6pHnNt0CpqTzlGLQ==
@@ -1161,6 +1161,13 @@
 "@sanity/image-url@0.140.15":
   version "0.140.15"
   resolved "https://registry.npmjs.org/@sanity/image-url/-/image-url-0.140.15.tgz#7b8afc49130398e1a6e7bde03b5961d2384f7676"
+
+"@sanity/image-url@^0.140.19":
+  version "0.140.19"
+  resolved "https://registry.yarnpkg.com/@sanity/image-url/-/image-url-0.140.19.tgz#6adfea7b7768a1708eba6bdcfe9eb0746d2bb1f9"
+  integrity sha512-itPCTXNyF2MFdXMlwmpcXEiZU7AvSxyQpOaCQ3x8uODIl3GY22KAHYzz6rIGzWU63u0DN/Y8O1ChsblPLqnI5Q==
+  dependencies:
+    "@sanity/client" "^1.149.13"
 
 "@sanity/imagetool@1.149.18":
   version "1.149.18"
