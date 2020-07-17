@@ -98,6 +98,7 @@ module.exports = {
     const { createTypes } = actions;
     const typeDefs = /* GraphQL */ `
       type SanityCategory implements Node {
+        _id: String!
         title: String!
         slug: SanitySlug!
       }

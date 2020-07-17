@@ -2,8 +2,8 @@ import PortableText from '@sanity/block-content-to-react';
 import { getFluidGatsbyImage } from 'gatsby-source-sanity';
 import React from 'react';
 
-import { Player } from '../player';
-import { GatsbyFigure } from '../gatsby-figure';
+import { GatsbyFigure } from '~/lib/components/gatsby-figure';
+import { Player } from '~/lib/components/player';
 
 interface Props {
   body: any[];
@@ -61,6 +61,6 @@ const serializers = {
   },
 };
 
-export const SanityBodyText = ({ body }: Props) => {
+export const ArticleBody = ({ body }: Props) => {
   return <PortableText blocks={body} serializers={serializers} />;
 };

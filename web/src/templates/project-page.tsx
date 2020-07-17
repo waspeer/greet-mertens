@@ -16,9 +16,10 @@ interface Props {
 
 const ProjectPage = ({ data }: Props) => {
   const project = normalizeProject(data.project!);
-  const relatedArticlePreviews = data.relatedArticles.edges.map(({ node }) =>
-    normalizeArticlePreview(node),
-  );
+  const relatedArticlePreviews = data.relatedArticles.edges.map(({ node }) => ({
+    ...normalizeArticlePreview(node),
+    categories: node.categories,
+  }));
   const description = sanityBlocksToPlainText(data.project!._rawExcerpt);
 
   return (
@@ -61,6 +62,9 @@ export const query = graphql`
       edges {
         node {
           ...ArticlePreview
+          categories {
+            _id
+          }
         }
       }
     }

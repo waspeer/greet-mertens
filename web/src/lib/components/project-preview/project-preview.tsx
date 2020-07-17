@@ -25,10 +25,10 @@ export const ProjectPreview = ({ projectPreview, type = 'normal' }: Props) => {
       {type === 'slim' && <div className="projectPreview__title--slim">{title}</div>}
       {type === 'normal' && (
         <div className="projectPreview__text">
-          <h3>{title}</h3>
           {!!categories.length && (
             <CategoryBadge category={categories[0]} className="projectPreview__category" />
           )}
+          <h3>{title}</h3>
           <div className="projectPreview__excerpt">
             <PortableText blocks={excerpt} />
           </div>

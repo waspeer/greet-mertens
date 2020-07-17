@@ -3,17 +3,17 @@ import { nl } from 'date-fns/locale';
 import { graphql, Link } from 'gatsby';
 import React from 'react';
 
-import { ArticlePreviewList } from '~/lib/components/article-preview-list';
 import { CategoryBadge } from '~/lib/components/category-badge/category-badge';
-import { SanityBodyText } from '~/lib/components/sanity-body-text';
 import { SanityFigure } from '~/lib/components/sanity-figure';
 import { getCategoryUrl } from '~/lib/helpers/get-category-url';
 import type { ArticlePreview as ArticlePreviewType, Project as ProjectType } from '~/lib/types';
+
 import './project.css';
+import { ProjectBody } from './components';
 
 interface Props {
   project: ProjectType;
-  relatedArticlePreviews: ArticlePreviewType[];
+  relatedArticlePreviews: (ArticlePreviewType & { categories: { _id: string }[] })[];
 }
 
 export const Project = ({ project, relatedArticlePreviews }: Props) => {
@@ -44,15 +44,8 @@ export const Project = ({ project, relatedArticlePreviews }: Props) => {
           )}
         </div>
         <div className="project__body">
-          <SanityBodyText body={body} />
+          <ProjectBody body={body} relatedArticlePreviews={relatedArticlePreviews} />
         </div>
-        {!!relatedArticlePreviews.length && (
-          <div className="project__relatedArticles">
-            <h2 className="gentleHeading">Gerelateerde artikelen</h2>
-
-            <ArticlePreviewList articlePreviews={relatedArticlePreviews} />
-          </div>
-        )}
       </div>
     </article>
   );

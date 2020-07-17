@@ -2743,8 +2743,10 @@ export type SanityBlockOrFigure = SanityBlock | SanityFigure;
 
 export type SanityBlockOrFigureOrPlayer = SanityBlock | SanityFigure | SanityPlayer;
 
+export type SanityBlockOrFigureOrPlayerOrProjectRelatedArticles = SanityBlock | SanityFigure | SanityPlayer | SanityProjectRelatedArticles;
+
 export type SanityCategory = SanityDocument & Node & {
-  _id?: Maybe<Scalars['String']>;
+  _id: Scalars['String'];
   _type?: Maybe<Scalars['String']>;
   _createdAt?: Maybe<Scalars['Date']>;
   _updatedAt?: Maybe<Scalars['Date']>;
@@ -6480,6 +6482,12 @@ export type SanityProjectGroupConnection = {
   fieldValue?: Maybe<Scalars['String']>;
 };
 
+export type SanityProjectRelatedArticles = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  category?: Maybe<SanityCategory>;
+};
+
 export type SanityProjectSortInput = {
   fields?: Maybe<Array<Maybe<SanityProjectFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
@@ -7879,7 +7887,10 @@ export type ProjectPageQueryVariables = Exact<{
 export type ProjectPageQuery = { project?: Maybe<(
     Pick<SanityProject, '_rawExcerpt'>
     & ProjectFragment
-  )>, relatedArticles: { edges: Array<{ node: ArticlePreviewFragment }> } };
+  )>, relatedArticles: { edges: Array<{ node: (
+        { categories: Array<Pick<SanityCategory, '_id'>> }
+        & ArticlePreviewFragment
+      ) }> } };
 
 export type GatsbySanityImageFixedFragment = Pick<SanityImageFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
 

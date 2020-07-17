@@ -4,11 +4,12 @@ import { graphql, Link } from 'gatsby';
 import React from 'react';
 
 import { CategoryBadge } from '~/lib/components/category-badge';
-import { SanityBodyText } from '~/lib/components/sanity-body-text';
 import { SanityFigure } from '~/lib/components/sanity-figure';
 import { getCategoryUrl } from '~/lib/helpers/get-category-url';
 import type { Article as ArticleType } from '~/lib/types';
+
 import './article.css';
+import { ArticleBody } from './components';
 
 interface Props {
   article: ArticleType;
@@ -41,7 +42,7 @@ export const Article = ({ article }: Props) => {
           )}
         </div>
         <div className="article__body">
-          <SanityBodyText body={body} />
+          <ArticleBody body={body} />
         </div>
       </div>
     </article>
