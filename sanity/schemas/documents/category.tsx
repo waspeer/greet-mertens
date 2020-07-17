@@ -41,7 +41,7 @@ export const Category: DocumentType<'colors' | 'emoji'> = {
       options: {
         list: [
           { title: 'Onyx', value: '#303633' },
-          { title: 'Mint', value: '#8BE8CB' },
+          { title: 'Mint', value: '#7AC4AD' },
           { title: 'Blueish', value: '#9CB8BF' },
           { title: 'Greyish', value: '#B0B3C4' },
           { title: 'Pinkish', value: '#C2ADBF' },

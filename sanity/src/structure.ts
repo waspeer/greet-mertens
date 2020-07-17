@@ -38,7 +38,6 @@ export default () =>
       S.listItem()
         .title('Categorieën')
         .icon(RiPriceTag3Line)
-        .schemaType('category')
         .child(S.documentTypeList('category').title('Categorie')),
       S.divider(),
       S.listItem()
