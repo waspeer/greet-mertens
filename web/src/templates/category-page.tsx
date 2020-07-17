@@ -1,11 +1,12 @@
-import React from 'react';
+import { isFuture } from 'date-fns';
 import { graphql } from 'gatsby';
 import { GatsbySeo } from 'gatsby-plugin-next-seo';
+import React from 'react';
 
-import { CategoryOverview } from '~/sections/category-overview';
 import { normalizeArticlePreview } from '~/lib/helpers/normalize-article-preview';
 import { normalizeCategory } from '~/lib/helpers/normalize-category';
 import { normalizeProjectPreview } from '~/lib/helpers/normalize-project-preview';
+import { CategoryOverview } from '~/sections/category-overview';
 
 import type { CategoryPageQuery } from '~/../graphql-types';
 
@@ -16,7 +17,12 @@ interface Props {
 const CategoryPage = ({ data }: Props) => {
   const category = normalizeCategory(data.category!);
   const articlePreviews = data.articles.nodes.map((node) => normalizeArticlePreview(node));
-  const projectPreviews = data.projects.nodes.map((node) => normalizeProjectPreview(node));
+  const projectPreviews = data.projects.nodes
+    .filter(
+      ({ isCurrent, publishedAt }) =>
+        isCurrent || (publishedAt && !isFuture(new Date(publishedAt))),
+    )
+    .map((node) => normalizeProjectPreview(node));
 
   return (
     <>
@@ -69,14 +75,11 @@ export const query = graphql`
 
     projects: allSanityProject(
       sort: { fields: [publishedAt], order: DESC }
-      filter: {
-        categories: { elemMatch: { id: { eq: $id } } }
-        publishedAt: { ne: null }
-        slug: { current: { ne: null } }
-      }
+      filter: { categories: { elemMatch: { id: { eq: $id } } }, slug: { current: { ne: null } } }
     ) {
       nodes {
         ...ProjectPreview
+        publishedAt
       }
     }
   }

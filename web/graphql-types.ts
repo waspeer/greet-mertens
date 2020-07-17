@@ -1501,7 +1501,7 @@ export type QueryAllSitePageArgs = {
 
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
-  port?: Maybe<IntQueryOperatorInput>;
+  port?: Maybe<DateQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
@@ -6853,7 +6853,7 @@ export type SanitySpanFilterListInput = {
 
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
-  port?: Maybe<Scalars['Int']>;
+  port?: Maybe<Scalars['Date']>;
   host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
@@ -6865,6 +6865,14 @@ export type Site = Node & {
 
 
 export type SiteBuildTimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SitePortArgs = {
   formatString?: Maybe<Scalars['String']>;
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
@@ -7147,7 +7155,7 @@ export type SiteFieldsEnum =
 
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
-  port?: Maybe<IntQueryOperatorInput>;
+  port?: Maybe<DateQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
@@ -7877,7 +7885,10 @@ export type CategoryPageQueryVariables = Exact<{
 export type CategoryPageQuery = { category?: Maybe<(
     Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
     & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
-  )>, articles: { nodes: Array<ArticlePreviewFragment> }, projects: { nodes: Array<ProjectPreviewFragment> } };
+  )>, articles: { nodes: Array<ArticlePreviewFragment> }, projects: { nodes: Array<(
+      Pick<SanityProject, 'publishedAt'>
+      & ProjectPreviewFragment
+    )> } };
 
 export type ProjectPageQueryVariables = Exact<{
   id: Scalars['String'];
