@@ -7,6 +7,9 @@ export const Figure: ImageType = {
   type: 'image',
   title: 'Afbeelding',
   icon: RiImage2Line,
+  options: {
+    hotspot: true,
+  },
   fields: [
     {
       description: 'Dit wordt onder de afbeelding weergegeven',
