@@ -1,0 +1,39 @@
+name: gatsby build
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: web/public
+          key: cache-public-${{ github.sha }}
+          restore-keys: |
+            cache-public-
+
+      - uses: actions/cache@v2
+        with:
+          path: web/.cache
+          key: cache-cache-${{ github.sha }}
+          restore-keys: |
+            cache-cache-
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+          registry-url: <registry url>
+
+      - run: yarn install --cwd web
+
+      - run: yarn build --cwd web
+
+      - name: deploy to Netlify
+        env:
+          NETLIFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
+          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+        run: npx netlify-cli deploy --dir=web/public --prod
