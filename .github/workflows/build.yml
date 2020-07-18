@@ -28,9 +28,9 @@ jobs:
           node-version: "12.x"
           registry-url: <registry url>
 
-      - run: yarn install --cwd web
+      - run: yarn --cwd web install
 
-      - run: yarn build --cwd web
+      - run: yarn --cwd web build
 
       - name: deploy to Netlify
         env:
