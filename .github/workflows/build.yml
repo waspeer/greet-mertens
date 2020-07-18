@@ -36,4 +36,7 @@ jobs:
         env:
           NETLIFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
           NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+          GATSBY_SANITY_PROJECT_ID: ${{secrets.GATSBY_SANITY_PROJECT_ID}}
+          GATSBY_SANITY_DATASET: ${{secrets.GATSBY_SANITY_DATASET}}
+          SANITY_TOKEN: ${{secrets.SANITY_TOKEN}}
         run: npx netlify-cli deploy --dir=web/public --prod
