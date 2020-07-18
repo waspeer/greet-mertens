@@ -5,6 +5,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     'import/no-duplicates': 'off',
+    'import/no-unresolved': 'off',
     'import/order': [
       'error',
       {
