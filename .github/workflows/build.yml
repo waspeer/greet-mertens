@@ -14,14 +14,14 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: web/public
-          key: cache-public-${{ github.sha }}
+          key: cache-public-${{ github.run_id }}
           restore-keys: |
             cache-public-
 
       - uses: actions/cache@v2
         with:
           path: web/.cache
-          key: cache-cache-${{ github.sha }}
+          key: cache-cache-${{ github.run_id }}
           restore-keys: |
             cache-cache-
 
@@ -34,7 +34,7 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: "12.x"
+          node-version: '12.x'
           registry-url: <registry url>
 
       - run: yarn --cwd web install
