@@ -20,7 +20,7 @@ module.exports = {
         dataset: process.env.GATSBY_SANITY_DATASET,
         token: process.env.SANITY_TOKEN,
         watchMode: process.env.NODE_ENV === 'development',
-        overlayDrafts: process.env.NODE_ENV === 'development',
+        overlayDrafts: false,
       },
     },
     {
