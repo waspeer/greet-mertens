@@ -3,6 +3,7 @@ import React from 'react';
 
 import { getContrast } from '~/lib/helpers/get-contrast';
 import { Category } from '~/lib/types';
+
 import './category-badge.css';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-export const CategoryBadge = ({ category, className }: Props) => {
+export const CategoryBadge = ({ category, className = '' }: Props) => {
   const { color, icon, title } = category;
 
   return (
