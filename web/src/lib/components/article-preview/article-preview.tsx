@@ -24,7 +24,7 @@ export const ArticlePreview = ({ articlePreview }: Props) => {
         {mainImage && mainImage.fluid && <Image fluid={mainImage.fluid} alt={mainImage.alt} />}
       </div>
       <div className="articlePreview__text">
-        <h3>{title}</h3>
+        <div className="articlePreview__heading">{title}</div>
         <div className="articlePreview__excerpt">
           <PortableText blocks={excerpt} />
         </div>

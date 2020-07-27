@@ -8,7 +8,8 @@
   &::before {
     content: '';
     display: block;
-    padding-top: 65%;
+    padding-top: 75%;
+    /* padding-top: 65%; */
   }
 
   & > div {
@@ -18,16 +19,29 @@
 }
 
 .articlePreview__text {
-  @apply flex-1;
+  @apply flex-1 flex flex-col justify-center;
+
+  & div,
+  & p {
+    @apply leading-snug !important;
+  }
 }
 
-.articlePreview__text h3,
+.articlePreview__heading,
 .articlePreview__excerpt {
   @apply mb-2;
 }
 
+.articlePreview__heading {
+  @apply font-body font-semibold text-xl;
+}
+
 .articlePreview__excerpt {
   @apply text-sm text-gray-800;
+
+  & p {
+    @apply m-0 p-0 !important;
+  }
 }
 
 .articlePreview__publishedAt {
