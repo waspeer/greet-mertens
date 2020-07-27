@@ -7,6 +7,8 @@ import { getArticleUrl } from '~/lib/helpers/get-article-url';
 
 import { ArticlePreview } from '../article-preview';
 
+import './article-preview-list.css';
+
 interface Props {
   className?: string;
   articlePreviews: ArticlePreviewType[];
@@ -14,7 +16,7 @@ interface Props {
 
 export const ArticlePreviewList = ({ className, articlePreviews }: Props) => {
   return (
-    <ul className={classNames('focussedList', className)}>
+    <ul className={classNames('articlePreviewList', 'focussedList', className)}>
       {articlePreviews.map((articlePreview) => (
         <li key={articlePreview.id}>
           <Link to={getArticleUrl(articlePreview)}>

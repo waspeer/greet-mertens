@@ -17,7 +17,7 @@ export const ArticleRecentList = ({ hasMoreArticles, articlePreviews }: Props) =
       <h2 className="gentleHeading">Recente artikelen</h2>
       <ArticlePreviewList articlePreviews={articlePreviews} />
       {hasMoreArticles && (
-        <Link className="articleRecentList__moreLink" to="/artikelen/archive">
+        <Link className="articleRecentList__moreLink" to="/artikelen/archief">
           Meer artikelen »
         </Link>
       )}

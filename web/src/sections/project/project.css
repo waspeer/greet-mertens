@@ -69,6 +69,11 @@
     @apply leading-relaxed mt-6;
   }
 
+  & a {
+    @apply underline;
+    color: #175097;
+  }
+
   & .figure,
   & .player {
     @apply mt-8 -mx-8;
