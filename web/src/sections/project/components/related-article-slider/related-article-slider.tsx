@@ -23,7 +23,7 @@ export const RelatedArticleSlider = ({ articlePreviews }: Props) => {
   }, [] as ArticlePreview[][]);
 
   return (
-    <Flickity static className="mt-4">
+    <Flickity static className="relatedArticleSlider">
       {pages.map((page) => (
         <ArticlePreviewList articlePreviews={page} />
       ))}

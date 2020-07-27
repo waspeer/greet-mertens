@@ -1,3 +1,7 @@
+.relatedArticleSlider {
+  @apply mt-4;
+}
+
 .flickity-button {
   background: none;
   width: 2rem;
