@@ -26,7 +26,7 @@ export const Project = ({ project, relatedArticlePreviews }: Props) => {
         <h1 className="project__title">{title}</h1>
         <div className="project__info">
           {isCurrent && <div className="project__currentBadge">Nog lopend project</div>}
-          {!!publishedAt && (
+          {!!publishedAt && !isCurrent && (
             <div className="project__publishedAt">
               {format(new Date(publishedAt), 'MMMM yyyy', { locale: nl })}
             </div>

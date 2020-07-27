@@ -6,7 +6,7 @@ import { GatsbyFigure } from '~/lib/components/gatsby-figure';
 import { Player } from '~/lib/components/player';
 import { ArticlePreview } from '~/lib/types';
 
-import { RelatedArticleList } from '../related-article-list';
+import { RelatedArticleSlider } from '../related-article-slider';
 
 interface Props {
   body: any[];
@@ -75,7 +75,7 @@ export const ProjectBody = ({ body, relatedArticlePreviews }: Props) => {
         );
 
         return articlePreviews.length ? (
-          <RelatedArticleList articlePreviews={articlePreviews} />
+          <RelatedArticleSlider articlePreviews={articlePreviews} />
         ) : null;
       },
     },

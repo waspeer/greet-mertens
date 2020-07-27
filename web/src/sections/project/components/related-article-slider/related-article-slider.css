@@ -1,0 +1,17 @@
+.flickity-button {
+  background: none;
+  width: 2rem;
+  height: 100%;
+}
+
+.flickity-prev-next-button.next {
+  right: -2rem;
+}
+
+.flickity-prev-next-button.previous {
+  left: -2rem;
+}
+
+.flickity-slider ul {
+  @apply w-full h-full flex flex-col justify-center;
+}
