@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.10.4",
-    "@types/aws-lambda": "^8.10.59",
+    "@types/aws-lambda": "^8.10.72",
     "@types/flickity": "^2.2.3",
     "@types/yup": "^0.29.3",
     "babel-preset-gatsby": "^0.5.2",
