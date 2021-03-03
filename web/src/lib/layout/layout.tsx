@@ -7,7 +7,6 @@ import { getSanityOpenGraphImage } from '../helpers/get-sanity-image-open-graph-
 
 import { LayoutQuery } from '~/../graphql-types';
 
-import '~/styles/tailwind.css';
 import './layout.css';
 
 // This import is here to satisfy the mini-css conflicting-order error
