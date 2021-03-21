@@ -26,7 +26,6 @@ const Archive = ({ data }: Props) => {
 export const query = graphql`
   query ArticleArchivePage {
     articles: allSanityArticle(
-      limit: 6
       sort: { fields: [publishedAt], order: DESC }
       filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
     ) {
