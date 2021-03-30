@@ -31,7 +31,9 @@ export const query = graphql`
   query CategoriesPage {
     allSanityCategory(sort: { fields: title, order: ASC }) {
       nodes {
-        color
+        color {
+          value
+        }
         description
         icon {
           name

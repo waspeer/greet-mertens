@@ -52,7 +52,9 @@ export const Article = ({ article }: Props) => {
 export const query = graphql`
   fragment Article on SanityArticle {
     categories {
-      color
+      color {
+        value
+      }
       description
       icon {
         native

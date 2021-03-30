@@ -18,8 +18,8 @@ export const CategoryBadge = ({ category, className = '' }: Props) => {
     <div
       className={classNames('categoryBadge', className)}
       style={{
-        backgroundColor: color || '#f5f5f5',
-        color: getContrast(color || '#f5f5f5'),
+        backgroundColor: color?.value ?? '#f5f5f5',
+        color: getContrast(color?.value ?? '#f5f5f5'),
       }}
     >
       {icon && (

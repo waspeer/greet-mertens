@@ -54,7 +54,9 @@ export const Project = ({ project, relatedArticlePreviews }: Props) => {
 export const query = graphql`
   fragment Project on SanityProject {
     categories {
-      color
+      color {
+        value
+      }
       description
       icon {
         native

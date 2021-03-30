@@ -23,7 +23,7 @@ export const CategoryInfo = ({ category }: Props) => {
         {title}
         <span className="category__arrow">»</span>
       </h2>
-      <div className="category__color" style={{ backgroundColor: color || 'whitesmoke' }} />
+      <div className="category__color" style={{ backgroundColor: color?.value ?? 'whitesmoke' }} />
       <p className="category__description">{description}</p>
     </>
   );

@@ -33,7 +33,9 @@ export interface TransformableFigure extends TransformableImage {
 }
 
 export interface Category {
-  color?: string | null;
+  color?: {
+    value?: string | null;
+  } | null;
   description?: string | null;
   icon?: {
     description: string;

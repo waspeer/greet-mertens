@@ -41,7 +41,9 @@ export const ProjectPreview = ({ projectPreview, type = 'normal' }: Props) => {
 export const query = graphql`
   fragment ProjectPreview on SanityProject {
     categories {
-      color
+      color {
+        value
+      }
       description
       icon {
         native

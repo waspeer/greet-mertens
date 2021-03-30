@@ -47,7 +47,9 @@ const CategoryPage = ({ data }: Props) => {
 export const query = graphql`
   query CategoryPage($id: String!) {
     category: sanityCategory(id: { eq: $id }) {
-      color
+      color {
+        value
+      }
       description
       icon {
         name

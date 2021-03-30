@@ -641,10 +641,11 @@ export type SanityCategory = SanityDocument & Node & {
   title: Scalars['String'];
   slug: SanitySlug;
   icon?: Maybe<SanityEmoji>;
-  color?: Maybe<Scalars['String']>;
+  color?: Maybe<SanityColorlist>;
   description?: Maybe<Scalars['String']>;
   _rawSlug?: Maybe<Scalars['JSON']>;
   _rawIcon?: Maybe<Scalars['JSON']>;
+  _rawColor?: Maybe<Scalars['JSON']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -675,6 +676,18 @@ export type SanityCategory_RawSlugArgs = {
 
 export type SanityCategory_RawIconArgs = {
   resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+
+export type SanityCategory_RawColorArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+export type SanityColorlist = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
 };
 
 /** A Sanity document */
@@ -966,6 +979,7 @@ export type SanityFileAsset = SanityDocument & Node & {
   label?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']>;
   sha1hash?: Maybe<Scalars['String']>;
   extension?: Maybe<Scalars['String']>;
   mimeType?: Maybe<Scalars['String']>;
@@ -1013,6 +1027,7 @@ export type SanityImageAsset = SanityDocument & Node & {
   label?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']>;
   sha1hash?: Maybe<Scalars['String']>;
   extension?: Maybe<Scalars['String']>;
   mimeType?: Maybe<Scalars['String']>;
@@ -1682,10 +1697,11 @@ export type QuerySanityCategoryArgs = {
   title?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<SanitySlugFilterInput>;
   icon?: Maybe<SanityEmojiFilterInput>;
-  color?: Maybe<StringQueryOperatorInput>;
+  color?: Maybe<SanityColorlistFilterInput>;
   description?: Maybe<StringQueryOperatorInput>;
   _rawSlug?: Maybe<JsonQueryOperatorInput>;
   _rawIcon?: Maybe<JsonQueryOperatorInput>;
+  _rawColor?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -1826,6 +1842,7 @@ export type QuerySanityFileAssetArgs = {
   label?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
+  altText?: Maybe<StringQueryOperatorInput>;
   sha1hash?: Maybe<StringQueryOperatorInput>;
   extension?: Maybe<StringQueryOperatorInput>;
   mimeType?: Maybe<StringQueryOperatorInput>;
@@ -1861,6 +1878,7 @@ export type QuerySanityImageAssetArgs = {
   label?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
+  altText?: Maybe<StringQueryOperatorInput>;
   sha1hash?: Maybe<StringQueryOperatorInput>;
   extension?: Maybe<StringQueryOperatorInput>;
   mimeType?: Maybe<StringQueryOperatorInput>;
@@ -3444,6 +3462,7 @@ export type SanityImageAssetFilterInput = {
   label?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
+  altText?: Maybe<StringQueryOperatorInput>;
   sha1hash?: Maybe<StringQueryOperatorInput>;
   extension?: Maybe<StringQueryOperatorInput>;
   mimeType?: Maybe<StringQueryOperatorInput>;
@@ -3594,10 +3613,11 @@ export type SanityCategoryFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<SanitySlugFilterInput>;
   icon?: Maybe<SanityEmojiFilterInput>;
-  color?: Maybe<StringQueryOperatorInput>;
+  color?: Maybe<SanityColorlistFilterInput>;
   description?: Maybe<StringQueryOperatorInput>;
   _rawSlug?: Maybe<JsonQueryOperatorInput>;
   _rawIcon?: Maybe<JsonQueryOperatorInput>;
+  _rawColor?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -3619,6 +3639,13 @@ export type SanityEmojiFilterInput = {
   imageUrl?: Maybe<StringQueryOperatorInput>;
   keywords?: Maybe<StringQueryOperatorInput>;
   customCategory?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SanityColorlistFilterInput = {
+  _key?: Maybe<StringQueryOperatorInput>;
+  _type?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  value?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SanityProjectFilterInput = {
@@ -3762,6 +3789,7 @@ export type SanityArticleFieldsEnum =
   | 'mainImage___asset___label'
   | 'mainImage___asset___title'
   | 'mainImage___asset___description'
+  | 'mainImage___asset___altText'
   | 'mainImage___asset___sha1hash'
   | 'mainImage___asset___extension'
   | 'mainImage___asset___mimeType'
@@ -3935,10 +3963,14 @@ export type SanityArticleFieldsEnum =
   | 'categories___icon___imageUrl'
   | 'categories___icon___keywords'
   | 'categories___icon___customCategory'
-  | 'categories___color'
+  | 'categories___color____key'
+  | 'categories___color____type'
+  | 'categories___color___title'
+  | 'categories___color___value'
   | 'categories___description'
   | 'categories____rawSlug'
   | 'categories____rawIcon'
+  | 'categories____rawColor'
   | 'categories___id'
   | 'categories___parent___id'
   | 'categories___parent___parent___id'
@@ -4017,6 +4049,7 @@ export type SanityArticleFieldsEnum =
   | 'project___mainImage___asset___label'
   | 'project___mainImage___asset___title'
   | 'project___mainImage___asset___description'
+  | 'project___mainImage___asset___altText'
   | 'project___mainImage___asset___sha1hash'
   | 'project___mainImage___asset___extension'
   | 'project___mainImage___asset___mimeType'
@@ -4089,10 +4122,14 @@ export type SanityArticleFieldsEnum =
   | 'project___categories___icon___imageUrl'
   | 'project___categories___icon___keywords'
   | 'project___categories___icon___customCategory'
-  | 'project___categories___color'
+  | 'project___categories___color____key'
+  | 'project___categories___color____type'
+  | 'project___categories___color___title'
+  | 'project___categories___color___value'
   | 'project___categories___description'
   | 'project___categories____rawSlug'
   | 'project___categories____rawIcon'
+  | 'project___categories____rawColor'
   | 'project___categories___id'
   | 'project___categories___parent___id'
   | 'project___categories___parent___children'
@@ -4418,10 +4455,14 @@ export type SanityCategoryFieldsEnum =
   | 'icon___imageUrl'
   | 'icon___keywords'
   | 'icon___customCategory'
-  | 'color'
+  | 'color____key'
+  | 'color____type'
+  | 'color___title'
+  | 'color___value'
   | 'description'
   | '_rawSlug'
   | '_rawIcon'
+  | '_rawColor'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -4565,6 +4606,7 @@ export type SanityFigureFieldsEnum =
   | 'asset___label'
   | 'asset___title'
   | 'asset___description'
+  | 'asset___altText'
   | 'asset___sha1hash'
   | 'asset___extension'
   | 'asset___mimeType'
@@ -4944,6 +4986,7 @@ export type SanityHighlightsFieldsEnum =
   | 'projects___mainImage___asset___label'
   | 'projects___mainImage___asset___title'
   | 'projects___mainImage___asset___description'
+  | 'projects___mainImage___asset___altText'
   | 'projects___mainImage___asset___sha1hash'
   | 'projects___mainImage___asset___extension'
   | 'projects___mainImage___asset___mimeType'
@@ -5016,10 +5059,14 @@ export type SanityHighlightsFieldsEnum =
   | 'projects___categories___icon___imageUrl'
   | 'projects___categories___icon___keywords'
   | 'projects___categories___icon___customCategory'
-  | 'projects___categories___color'
+  | 'projects___categories___color____key'
+  | 'projects___categories___color____type'
+  | 'projects___categories___color___title'
+  | 'projects___categories___color___value'
   | 'projects___categories___description'
   | 'projects___categories____rawSlug'
   | 'projects___categories____rawIcon'
+  | 'projects___categories____rawColor'
   | 'projects___categories___id'
   | 'projects___categories___parent___id'
   | 'projects___categories___parent___children'
@@ -5273,6 +5320,7 @@ export type SanityMeFieldsEnum =
   | 'portrait___asset___label'
   | 'portrait___asset___title'
   | 'portrait___asset___description'
+  | 'portrait___asset___altText'
   | 'portrait___asset___sha1hash'
   | 'portrait___asset___extension'
   | 'portrait___asset___mimeType'
@@ -5598,6 +5646,7 @@ export type SanityProjectFieldsEnum =
   | 'mainImage___asset___label'
   | 'mainImage___asset___title'
   | 'mainImage___asset___description'
+  | 'mainImage___asset___altText'
   | 'mainImage___asset___sha1hash'
   | 'mainImage___asset___extension'
   | 'mainImage___asset___mimeType'
@@ -5771,10 +5820,14 @@ export type SanityProjectFieldsEnum =
   | 'categories___icon___imageUrl'
   | 'categories___icon___keywords'
   | 'categories___icon___customCategory'
-  | 'categories___color'
+  | 'categories___color____key'
+  | 'categories___color____type'
+  | 'categories___color___title'
+  | 'categories___color___value'
   | 'categories___description'
   | 'categories____rawSlug'
   | 'categories____rawIcon'
+  | 'categories____rawColor'
   | 'categories___id'
   | 'categories___parent___id'
   | 'categories___parent___parent___id'
@@ -5979,6 +6032,7 @@ export type SanityFileAssetFieldsEnum =
   | 'label'
   | 'title'
   | 'description'
+  | 'altText'
   | 'sha1hash'
   | 'extension'
   | 'mimeType'
@@ -6099,6 +6153,7 @@ export type SanityFileAssetFilterInput = {
   label?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
+  altText?: Maybe<StringQueryOperatorInput>;
   sha1hash?: Maybe<StringQueryOperatorInput>;
   extension?: Maybe<StringQueryOperatorInput>;
   mimeType?: Maybe<StringQueryOperatorInput>;
@@ -6157,6 +6212,7 @@ export type SanityImageAssetFieldsEnum =
   | 'label'
   | 'title'
   | 'description'
+  | 'altText'
   | 'sha1hash'
   | 'extension'
   | 'mimeType'
@@ -7215,6 +7271,7 @@ export type SanityHighlightFieldsEnum =
   | 'projects___mainImage___asset___label'
   | 'projects___mainImage___asset___title'
   | 'projects___mainImage___asset___description'
+  | 'projects___mainImage___asset___altText'
   | 'projects___mainImage___asset___sha1hash'
   | 'projects___mainImage___asset___extension'
   | 'projects___mainImage___asset___mimeType'
@@ -7287,10 +7344,14 @@ export type SanityHighlightFieldsEnum =
   | 'projects___categories___icon___imageUrl'
   | 'projects___categories___icon___keywords'
   | 'projects___categories___icon___customCategory'
-  | 'projects___categories___color'
+  | 'projects___categories___color____key'
+  | 'projects___categories___color____type'
+  | 'projects___categories___color___title'
+  | 'projects___categories___color___value'
   | 'projects___categories___description'
   | 'projects___categories____rawSlug'
   | 'projects___categories____rawIcon'
+  | 'projects___categories____rawColor'
   | 'projects___categories___id'
   | 'projects___categories___parent___id'
   | 'projects___categories___parent___children'
@@ -7809,8 +7870,8 @@ export type ArticlePreviewFragment = (
 export type ProjectPreviewFragment = (
   Pick<SanityProject, 'id' | 'isCurrent' | 'title' | '_rawExcerpt'>
   & { categories: Array<(
-    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-    & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
+    Pick<SanityCategory, 'description' | 'id' | 'title'>
+    & { color?: Maybe<Pick<SanityColorlist, 'value'>>, icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
   )>, mainImage?: Maybe<(
     Pick<SanityFigure, 'alt'>
     & { asset?: Maybe<Pick<SanityImageAsset, 'gatsbyImageData'>> }
@@ -7849,8 +7910,8 @@ export type CategoriesPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoriesPageQuery = { allSanityCategory: { nodes: Array<(
-      Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-      & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
+      Pick<SanityCategory, 'description' | 'id' | 'title'>
+      & { color?: Maybe<Pick<SanityColorlist, 'value'>>, icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
     )> } };
 
 export type ContactPageQueryVariables = Exact<{ [key: string]: never; }>;
@@ -7877,16 +7938,16 @@ export type ProjectsPageQuery = { currentProjects: { nodes: Array<ProjectPreview
 export type ArticleFragment = (
   Pick<SanityArticle, 'id' | 'publishedAt' | 'title' | '_rawBody'>
   & { categories: Array<(
-    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-    & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
+    Pick<SanityCategory, 'description' | 'id' | 'title'>
+    & { color?: Maybe<Pick<SanityColorlist, 'value'>>, icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
   )>, mainImage?: Maybe<TransformableFigureFragment> }
 );
 
 export type ProjectFragment = (
   Pick<SanityProject, 'id' | 'isCurrent' | 'publishedAt' | 'title' | '_rawBody'>
   & { categories: Array<(
-    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-    & { icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
+    Pick<SanityCategory, 'description' | 'id' | 'title'>
+    & { color?: Maybe<Pick<SanityColorlist, 'value'>>, icon?: Maybe<Pick<SanityEmoji, 'native'>>, slug: Pick<SanitySlug, 'current'> }
   )>, mainImage?: Maybe<TransformableFigureFragment> }
 );
 
@@ -7906,8 +7967,8 @@ export type CategoryPageQueryVariables = Exact<{
 
 
 export type CategoryPageQuery = { category?: Maybe<(
-    Pick<SanityCategory, 'color' | 'description' | 'id' | 'title'>
-    & { icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
+    Pick<SanityCategory, 'description' | 'id' | 'title'>
+    & { color?: Maybe<Pick<SanityColorlist, 'value'>>, icon?: Maybe<Pick<SanityEmoji, 'name' | 'native'>>, slug: Pick<SanitySlug, 'current'> }
   )>, articles: { nodes: Array<ArticlePreviewFragment> }, projects: { nodes: Array<(
       Pick<SanityProject, 'publishedAt'>
       & ProjectPreviewFragment
