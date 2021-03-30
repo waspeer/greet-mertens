@@ -1,7 +1,9 @@
+import type { IGatsbyImageData } from 'gatsby-plugin-image';
+
 export interface Image {
   alt: string;
   caption?: string | null;
-  fluid: any;
+  imageData: IGatsbyImageData | null;
 }
 
 export interface TransformableImage {

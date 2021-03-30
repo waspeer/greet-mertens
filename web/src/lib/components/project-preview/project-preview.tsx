@@ -1,6 +1,6 @@
 import PortableText from '@sanity/block-content-to-react';
 import { graphql } from 'gatsby';
-import Image from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from 'react';
 
 import type { ProjectPreview as ProjectPreviewType } from '~/lib/types';
@@ -20,7 +20,7 @@ export const ProjectPreview = ({ projectPreview, type = 'normal' }: Props) => {
     <div className="projectPreview">
       {isCurrent && <div className="projectPreview__currentBadge">nog lopend project</div>}
       <div className="projectPreview__image">
-        {mainImage && mainImage.fluid && <Image fluid={mainImage.fluid} alt={mainImage.alt} />}
+        {mainImage?.imageData && <GatsbyImage image={mainImage.imageData} alt={mainImage.alt} />}
       </div>
       {type === 'slim' && <div className="projectPreview__title--slim">{title}</div>}
       {type === 'normal' && (
@@ -56,9 +56,7 @@ export const query = graphql`
     isCurrent
     mainImage {
       asset {
-        fluid(maxWidth: 700) {
-          ...GatsbySanityImageFluid
-        }
+        gatsbyImageData(width: 700)
       }
       alt
     }

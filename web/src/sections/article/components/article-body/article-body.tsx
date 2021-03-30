@@ -1,5 +1,5 @@
 import PortableText from '@sanity/block-content-to-react';
-import { getFluidGatsbyImage } from 'gatsby-source-sanity';
+import { getGatsbyImageData } from 'gatsby-source-sanity';
 import React from 'react';
 
 import { GatsbyFigure } from '~/lib/components/gatsby-figure';
@@ -31,12 +31,12 @@ const serializers = {
         return null;
       }
 
-      const fluid = getFluidGatsbyImage(
+      const imageData = getGatsbyImageData(
         node.asset._ref,
-        { maxWidth: 850 },
+        { width: 850 },
         {
-          projectId: process.env.GATSBY_SANITY_PROJECT_ID,
-          dataset: process.env.GATSBY_SANITY_DATASET,
+          projectId: process.env.GATSBY_SANITY_PROJECT_ID!,
+          dataset: process.env.GATSBY_SANITY_DATASET!,
         },
       );
 
@@ -45,7 +45,7 @@ const serializers = {
           image={{
             alt: node.alt,
             caption: node.caption,
-            fluid,
+            imageData,
           }}
         />
       );

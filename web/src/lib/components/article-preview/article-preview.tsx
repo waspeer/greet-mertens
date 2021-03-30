@@ -2,7 +2,7 @@ import PortableText from '@sanity/block-content-to-react';
 import { format } from 'date-fns';
 import { nl as locale } from 'date-fns/locale';
 import { graphql } from 'gatsby';
-import Image from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from 'react';
 
 import type { ArticlePreview as ArticlePreviewType } from '~/lib/types';
@@ -21,7 +21,7 @@ export const ArticlePreview = ({ articlePreview }: Props) => {
   return (
     <div className="articlePreview">
       <div className="articlePreview__image">
-        {mainImage && mainImage.fluid && <Image fluid={mainImage.fluid} alt={mainImage.alt} />}
+        {mainImage?.imageData && <GatsbyImage image={mainImage.imageData} alt={mainImage.alt} />}
       </div>
       <div className="articlePreview__text">
         <div className="articlePreview__heading">{title}</div>
@@ -42,9 +42,7 @@ export const query = graphql`
     publishedAt
     mainImage {
       asset {
-        fluid(maxWidth: 700) {
-          ...GatsbySanityImageFluid
-        }
+        gatsbyImageData(width: 700)
       }
       alt
     }

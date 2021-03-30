@@ -1,4 +1,4 @@
-import Image from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image";
 import React from 'react';
 
 import { ProjectPreview } from '~/lib/types';
@@ -16,7 +16,7 @@ export const Home = ({ email, portrait, projectHighlights, tagline }: Props) => 
   return (
     <div className="home">
       <div className="home__portrait">
-        <Image fluid={portrait} />
+        <GatsbyImage alt="Greet Mertens" image={portrait} />
       </div>
       <div className="home__text">
         <h2>Greet Mertens</h2>

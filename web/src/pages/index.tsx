@@ -12,7 +12,7 @@ interface Props {
 
 const IndexPage = ({ data }: Props) => {
   const email = data.me?.email ?? '';
-  const portrait = data.me?.portrait?.asset?.fluid;
+  const portrait = data.me?.portrait?.asset?.gatsbyImageData;
   const tagline = data.me?.tagline ?? '';
   const projectHighlights = data.highlights?.projects?.map((projectPreview) =>
     normalizeProjectPreview(projectPreview!),
@@ -35,9 +35,7 @@ export const query = graphql`
       tagline
       portrait {
         asset {
-          fluid(maxWidth: 1000) {
-            ...GatsbySanityImageFluid
-          }
+          gatsbyImageData(width: 1000)
         }
       }
     }

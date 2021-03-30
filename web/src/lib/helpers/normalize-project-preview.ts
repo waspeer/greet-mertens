@@ -21,7 +21,7 @@ export function normalizeProjectPreview({
     mainImage: mainImage
       ? {
           alt: mainImage.alt,
-          fluid: mainImage.asset?.fluid,
+          imageData: mainImage.asset?.gatsbyImageData,
         }
       : undefined,
     slug: slug.current,

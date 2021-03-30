@@ -1,5 +1,5 @@
 import classNames from '@sindresorhus/class-names';
-import GatsbyImage from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import React from 'react';
 
 import { CaptionedMedia } from '~/lib/components/captioned-media';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const GatsbyFigure = ({ className, image }: Props) => {
-  const media = image.fluid && <GatsbyImage alt={image.alt} fluid={image.fluid} />;
+  const media = image.imageData && <GatsbyImage alt={image.alt} image={image.imageData} />;
 
   return (
     <CaptionedMedia
