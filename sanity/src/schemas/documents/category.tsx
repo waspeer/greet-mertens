@@ -3,7 +3,7 @@ import { RiPriceTag3Line } from 'react-icons/ri';
 
 import type { DocumentType } from '../../lib/data-types';
 
-export const Category: DocumentType<'colors' | 'emoji'> = {
+export const Category: DocumentType<'colorlist' | 'emoji'> = {
   name: 'category',
   type: 'document',
   title: 'Categorie',
@@ -36,7 +36,7 @@ export const Category: DocumentType<'colors' | 'emoji'> = {
     },
     {
       name: 'color',
-      type: 'colors',
+      type: 'colorlist',
       title: 'Kleur',
       options: {
         list: [
