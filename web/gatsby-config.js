@@ -9,8 +9,9 @@ module.exports = {
         '~': path.join(__dirname, 'src'),
       },
     },
-    'gatsby-transformer-sharp',
+    'gatsby-plugin-image',
     'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     'gatsby-plugin-postcss',
     'gatsby-plugin-graphql-codegen',
     {
