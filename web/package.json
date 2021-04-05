@@ -17,7 +17,7 @@
     "@sanity/block-content-to-react": "^2.0.7",
     "@sanity/image-url": "^0.140.22",
     "@sindresorhus/class-names": "^1.1.0",
-    "cross-fetch": "^3.1.2",
+    "cross-fetch": "^3.1.4",
     "date-fns": "^2.19.0",
     "dotenv": "^8.2.0",
     "flickity": "^2.2.2",
