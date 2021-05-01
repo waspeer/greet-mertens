@@ -246,6 +246,9 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Int']>;
+  host?: Maybe<Scalars['String']>;
+  flags?: Maybe<SiteFlags>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -262,9 +265,25 @@ export type SiteBuildTimeArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
+export type SiteFlags = {
+  FAST_DEV?: Maybe<Scalars['Boolean']>;
+};
+
 export type SiteSiteMetadata = {
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+};
+
+export type SiteFunction = Node & {
+  apiRoute: Scalars['String'];
+  originalFilePath: Scalars['String'];
+  relativeCompiledFilePath: Scalars['String'];
+  absoluteCompiledFilePath: Scalars['String'];
+  matchPath?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
 };
 
 export type SitePage = Node & {
@@ -1037,8 +1056,6 @@ export type SanityImageAsset = SanityDocument & Node & {
   source?: Maybe<SanityAssetSourceData>;
   _rawMetadata?: Maybe<Scalars['JSON']>;
   _rawSource?: Maybe<Scalars['JSON']>;
-  fixed?: Maybe<SanityImageFixed>;
-  fluid?: Maybe<SanityImageFluid>;
   gatsbyImageData: Scalars['JSON'];
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -1073,27 +1090,12 @@ export type SanityImageAsset_RawSourceArgs = {
 };
 
 
-export type SanityImageAssetFixedArgs = {
-  width?: Maybe<Scalars['Int']>;
-  height?: Maybe<Scalars['Int']>;
-  toFormat?: Maybe<SanityImageFormat>;
-};
-
-
-export type SanityImageAssetFluidArgs = {
-  maxWidth?: Maybe<Scalars['Int']>;
-  maxHeight?: Maybe<Scalars['Int']>;
-  sizes?: Maybe<Scalars['String']>;
-  toFormat?: Maybe<SanityImageFormat>;
-};
-
-
 export type SanityImageAssetGatsbyImageDataArgs = {
   layout?: Maybe<GatsbyImageLayout>;
   width?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
   aspectRatio?: Maybe<Scalars['Float']>;
-  placeholder?: Maybe<GatsbyImagePlaceholder>;
+  placeholder?: Maybe<SanityGatsbyImagePlaceholder>;
   formats?: Maybe<Array<Maybe<GatsbyImageFormat>>>;
   outputPixelDensities?: Maybe<Array<Maybe<Scalars['Float']>>>;
   breakpoints?: Maybe<Array<Maybe<Scalars['Int']>>>;
@@ -1102,38 +1104,12 @@ export type SanityImageAssetGatsbyImageDataArgs = {
   fit?: Maybe<SanityImageFit>;
 };
 
-export type SanityImageFixed = {
-  width: Scalars['Float'];
-  height: Scalars['Float'];
-  src: Scalars['String'];
-  srcSet: Scalars['String'];
-  base64?: Maybe<Scalars['String']>;
-  srcWebp?: Maybe<Scalars['String']>;
-  srcSetWebp?: Maybe<Scalars['String']>;
-};
-
-export type SanityImageFormat = 
-  | 'NO_CHANGE'
-  | 'JPG'
-  | 'PNG'
-  | 'WEBP';
-
-export type SanityImageFluid = {
-  aspectRatio: Scalars['Float'];
-  src: Scalars['String'];
-  srcSet: Scalars['String'];
-  sizes: Scalars['String'];
-  base64?: Maybe<Scalars['String']>;
-  srcWebp?: Maybe<Scalars['String']>;
-  srcSetWebp?: Maybe<Scalars['String']>;
-};
-
 export type GatsbyImageLayout = 
   | 'FIXED'
   | 'FULL_WIDTH'
   | 'CONSTRAINED';
 
-export type GatsbyImagePlaceholder = 
+export type SanityGatsbyImagePlaceholder = 
   | 'DOMINANT_COLOR'
   | 'BLURRED'
   | 'NONE';
@@ -1338,6 +1314,34 @@ export type SanityResolveReferencesConfiguration = {
   maxDepth: Scalars['Int'];
 };
 
+export type SanityImageFixed = Node & {
+  base64?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['String']>;
+  src?: Maybe<Scalars['String']>;
+  srcSet?: Maybe<Scalars['String']>;
+  srcWebp?: Maybe<Scalars['String']>;
+  srcSetWebp?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+export type SanityImageFluid = Node & {
+  base64?: Maybe<Scalars['String']>;
+  aspectRatio?: Maybe<Scalars['String']>;
+  src?: Maybe<Scalars['String']>;
+  srcSet?: Maybe<Scalars['String']>;
+  srcWebp?: Maybe<Scalars['String']>;
+  srcSetWebp?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
 export type SanityHighlight = Node & {
   projects?: Maybe<Array<SanityProject>>;
   id: Scalars['ID'];
@@ -1384,6 +1388,12 @@ export type SitePluginPluginOptions = {
   stripMetadata?: Maybe<Scalars['Boolean']>;
   defaultQuality?: Maybe<Scalars['Int']>;
   failOnError?: Maybe<Scalars['Boolean']>;
+  documentPaths?: Maybe<Array<Maybe<Scalars['String']>>>;
+  projectId?: Maybe<Scalars['String']>;
+  dataset?: Maybe<Scalars['String']>;
+  token?: Maybe<Scalars['String']>;
+  watchMode?: Maybe<Scalars['Boolean']>;
+  overlayDrafts?: Maybe<Scalars['Boolean']>;
   component?: Maybe<Scalars['String']>;
   icon?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -1403,11 +1413,6 @@ export type SitePluginPluginOptions = {
   allExtensions?: Maybe<Scalars['Boolean']>;
   isTSX?: Maybe<Scalars['Boolean']>;
   jsxPragma?: Maybe<Scalars['String']>;
-  projectId?: Maybe<Scalars['String']>;
-  dataset?: Maybe<Scalars['String']>;
-  token?: Maybe<Scalars['String']>;
-  watchMode?: Maybe<Scalars['Boolean']>;
-  overlayDrafts?: Maybe<Scalars['Boolean']>;
 };
 
 export type SitePluginPackageJson = {
@@ -1445,6 +1450,8 @@ export type Query = {
   allDirectory: DirectoryConnection;
   site?: Maybe<Site>;
   allSite: SiteConnection;
+  siteFunction?: Maybe<SiteFunction>;
+  allSiteFunction: SiteFunctionConnection;
   sitePage?: Maybe<SitePage>;
   allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
@@ -1475,6 +1482,10 @@ export type Query = {
   allSanitySiteSettings: SanitySiteSettingsConnection;
   sanitySlug?: Maybe<SanitySlug>;
   allSanitySlug: SanitySlugConnection;
+  sanityImageFixed?: Maybe<SanityImageFixed>;
+  allSanityImageFixed: SanityImageFixedConnection;
+  sanityImageFluid?: Maybe<SanityImageFluid>;
+  allSanityImageFluid: SanityImageFluidConnection;
   sanityHighlight?: Maybe<SanityHighlight>;
   allSanityHighlight: SanityHighlightConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
@@ -1583,6 +1594,9 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
+  flags?: Maybe<SiteFlagsFilterInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -1595,6 +1609,27 @@ export type QuerySiteArgs = {
 export type QueryAllSiteArgs = {
   filter?: Maybe<SiteFilterInput>;
   sort?: Maybe<SiteSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerySiteFunctionArgs = {
+  apiRoute?: Maybe<StringQueryOperatorInput>;
+  originalFilePath?: Maybe<StringQueryOperatorInput>;
+  relativeCompiledFilePath?: Maybe<StringQueryOperatorInput>;
+  absoluteCompiledFilePath?: Maybe<StringQueryOperatorInput>;
+  matchPath?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllSiteFunctionArgs = {
+  filter?: Maybe<SiteFunctionFilterInput>;
+  sort?: Maybe<SiteFunctionSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -1886,8 +1921,6 @@ export type QuerySanityImageAssetArgs = {
   source?: Maybe<SanityAssetSourceDataFilterInput>;
   _rawMetadata?: Maybe<JsonQueryOperatorInput>;
   _rawSource?: Maybe<JsonQueryOperatorInput>;
-  fixed?: Maybe<SanityImageFixedFilterInput>;
-  fluid?: Maybe<SanityImageFluidFilterInput>;
   gatsbyImageData?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -2013,6 +2046,52 @@ export type QuerySanitySlugArgs = {
 export type QueryAllSanitySlugArgs = {
   filter?: Maybe<SanitySlugFilterInput>;
   sort?: Maybe<SanitySlugSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerySanityImageFixedArgs = {
+  base64?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<StringQueryOperatorInput>;
+  height?: Maybe<StringQueryOperatorInput>;
+  src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  srcWebp?: Maybe<StringQueryOperatorInput>;
+  srcSetWebp?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllSanityImageFixedArgs = {
+  filter?: Maybe<SanityImageFixedFilterInput>;
+  sort?: Maybe<SanityImageFixedSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QuerySanityImageFluidArgs = {
+  base64?: Maybe<StringQueryOperatorInput>;
+  aspectRatio?: Maybe<StringQueryOperatorInput>;
+  src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  srcWebp?: Maybe<StringQueryOperatorInput>;
+  srcSetWebp?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllSanityImageFluidArgs = {
+  filter?: Maybe<SanityImageFluidFilterInput>;
+  sort?: Maybe<SanityImageFluidSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -2221,11 +2300,29 @@ export type FileConnection = {
   nodes: Array<File>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<FileGroupConnection>;
 };
 
 
 export type FileConnectionDistinctArgs = {
+  field: FileFieldsEnum;
+};
+
+
+export type FileConnectionMaxArgs = {
+  field: FileFieldsEnum;
+};
+
+
+export type FileConnectionMinArgs = {
+  field: FileFieldsEnum;
+};
+
+
+export type FileConnectionSumArgs = {
   field: FileFieldsEnum;
 };
 
@@ -2576,11 +2673,29 @@ export type DirectoryConnection = {
   nodes: Array<Directory>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<DirectoryGroupConnection>;
 };
 
 
 export type DirectoryConnectionDistinctArgs = {
+  field: DirectoryFieldsEnum;
+};
+
+
+export type DirectoryConnectionMaxArgs = {
+  field: DirectoryFieldsEnum;
+};
+
+
+export type DirectoryConnectionMinArgs = {
+  field: DirectoryFieldsEnum;
+};
+
+
+export type DirectoryConnectionSumArgs = {
   field: DirectoryFieldsEnum;
 };
 
@@ -2773,17 +2888,39 @@ export type SiteSiteMetadataFilterInput = {
   description?: Maybe<StringQueryOperatorInput>;
 };
 
+export type SiteFlagsFilterInput = {
+  FAST_DEV?: Maybe<BooleanQueryOperatorInput>;
+};
+
 export type SiteConnection = {
   totalCount: Scalars['Int'];
   edges: Array<SiteEdge>;
   nodes: Array<Site>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SiteGroupConnection>;
 };
 
 
 export type SiteConnectionDistinctArgs = {
+  field: SiteFieldsEnum;
+};
+
+
+export type SiteConnectionMaxArgs = {
+  field: SiteFieldsEnum;
+};
+
+
+export type SiteConnectionMinArgs = {
+  field: SiteFieldsEnum;
+};
+
+
+export type SiteConnectionSumArgs = {
   field: SiteFieldsEnum;
 };
 
@@ -2804,6 +2941,9 @@ export type SiteFieldsEnum =
   | 'buildTime'
   | 'siteMetadata___title'
   | 'siteMetadata___description'
+  | 'port'
+  | 'host'
+  | 'flags___FAST_DEV'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2905,6 +3045,9 @@ export type SiteGroupConnection = {
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
+  flags?: Maybe<SiteFlagsFilterInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2915,6 +3058,170 @@ export type SiteFilterInput = {
 
 export type SiteSortInput = {
   fields?: Maybe<Array<Maybe<SiteFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type SiteFunctionConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SiteFunctionEdge>;
+  nodes: Array<SiteFunction>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<SiteFunctionGroupConnection>;
+};
+
+
+export type SiteFunctionConnectionDistinctArgs = {
+  field: SiteFunctionFieldsEnum;
+};
+
+
+export type SiteFunctionConnectionMaxArgs = {
+  field: SiteFunctionFieldsEnum;
+};
+
+
+export type SiteFunctionConnectionMinArgs = {
+  field: SiteFunctionFieldsEnum;
+};
+
+
+export type SiteFunctionConnectionSumArgs = {
+  field: SiteFunctionFieldsEnum;
+};
+
+
+export type SiteFunctionConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: SiteFunctionFieldsEnum;
+};
+
+export type SiteFunctionEdge = {
+  next?: Maybe<SiteFunction>;
+  node: SiteFunction;
+  previous?: Maybe<SiteFunction>;
+};
+
+export type SiteFunctionFieldsEnum = 
+  | 'apiRoute'
+  | 'originalFilePath'
+  | 'relativeCompiledFilePath'
+  | 'absoluteCompiledFilePath'
+  | 'matchPath'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type SiteFunctionGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SiteFunctionEdge>;
+  nodes: Array<SiteFunction>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type SiteFunctionFilterInput = {
+  apiRoute?: Maybe<StringQueryOperatorInput>;
+  originalFilePath?: Maybe<StringQueryOperatorInput>;
+  relativeCompiledFilePath?: Maybe<StringQueryOperatorInput>;
+  absoluteCompiledFilePath?: Maybe<StringQueryOperatorInput>;
+  matchPath?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type SiteFunctionSortInput = {
+  fields?: Maybe<Array<Maybe<SiteFunctionFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
@@ -2944,6 +3251,12 @@ export type SitePluginPluginOptionsFilterInput = {
   stripMetadata?: Maybe<BooleanQueryOperatorInput>;
   defaultQuality?: Maybe<IntQueryOperatorInput>;
   failOnError?: Maybe<BooleanQueryOperatorInput>;
+  documentPaths?: Maybe<StringQueryOperatorInput>;
+  projectId?: Maybe<StringQueryOperatorInput>;
+  dataset?: Maybe<StringQueryOperatorInput>;
+  token?: Maybe<StringQueryOperatorInput>;
+  watchMode?: Maybe<BooleanQueryOperatorInput>;
+  overlayDrafts?: Maybe<BooleanQueryOperatorInput>;
   component?: Maybe<StringQueryOperatorInput>;
   icon?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
@@ -2963,11 +3276,6 @@ export type SitePluginPluginOptionsFilterInput = {
   allExtensions?: Maybe<BooleanQueryOperatorInput>;
   isTSX?: Maybe<BooleanQueryOperatorInput>;
   jsxPragma?: Maybe<StringQueryOperatorInput>;
-  projectId?: Maybe<StringQueryOperatorInput>;
-  dataset?: Maybe<StringQueryOperatorInput>;
-  token?: Maybe<StringQueryOperatorInput>;
-  watchMode?: Maybe<BooleanQueryOperatorInput>;
-  overlayDrafts?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type SitePluginPackageJsonFilterInput = {
@@ -3016,11 +3324,29 @@ export type SitePageConnection = {
   nodes: Array<SitePage>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SitePageGroupConnection>;
 };
 
 
 export type SitePageConnectionDistinctArgs = {
+  field: SitePageFieldsEnum;
+};
+
+
+export type SitePageConnectionMaxArgs = {
+  field: SitePageFieldsEnum;
+};
+
+
+export type SitePageConnectionMinArgs = {
+  field: SitePageFieldsEnum;
+};
+
+
+export type SitePageConnectionSumArgs = {
   field: SitePageFieldsEnum;
 };
 
@@ -3177,6 +3503,12 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___stripMetadata'
   | 'pluginCreator___pluginOptions___defaultQuality'
   | 'pluginCreator___pluginOptions___failOnError'
+  | 'pluginCreator___pluginOptions___documentPaths'
+  | 'pluginCreator___pluginOptions___projectId'
+  | 'pluginCreator___pluginOptions___dataset'
+  | 'pluginCreator___pluginOptions___token'
+  | 'pluginCreator___pluginOptions___watchMode'
+  | 'pluginCreator___pluginOptions___overlayDrafts'
   | 'pluginCreator___pluginOptions___component'
   | 'pluginCreator___pluginOptions___icon'
   | 'pluginCreator___pluginOptions___name'
@@ -3196,11 +3528,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___allExtensions'
   | 'pluginCreator___pluginOptions___isTSX'
   | 'pluginCreator___pluginOptions___jsxPragma'
-  | 'pluginCreator___pluginOptions___projectId'
-  | 'pluginCreator___pluginOptions___dataset'
-  | 'pluginCreator___pluginOptions___token'
-  | 'pluginCreator___pluginOptions___watchMode'
-  | 'pluginCreator___pluginOptions___overlayDrafts'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
   | 'pluginCreator___ssrAPIs'
@@ -3261,11 +3588,29 @@ export type ImageSharpConnection = {
   nodes: Array<ImageSharp>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<ImageSharpGroupConnection>;
 };
 
 
 export type ImageSharpConnectionDistinctArgs = {
+  field: ImageSharpFieldsEnum;
+};
+
+
+export type ImageSharpConnectionMaxArgs = {
+  field: ImageSharpFieldsEnum;
+};
+
+
+export type ImageSharpConnectionMinArgs = {
+  field: ImageSharpFieldsEnum;
+};
+
+
+export type ImageSharpConnectionSumArgs = {
   field: ImageSharpFieldsEnum;
 };
 
@@ -3466,8 +3811,6 @@ export type SanityImageAssetFilterInput = {
   source?: Maybe<SanityAssetSourceDataFilterInput>;
   _rawMetadata?: Maybe<JsonQueryOperatorInput>;
   _rawSource?: Maybe<JsonQueryOperatorInput>;
-  fixed?: Maybe<SanityImageFixedFilterInput>;
-  fluid?: Maybe<SanityImageFluidFilterInput>;
   gatsbyImageData?: Maybe<JsonQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -3543,26 +3886,6 @@ export type SanityAssetSourceDataFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SanityImageFixedFilterInput = {
-  width?: Maybe<FloatQueryOperatorInput>;
-  height?: Maybe<FloatQueryOperatorInput>;
-  src?: Maybe<StringQueryOperatorInput>;
-  srcSet?: Maybe<StringQueryOperatorInput>;
-  base64?: Maybe<StringQueryOperatorInput>;
-  srcWebp?: Maybe<StringQueryOperatorInput>;
-  srcSetWebp?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SanityImageFluidFilterInput = {
-  aspectRatio?: Maybe<FloatQueryOperatorInput>;
-  src?: Maybe<StringQueryOperatorInput>;
-  srcSet?: Maybe<StringQueryOperatorInput>;
-  sizes?: Maybe<StringQueryOperatorInput>;
-  base64?: Maybe<StringQueryOperatorInput>;
-  srcWebp?: Maybe<StringQueryOperatorInput>;
-  srcSetWebp?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SanityImageHotspotFilterInput = {
@@ -3696,11 +4019,29 @@ export type SanityArticleConnection = {
   nodes: Array<SanityArticle>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityArticleGroupConnection>;
 };
 
 
 export type SanityArticleConnectionDistinctArgs = {
+  field: SanityArticleFieldsEnum;
+};
+
+
+export type SanityArticleConnectionMaxArgs = {
+  field: SanityArticleFieldsEnum;
+};
+
+
+export type SanityArticleConnectionMinArgs = {
+  field: SanityArticleFieldsEnum;
+};
+
+
+export type SanityArticleConnectionSumArgs = {
   field: SanityArticleFieldsEnum;
 };
 
@@ -3806,20 +4147,6 @@ export type SanityArticleFieldsEnum =
   | 'mainImage___asset___source___url'
   | 'mainImage___asset____rawMetadata'
   | 'mainImage___asset____rawSource'
-  | 'mainImage___asset___fixed___width'
-  | 'mainImage___asset___fixed___height'
-  | 'mainImage___asset___fixed___src'
-  | 'mainImage___asset___fixed___srcSet'
-  | 'mainImage___asset___fixed___base64'
-  | 'mainImage___asset___fixed___srcWebp'
-  | 'mainImage___asset___fixed___srcSetWebp'
-  | 'mainImage___asset___fluid___aspectRatio'
-  | 'mainImage___asset___fluid___src'
-  | 'mainImage___asset___fluid___srcSet'
-  | 'mainImage___asset___fluid___sizes'
-  | 'mainImage___asset___fluid___base64'
-  | 'mainImage___asset___fluid___srcWebp'
-  | 'mainImage___asset___fluid___srcSetWebp'
   | 'mainImage___asset___gatsbyImageData'
   | 'mainImage___asset___id'
   | 'mainImage___asset___parent___id'
@@ -4363,11 +4690,29 @@ export type SanityCategoryConnection = {
   nodes: Array<SanityCategory>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityCategoryGroupConnection>;
 };
 
 
 export type SanityCategoryConnectionDistinctArgs = {
+  field: SanityCategoryFieldsEnum;
+};
+
+
+export type SanityCategoryConnectionMaxArgs = {
+  field: SanityCategoryFieldsEnum;
+};
+
+
+export type SanityCategoryConnectionMinArgs = {
+  field: SanityCategoryFieldsEnum;
+};
+
+
+export type SanityCategoryConnectionSumArgs = {
   field: SanityCategoryFieldsEnum;
 };
 
@@ -4562,11 +4907,29 @@ export type SanityFigureConnection = {
   nodes: Array<SanityFigure>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityFigureGroupConnection>;
 };
 
 
 export type SanityFigureConnectionDistinctArgs = {
+  field: SanityFigureFieldsEnum;
+};
+
+
+export type SanityFigureConnectionMaxArgs = {
+  field: SanityFigureFieldsEnum;
+};
+
+
+export type SanityFigureConnectionMinArgs = {
+  field: SanityFigureFieldsEnum;
+};
+
+
+export type SanityFigureConnectionSumArgs = {
   field: SanityFigureFieldsEnum;
 };
 
@@ -4654,20 +5017,6 @@ export type SanityFigureFieldsEnum =
   | 'asset___source___url'
   | 'asset____rawMetadata'
   | 'asset____rawSource'
-  | 'asset___fixed___width'
-  | 'asset___fixed___height'
-  | 'asset___fixed___src'
-  | 'asset___fixed___srcSet'
-  | 'asset___fixed___base64'
-  | 'asset___fixed___srcWebp'
-  | 'asset___fixed___srcSetWebp'
-  | 'asset___fluid___aspectRatio'
-  | 'asset___fluid___src'
-  | 'asset___fluid___srcSet'
-  | 'asset___fluid___sizes'
-  | 'asset___fluid___base64'
-  | 'asset___fluid___srcWebp'
-  | 'asset___fluid___srcSetWebp'
   | 'asset___gatsbyImageData'
   | 'asset___id'
   | 'asset___parent___id'
@@ -4909,11 +5258,29 @@ export type SanityHighlightsConnection = {
   nodes: Array<SanityHighlights>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityHighlightsGroupConnection>;
 };
 
 
 export type SanityHighlightsConnectionDistinctArgs = {
+  field: SanityHighlightsFieldsEnum;
+};
+
+
+export type SanityHighlightsConnectionMaxArgs = {
+  field: SanityHighlightsFieldsEnum;
+};
+
+
+export type SanityHighlightsConnectionMinArgs = {
+  field: SanityHighlightsFieldsEnum;
+};
+
+
+export type SanityHighlightsConnectionSumArgs = {
   field: SanityHighlightsFieldsEnum;
 };
 
@@ -5272,11 +5639,29 @@ export type SanityMeConnection = {
   nodes: Array<SanityMe>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityMeGroupConnection>;
 };
 
 
 export type SanityMeConnectionDistinctArgs = {
+  field: SanityMeFieldsEnum;
+};
+
+
+export type SanityMeConnectionMaxArgs = {
+  field: SanityMeFieldsEnum;
+};
+
+
+export type SanityMeConnectionMinArgs = {
+  field: SanityMeFieldsEnum;
+};
+
+
+export type SanityMeConnectionSumArgs = {
   field: SanityMeFieldsEnum;
 };
 
@@ -5337,20 +5722,6 @@ export type SanityMeFieldsEnum =
   | 'portrait___asset___source___url'
   | 'portrait___asset____rawMetadata'
   | 'portrait___asset____rawSource'
-  | 'portrait___asset___fixed___width'
-  | 'portrait___asset___fixed___height'
-  | 'portrait___asset___fixed___src'
-  | 'portrait___asset___fixed___srcSet'
-  | 'portrait___asset___fixed___base64'
-  | 'portrait___asset___fixed___srcWebp'
-  | 'portrait___asset___fixed___srcSetWebp'
-  | 'portrait___asset___fluid___aspectRatio'
-  | 'portrait___asset___fluid___src'
-  | 'portrait___asset___fluid___srcSet'
-  | 'portrait___asset___fluid___sizes'
-  | 'portrait___asset___fluid___base64'
-  | 'portrait___asset___fluid___srcWebp'
-  | 'portrait___asset___fluid___srcSetWebp'
   | 'portrait___asset___gatsbyImageData'
   | 'portrait___asset___id'
   | 'portrait___asset___parent___id'
@@ -5552,11 +5923,29 @@ export type SanityProjectConnection = {
   nodes: Array<SanityProject>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityProjectGroupConnection>;
 };
 
 
 export type SanityProjectConnectionDistinctArgs = {
+  field: SanityProjectFieldsEnum;
+};
+
+
+export type SanityProjectConnectionMaxArgs = {
+  field: SanityProjectFieldsEnum;
+};
+
+
+export type SanityProjectConnectionMinArgs = {
+  field: SanityProjectFieldsEnum;
+};
+
+
+export type SanityProjectConnectionSumArgs = {
   field: SanityProjectFieldsEnum;
 };
 
@@ -5663,20 +6052,6 @@ export type SanityProjectFieldsEnum =
   | 'mainImage___asset___source___url'
   | 'mainImage___asset____rawMetadata'
   | 'mainImage___asset____rawSource'
-  | 'mainImage___asset___fixed___width'
-  | 'mainImage___asset___fixed___height'
-  | 'mainImage___asset___fixed___src'
-  | 'mainImage___asset___fixed___srcSet'
-  | 'mainImage___asset___fixed___base64'
-  | 'mainImage___asset___fixed___srcWebp'
-  | 'mainImage___asset___fixed___srcSetWebp'
-  | 'mainImage___asset___fluid___aspectRatio'
-  | 'mainImage___asset___fluid___src'
-  | 'mainImage___asset___fluid___srcSet'
-  | 'mainImage___asset___fluid___sizes'
-  | 'mainImage___asset___fluid___base64'
-  | 'mainImage___asset___fluid___srcWebp'
-  | 'mainImage___asset___fluid___srcSetWebp'
   | 'mainImage___asset___gatsbyImageData'
   | 'mainImage___asset___id'
   | 'mainImage___asset___parent___id'
@@ -5992,11 +6367,29 @@ export type SanityFileAssetConnection = {
   nodes: Array<SanityFileAsset>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityFileAssetGroupConnection>;
 };
 
 
 export type SanityFileAssetConnectionDistinctArgs = {
+  field: SanityFileAssetFieldsEnum;
+};
+
+
+export type SanityFileAssetConnectionMaxArgs = {
+  field: SanityFileAssetFieldsEnum;
+};
+
+
+export type SanityFileAssetConnectionMinArgs = {
+  field: SanityFileAssetFieldsEnum;
+};
+
+
+export type SanityFileAssetConnectionSumArgs = {
   field: SanityFileAssetFieldsEnum;
 };
 
@@ -6172,11 +6565,29 @@ export type SanityImageAssetConnection = {
   nodes: Array<SanityImageAsset>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityImageAssetGroupConnection>;
 };
 
 
 export type SanityImageAssetConnectionDistinctArgs = {
+  field: SanityImageAssetFieldsEnum;
+};
+
+
+export type SanityImageAssetConnectionMaxArgs = {
+  field: SanityImageAssetFieldsEnum;
+};
+
+
+export type SanityImageAssetConnectionMinArgs = {
+  field: SanityImageAssetFieldsEnum;
+};
+
+
+export type SanityImageAssetConnectionSumArgs = {
   field: SanityImageAssetFieldsEnum;
 };
 
@@ -6326,20 +6737,6 @@ export type SanityImageAssetFieldsEnum =
   | 'source___url'
   | '_rawMetadata'
   | '_rawSource'
-  | 'fixed___width'
-  | 'fixed___height'
-  | 'fixed___src'
-  | 'fixed___srcSet'
-  | 'fixed___base64'
-  | 'fixed___srcWebp'
-  | 'fixed___srcSetWebp'
-  | 'fluid___aspectRatio'
-  | 'fluid___src'
-  | 'fluid___srcSet'
-  | 'fluid___sizes'
-  | 'fluid___base64'
-  | 'fluid___srcWebp'
-  | 'fluid___srcSetWebp'
   | 'gatsbyImageData'
   | 'id'
   | 'parent___id'
@@ -6448,11 +6845,29 @@ export type SanityImageCropConnection = {
   nodes: Array<SanityImageCrop>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityImageCropGroupConnection>;
 };
 
 
 export type SanityImageCropConnectionDistinctArgs = {
+  field: SanityImageCropFieldsEnum;
+};
+
+
+export type SanityImageCropConnectionMaxArgs = {
+  field: SanityImageCropFieldsEnum;
+};
+
+
+export type SanityImageCropConnectionMinArgs = {
+  field: SanityImageCropFieldsEnum;
+};
+
+
+export type SanityImageCropConnectionSumArgs = {
   field: SanityImageCropFieldsEnum;
 };
 
@@ -6583,11 +6998,29 @@ export type SanityImageHotspotConnection = {
   nodes: Array<SanityImageHotspot>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityImageHotspotGroupConnection>;
 };
 
 
 export type SanityImageHotspotConnectionDistinctArgs = {
+  field: SanityImageHotspotFieldsEnum;
+};
+
+
+export type SanityImageHotspotConnectionMaxArgs = {
+  field: SanityImageHotspotFieldsEnum;
+};
+
+
+export type SanityImageHotspotConnectionMinArgs = {
+  field: SanityImageHotspotFieldsEnum;
+};
+
+
+export type SanityImageHotspotConnectionSumArgs = {
   field: SanityImageHotspotFieldsEnum;
 };
 
@@ -6718,11 +7151,29 @@ export type SanityImageMetadataConnection = {
   nodes: Array<SanityImageMetadata>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityImageMetadataGroupConnection>;
 };
 
 
 export type SanityImageMetadataConnectionDistinctArgs = {
+  field: SanityImageMetadataFieldsEnum;
+};
+
+
+export type SanityImageMetadataConnectionMaxArgs = {
+  field: SanityImageMetadataFieldsEnum;
+};
+
+
+export type SanityImageMetadataConnectionMinArgs = {
+  field: SanityImageMetadataFieldsEnum;
+};
+
+
+export type SanityImageMetadataConnectionSumArgs = {
   field: SanityImageMetadataFieldsEnum;
 };
 
@@ -6916,11 +7367,29 @@ export type SanitySiteSettingsConnection = {
   nodes: Array<SanitySiteSettings>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanitySiteSettingsGroupConnection>;
 };
 
 
 export type SanitySiteSettingsConnectionDistinctArgs = {
+  field: SanitySiteSettingsFieldsEnum;
+};
+
+
+export type SanitySiteSettingsConnectionMaxArgs = {
+  field: SanitySiteSettingsFieldsEnum;
+};
+
+
+export type SanitySiteSettingsConnectionMinArgs = {
+  field: SanitySiteSettingsFieldsEnum;
+};
+
+
+export type SanitySiteSettingsConnectionSumArgs = {
   field: SanitySiteSettingsFieldsEnum;
 };
 
@@ -7068,11 +7537,29 @@ export type SanitySlugConnection = {
   nodes: Array<SanitySlug>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanitySlugGroupConnection>;
 };
 
 
 export type SanitySlugConnectionDistinctArgs = {
+  field: SanitySlugFieldsEnum;
+};
+
+
+export type SanitySlugConnectionMaxArgs = {
+  field: SanitySlugFieldsEnum;
+};
+
+
+export type SanitySlugConnectionMinArgs = {
+  field: SanitySlugFieldsEnum;
+};
+
+
+export type SanitySlugConnectionSumArgs = {
   field: SanitySlugFieldsEnum;
 };
 
@@ -7194,17 +7681,371 @@ export type SanitySlugSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type SanityImageFixedConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityImageFixedEdge>;
+  nodes: Array<SanityImageFixed>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<SanityImageFixedGroupConnection>;
+};
+
+
+export type SanityImageFixedConnectionDistinctArgs = {
+  field: SanityImageFixedFieldsEnum;
+};
+
+
+export type SanityImageFixedConnectionMaxArgs = {
+  field: SanityImageFixedFieldsEnum;
+};
+
+
+export type SanityImageFixedConnectionMinArgs = {
+  field: SanityImageFixedFieldsEnum;
+};
+
+
+export type SanityImageFixedConnectionSumArgs = {
+  field: SanityImageFixedFieldsEnum;
+};
+
+
+export type SanityImageFixedConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: SanityImageFixedFieldsEnum;
+};
+
+export type SanityImageFixedEdge = {
+  next?: Maybe<SanityImageFixed>;
+  node: SanityImageFixed;
+  previous?: Maybe<SanityImageFixed>;
+};
+
+export type SanityImageFixedFieldsEnum = 
+  | 'base64'
+  | 'width'
+  | 'height'
+  | 'src'
+  | 'srcSet'
+  | 'srcWebp'
+  | 'srcSetWebp'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type SanityImageFixedGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityImageFixedEdge>;
+  nodes: Array<SanityImageFixed>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type SanityImageFixedFilterInput = {
+  base64?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<StringQueryOperatorInput>;
+  height?: Maybe<StringQueryOperatorInput>;
+  src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  srcWebp?: Maybe<StringQueryOperatorInput>;
+  srcSetWebp?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type SanityImageFixedSortInput = {
+  fields?: Maybe<Array<Maybe<SanityImageFixedFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type SanityImageFluidConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityImageFluidEdge>;
+  nodes: Array<SanityImageFluid>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<SanityImageFluidGroupConnection>;
+};
+
+
+export type SanityImageFluidConnectionDistinctArgs = {
+  field: SanityImageFluidFieldsEnum;
+};
+
+
+export type SanityImageFluidConnectionMaxArgs = {
+  field: SanityImageFluidFieldsEnum;
+};
+
+
+export type SanityImageFluidConnectionMinArgs = {
+  field: SanityImageFluidFieldsEnum;
+};
+
+
+export type SanityImageFluidConnectionSumArgs = {
+  field: SanityImageFluidFieldsEnum;
+};
+
+
+export type SanityImageFluidConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: SanityImageFluidFieldsEnum;
+};
+
+export type SanityImageFluidEdge = {
+  next?: Maybe<SanityImageFluid>;
+  node: SanityImageFluid;
+  previous?: Maybe<SanityImageFluid>;
+};
+
+export type SanityImageFluidFieldsEnum = 
+  | 'base64'
+  | 'aspectRatio'
+  | 'src'
+  | 'srcSet'
+  | 'srcWebp'
+  | 'srcSetWebp'
+  | 'sizes'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type SanityImageFluidGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<SanityImageFluidEdge>;
+  nodes: Array<SanityImageFluid>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type SanityImageFluidFilterInput = {
+  base64?: Maybe<StringQueryOperatorInput>;
+  aspectRatio?: Maybe<StringQueryOperatorInput>;
+  src?: Maybe<StringQueryOperatorInput>;
+  srcSet?: Maybe<StringQueryOperatorInput>;
+  srcWebp?: Maybe<StringQueryOperatorInput>;
+  srcSetWebp?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type SanityImageFluidSortInput = {
+  fields?: Maybe<Array<Maybe<SanityImageFluidFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type SanityHighlightConnection = {
   totalCount: Scalars['Int'];
   edges: Array<SanityHighlightEdge>;
   nodes: Array<SanityHighlight>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SanityHighlightGroupConnection>;
 };
 
 
 export type SanityHighlightConnectionDistinctArgs = {
+  field: SanityHighlightFieldsEnum;
+};
+
+
+export type SanityHighlightConnectionMaxArgs = {
+  field: SanityHighlightFieldsEnum;
+};
+
+
+export type SanityHighlightConnectionMinArgs = {
+  field: SanityHighlightFieldsEnum;
+};
+
+
+export type SanityHighlightConnectionSumArgs = {
   field: SanityHighlightFieldsEnum;
 };
 
@@ -7538,11 +8379,29 @@ export type SiteBuildMetadataConnection = {
   nodes: Array<SiteBuildMetadata>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SiteBuildMetadataGroupConnection>;
 };
 
 
 export type SiteBuildMetadataConnectionDistinctArgs = {
+  field: SiteBuildMetadataFieldsEnum;
+};
+
+
+export type SiteBuildMetadataConnectionMaxArgs = {
+  field: SiteBuildMetadataFieldsEnum;
+};
+
+
+export type SiteBuildMetadataConnectionMinArgs = {
+  field: SiteBuildMetadataFieldsEnum;
+};
+
+
+export type SiteBuildMetadataConnectionSumArgs = {
   field: SiteBuildMetadataFieldsEnum;
 };
 
@@ -7676,11 +8535,29 @@ export type SitePluginConnection = {
   nodes: Array<SitePlugin>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
   group: Array<SitePluginGroupConnection>;
 };
 
 
 export type SitePluginConnectionDistinctArgs = {
+  field: SitePluginFieldsEnum;
+};
+
+
+export type SitePluginConnectionMaxArgs = {
+  field: SitePluginFieldsEnum;
+};
+
+
+export type SitePluginConnectionMinArgs = {
+  field: SitePluginFieldsEnum;
+};
+
+
+export type SitePluginConnectionSumArgs = {
   field: SitePluginFieldsEnum;
 };
 
@@ -7792,6 +8669,12 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___stripMetadata'
   | 'pluginOptions___defaultQuality'
   | 'pluginOptions___failOnError'
+  | 'pluginOptions___documentPaths'
+  | 'pluginOptions___projectId'
+  | 'pluginOptions___dataset'
+  | 'pluginOptions___token'
+  | 'pluginOptions___watchMode'
+  | 'pluginOptions___overlayDrafts'
   | 'pluginOptions___component'
   | 'pluginOptions___icon'
   | 'pluginOptions___name'
@@ -7811,11 +8694,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___allExtensions'
   | 'pluginOptions___isTSX'
   | 'pluginOptions___jsxPragma'
-  | 'pluginOptions___projectId'
-  | 'pluginOptions___dataset'
-  | 'pluginOptions___token'
-  | 'pluginOptions___watchMode'
-  | 'pluginOptions___overlayDrafts'
   | 'nodeAPIs'
   | 'browserAPIs'
   | 'ssrAPIs'
@@ -7994,29 +8872,3 @@ export type GatsbySanityImageFluid_NoBase64Fragment = Pick<SanityImageFluid, 'as
 export type GatsbySanityImageFluid_WithWebpFragment = Pick<SanityImageFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 export type GatsbySanityImageFluid_WithWebp_NoBase64Fragment = Pick<SanityImageFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
-
-export type GatsbyImageSharpFixed_TracedSvgFragment = Pick<ImageSharpFixed, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet'>;
-
-export type GatsbyImageSharpFixed_WithWebpFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-export type GatsbyImageSharpFixed_WithWebp_TracedSvgFragment = Pick<ImageSharpFixed, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-export type GatsbyImageSharpFixed_NoBase64Fragment = Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet'>;
-
-export type GatsbyImageSharpFixed_WithWebp_NoBase64Fragment = Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-export type GatsbyImageSharpFluidFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-export type GatsbyImageSharpFluidLimitPresentationSizeFragment = { maxHeight: ImageSharpFluid['presentationHeight'], maxWidth: ImageSharpFluid['presentationWidth'] };
-
-export type GatsbyImageSharpFluid_TracedSvgFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-export type GatsbyImageSharpFluid_WithWebpFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-export type GatsbyImageSharpFluid_WithWebp_TracedSvgFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-export type GatsbyImageSharpFluid_NoBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-export type GatsbyImageSharpFluid_WithWebp_NoBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;

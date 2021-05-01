@@ -97,6 +97,27 @@ module.exports = {
   createSchemaCustomization: ({ actions }) => {
     const { createTypes } = actions;
     const typeDefs = /* GraphQL */ `
+      # Hack to fix this issue: https://github.com/sanity-io/gatsby-source-sanity/issues/114
+      type SanityImageFixed implements Node {
+        base64: String
+        width: String
+        height: String
+        src: String
+        srcSet: String
+        srcWebp: String
+        srcSetWebp: String
+      }
+
+      type SanityImageFluid implements Node {
+        base64: String
+        aspectRatio: String
+        src: String
+        srcSet: String
+        srcWebp: String
+        srcSetWebp: String
+        sizes: String
+      }
+
       type SanityCategory implements Node {
         _id: String!
         title: String!

@@ -2,6 +2,9 @@ require('dotenv').config();
 const path = require('path');
 
 module.exports = {
+  flags: {
+    FAST_DEV: true,
+  },
   plugins: [
     {
       resolve: 'gatsby-plugin-root-import',
@@ -13,7 +16,16 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-postcss',
-    'gatsby-plugin-graphql-codegen',
+    {
+      resolve: 'gatsby-plugin-graphql-codegen',
+      options: {
+        documentPaths: [
+          './src/**/*.{ts,tsx}',
+          './gatsby-node.ts',
+          './node_modules/gatsby-source-sanity/fragments/*.js',
+        ],
+      },
+    },
     {
       resolve: 'gatsby-source-sanity',
       options: {
