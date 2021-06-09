@@ -4,6 +4,7 @@ import React from 'react';
 
 import { GatsbyFigure } from '~/lib/components/gatsby-figure';
 import { Player } from '~/lib/components/player';
+import { generateSanityFileDownloadUrl } from '~/lib/helpers/get-sanity-file-download-url';
 
 interface Props {
   body: any[];
@@ -11,6 +12,19 @@ interface Props {
 
 const serializers = {
   types: {
+    attachment: ({ node }: any) => {
+      const { asset, name } = node;
+      const fileUrl = generateSanityFileDownloadUrl(asset, name);
+
+      return (
+        <a className="article__attachment" href={fileUrl}>
+          <span role="img" aria-hidden>
+            📎
+          </span>
+          <span>{name}</span>
+        </a>
+      );
+    },
     block: (props: any) => {
       const { children, node } = props;
       const style = node.style || 'normal';

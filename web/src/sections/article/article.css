@@ -25,6 +25,21 @@
 .article__body {
   @apply pb-8;
 
+  & .article__attachment {
+    @apply no-underline;
+    @apply px-4 py-2;
+    @apply border-gray-300 border-solid border-2 rounded-lg;
+    @apply inline-flex;
+
+    & span[role='img'] {
+      @apply mr-2;
+    }
+
+    & span:not([role='img']) {
+      @apply underline;
+    }
+  }
+
   & h2,
   & h3 {
     @apply mt-8 -mb-4;

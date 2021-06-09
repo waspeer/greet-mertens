@@ -1,6 +1,8 @@
 import { ArrayType } from '../../lib/data-types';
 
-export const ProjectBody: ArrayType<'figure' | 'player' | 'projectRelatedArticles'> = {
+export const ProjectBody: ArrayType<
+  'figure' | 'player' | 'projectRelatedArticles' | 'attachment'
+> = {
   name: 'projectBody',
   type: 'array',
   of: [
@@ -40,5 +42,6 @@ export const ProjectBody: ArrayType<'figure' | 'player' | 'projectRelatedArticle
     { type: 'figure' },
     { type: 'player' },
     { type: 'projectRelatedArticles' },
+    { type: 'attachment' },
   ],
 };

@@ -9,6 +9,7 @@ import { Me } from './documents/me';
 import { Project } from './documents/project';
 import { Settings } from './documents/settings';
 import { ArticleBody } from './objects/articleBody';
+import { Attachment } from './objects/attachment';
 import { BioText } from './objects/bio-text';
 import { ExcerptText } from './objects/excerpt-text';
 import { Figure } from './objects/figure';
@@ -21,6 +22,7 @@ export default createSchema({
   types: schemaTypes.concat([
     // OBJECTS
     ArticleBody,
+    Attachment,
     BioText,
     ExcerptText,
     Figure,
