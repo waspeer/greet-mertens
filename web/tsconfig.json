@@ -1,23 +1,6 @@
 {
-  "extends": "./node_modules/poetic/config/typescript/tsconfig.json",
-  "include": ["src/**/*"],
+  "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "outDir": "dist",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "jsx": "react",
-    "noEmit": true,
-    "baseUrl": "./src",
-    "paths": {
-      "~/*": ["*"]
-    }
+    "jsx": "react"
   }
 }

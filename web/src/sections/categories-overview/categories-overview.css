@@ -1,9 +1,0 @@
-.categoriesOverview__list {
-  & li {
-    @apply mb-8;
-
-    &:last-child {
-      @apply mb-0;
-    }
-  }
-}
