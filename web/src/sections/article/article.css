@@ -62,6 +62,15 @@
   & .player {
     @apply mt-8 -mx-8;
   }
+
+  & ul {
+    @apply list-disc list-outside;
+    @apply my-4 ml-8;
+
+    & li {
+      @apply pl-2;
+    }
+  }
 }
 
 .article__categories {

@@ -1,9 +1,9 @@
 import PortableText from '@sanity/block-content-to-react';
-import { getGatsbyImageData } from 'gatsby-source-sanity';
 import React from 'react';
 
-import { GatsbyFigure } from '~/lib/components/gatsby-figure';
+import { CaptionedMedia } from '~/lib/components/captioned-media';
 import { Player } from '~/lib/components/player';
+import { sanityImageUrlBuilder } from '~/lib/helpers/sanity-image-url-builder';
 import { ArticlePreview } from '~/lib/types';
 
 import { RelatedArticleSlider } from '../related-article-slider';
@@ -36,22 +36,15 @@ export const ProjectBody = ({ body, relatedArticlePreviews }: Props) => {
           return null;
         }
 
-        const imageData = getGatsbyImageData(
-          node.asset._ref,
-          { width: 850 },
-          {
-            projectId: process.env.GATSBY_SANITY_PROJECT_ID!,
-            dataset: process.env.GATSBY_SANITY_DATASET!,
-          },
-        );
+        const imageUrl = sanityImageUrlBuilder(node).url();
+
+        if (!imageUrl) return null;
 
         return (
-          <GatsbyFigure
-            image={{
-              alt: node.alt,
-              caption: node.caption,
-              imageData,
-            }}
+          <CaptionedMedia
+            caption={node.caption}
+            className="figure"
+            media={<img alt={node.alt} src={imageUrl} />}
           />
         );
       },
