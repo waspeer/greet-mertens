@@ -1,0 +1,12 @@
+.layout {
+  & header,
+  & nav ul {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  & nav ul {
+    list-style: none;
+  }
+}

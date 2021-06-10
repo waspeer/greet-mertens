@@ -1,3 +1,5 @@
+const { client } = require("../lib/sanity-client")
+
 const IMAGE_FRAGMENT = /* groq */ `
   asset,
   crop,
@@ -24,3 +26,7 @@ const HOME_DATA_QUERY = /* groq */ `
   }
 }
 `
+
+module.exports = async function getHomeData() {
+  return await client.fetch(HOME_DATA_QUERY);
+}
