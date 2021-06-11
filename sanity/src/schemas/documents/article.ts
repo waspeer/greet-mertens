@@ -31,6 +31,12 @@ export const Article: DocumentType<'articleBody' | 'category' | 'excerptText' | 
       description: 'Hiermee kun je inplannen wanneer het artikel openbaar wordt',
     },
     {
+      name: 'hidden',
+      type: 'boolean',
+      title: 'Verborgen',
+      description: 'Verberg dit artikel in de overzichten',
+    },
+    {
       name: 'mainImage',
       type: 'figure',
       title: 'Afbeelding',
