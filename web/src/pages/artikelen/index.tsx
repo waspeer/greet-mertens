@@ -34,7 +34,7 @@ export const query = graphql`
     articles: allSanityArticle(
       limit: 6
       sort: { fields: [publishedAt], order: DESC }
-      filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
+      filter: { slug: { current: { ne: null } }, publishedAt: { ne: null }, hidden: { ne: true } }
     ) {
       edges {
         node {

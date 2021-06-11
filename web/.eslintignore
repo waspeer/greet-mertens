@@ -1,3 +1,4 @@
 serviceWorker.*
 *.d.ts
 gatsby-*.js
+.cache

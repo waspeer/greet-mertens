@@ -27,7 +27,7 @@ export const query = graphql`
   query ArticleArchivePage {
     articles: allSanityArticle(
       sort: { fields: [publishedAt], order: DESC }
-      filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
+      filter: { slug: { current: { ne: null } }, publishedAt: { ne: null }, hidden: { ne: true } }
     ) {
       edges {
         node {

@@ -294,14 +294,14 @@ export type SitePage = Node & {
   internalComponentName: Scalars['String'];
   componentChunkName: Scalars['String'];
   matchPath?: Maybe<Scalars['String']>;
+  isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
+  pluginCreator?: Maybe<SitePlugin>;
+  pluginCreatorId?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
-  isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
   context?: Maybe<SitePageContext>;
-  pluginCreator?: Maybe<SitePlugin>;
-  pluginCreatorId?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContext = {
@@ -568,6 +568,7 @@ export type SanityArticle = SanityDocument & Node & {
   title: Scalars['String'];
   slug: SanitySlug;
   publishedAt?: Maybe<Scalars['Date']>;
+  hidden?: Maybe<Scalars['Boolean']>;
   mainImage?: Maybe<SanityFigure>;
   categories: Array<SanityCategory>;
   project?: Maybe<SanityProject>;
@@ -629,6 +630,23 @@ export type SanityArticle_RawProjectArgs = {
   resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
 };
 
+export type SanityAttachment = {
+  _key?: Maybe<Scalars['String']>;
+  _type?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  asset?: Maybe<SanityFileAsset>;
+  _rawAsset?: Maybe<Scalars['JSON']>;
+};
+
+
+export type SanityAttachment_RawAssetArgs = {
+  resolveReferences?: Maybe<SanityResolveReferencesConfiguration>;
+};
+
+export type SanityAttachmentOrBlockOrFigureOrPlayer = SanityAttachment | SanityBlock | SanityFigure | SanityPlayer;
+
+export type SanityAttachmentOrBlockOrFigureOrPlayerOrProjectRelatedArticles = SanityAttachment | SanityBlock | SanityFigure | SanityPlayer | SanityProjectRelatedArticles;
+
 export type SanityBlock = {
   _key?: Maybe<Scalars['String']>;
   _type?: Maybe<Scalars['String']>;
@@ -644,10 +662,6 @@ export type SanityBlock_RawChildrenArgs = {
 };
 
 export type SanityBlockOrFigure = SanityBlock | SanityFigure;
-
-export type SanityBlockOrFigureOrPlayer = SanityBlock | SanityFigure | SanityPlayer;
-
-export type SanityBlockOrFigureOrPlayerOrProjectRelatedArticles = SanityBlock | SanityFigure | SanityPlayer | SanityProjectRelatedArticles;
 
 export type SanityCategory = SanityDocument & Node & {
   _id: Scalars['String'];
@@ -737,11 +751,11 @@ export type SanityEmoji = {
 export type SanityFigure = Node & {
   _key?: Maybe<Scalars['String']>;
   _type?: Maybe<Scalars['String']>;
-  caption?: Maybe<Scalars['String']>;
-  alt: Scalars['String'];
   asset?: Maybe<SanityImageAsset>;
   hotspot?: Maybe<SanityImageHotspot>;
   crop?: Maybe<SanityImageCrop>;
+  caption?: Maybe<Scalars['String']>;
+  alt: Scalars['String'];
   _rawAsset?: Maybe<Scalars['JSON']>;
   _rawHotspot?: Maybe<Scalars['JSON']>;
   _rawCrop?: Maybe<Scalars['JSON']>;
@@ -1373,6 +1387,7 @@ export type SitePluginPluginOptions = {
   stripMetadata?: Maybe<Scalars['Boolean']>;
   defaultQuality?: Maybe<Scalars['Int']>;
   failOnError?: Maybe<Scalars['Boolean']>;
+  documentPaths?: Maybe<Array<Maybe<Scalars['String']>>>;
   projectId?: Maybe<Scalars['String']>;
   dataset?: Maybe<Scalars['String']>;
   token?: Maybe<Scalars['String']>;
@@ -1643,14 +1658,14 @@ export type QuerySitePageArgs = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  pluginCreator?: Maybe<SitePluginFilterInput>;
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
   context?: Maybe<SitePageContextFilterInput>;
-  pluginCreator?: Maybe<SitePluginFilterInput>;
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -1693,6 +1708,7 @@ export type QuerySanityArticleArgs = {
   title?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<SanitySlugFilterInput>;
   publishedAt?: Maybe<DateQueryOperatorInput>;
+  hidden?: Maybe<BooleanQueryOperatorInput>;
   mainImage?: Maybe<SanityFigureFilterInput>;
   categories?: Maybe<SanityCategoryFilterListInput>;
   project?: Maybe<SanityProjectFilterInput>;
@@ -1752,11 +1768,11 @@ export type QueryAllSanityCategoryArgs = {
 export type QuerySanityFigureArgs = {
   _key?: Maybe<StringQueryOperatorInput>;
   _type?: Maybe<StringQueryOperatorInput>;
-  caption?: Maybe<StringQueryOperatorInput>;
-  alt?: Maybe<StringQueryOperatorInput>;
   asset?: Maybe<SanityImageAssetFilterInput>;
   hotspot?: Maybe<SanityImageHotspotFilterInput>;
   crop?: Maybe<SanityImageCropFilterInput>;
+  caption?: Maybe<StringQueryOperatorInput>;
+  alt?: Maybe<StringQueryOperatorInput>;
   _rawAsset?: Maybe<JsonQueryOperatorInput>;
   _rawHotspot?: Maybe<JsonQueryOperatorInput>;
   _rawCrop?: Maybe<JsonQueryOperatorInput>;
@@ -3230,10 +3246,6 @@ export type SiteFunctionSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type SitePageContextFilterInput = {
-  id?: Maybe<StringQueryOperatorInput>;
-};
-
 export type SitePluginFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -3256,6 +3268,7 @@ export type SitePluginPluginOptionsFilterInput = {
   stripMetadata?: Maybe<BooleanQueryOperatorInput>;
   defaultQuality?: Maybe<IntQueryOperatorInput>;
   failOnError?: Maybe<BooleanQueryOperatorInput>;
+  documentPaths?: Maybe<StringQueryOperatorInput>;
   projectId?: Maybe<StringQueryOperatorInput>;
   dataset?: Maybe<StringQueryOperatorInput>;
   token?: Maybe<StringQueryOperatorInput>;
@@ -3322,6 +3335,10 @@ export type SitePluginPackageJsonPeerDependenciesFilterInput = {
   version?: Maybe<StringQueryOperatorInput>;
 };
 
+export type SitePageContextFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePageConnection = {
   totalCount: Scalars['Int'];
   edges: Array<SitePageEdge>;
@@ -3373,6 +3390,99 @@ export type SitePageFieldsEnum =
   | 'internalComponentName'
   | 'componentChunkName'
   | 'matchPath'
+  | 'isCreatedByStatefulCreatePages'
+  | 'pluginCreator___id'
+  | 'pluginCreator___parent___id'
+  | 'pluginCreator___parent___parent___id'
+  | 'pluginCreator___parent___parent___children'
+  | 'pluginCreator___parent___children'
+  | 'pluginCreator___parent___children___id'
+  | 'pluginCreator___parent___children___children'
+  | 'pluginCreator___parent___internal___content'
+  | 'pluginCreator___parent___internal___contentDigest'
+  | 'pluginCreator___parent___internal___description'
+  | 'pluginCreator___parent___internal___fieldOwners'
+  | 'pluginCreator___parent___internal___ignoreType'
+  | 'pluginCreator___parent___internal___mediaType'
+  | 'pluginCreator___parent___internal___owner'
+  | 'pluginCreator___parent___internal___type'
+  | 'pluginCreator___children'
+  | 'pluginCreator___children___id'
+  | 'pluginCreator___children___parent___id'
+  | 'pluginCreator___children___parent___children'
+  | 'pluginCreator___children___children'
+  | 'pluginCreator___children___children___id'
+  | 'pluginCreator___children___children___children'
+  | 'pluginCreator___children___internal___content'
+  | 'pluginCreator___children___internal___contentDigest'
+  | 'pluginCreator___children___internal___description'
+  | 'pluginCreator___children___internal___fieldOwners'
+  | 'pluginCreator___children___internal___ignoreType'
+  | 'pluginCreator___children___internal___mediaType'
+  | 'pluginCreator___children___internal___owner'
+  | 'pluginCreator___children___internal___type'
+  | 'pluginCreator___internal___content'
+  | 'pluginCreator___internal___contentDigest'
+  | 'pluginCreator___internal___description'
+  | 'pluginCreator___internal___fieldOwners'
+  | 'pluginCreator___internal___ignoreType'
+  | 'pluginCreator___internal___mediaType'
+  | 'pluginCreator___internal___owner'
+  | 'pluginCreator___internal___type'
+  | 'pluginCreator___resolve'
+  | 'pluginCreator___name'
+  | 'pluginCreator___version'
+  | 'pluginCreator___pluginOptions____'
+  | 'pluginCreator___pluginOptions___base64Width'
+  | 'pluginCreator___pluginOptions___stripMetadata'
+  | 'pluginCreator___pluginOptions___defaultQuality'
+  | 'pluginCreator___pluginOptions___failOnError'
+  | 'pluginCreator___pluginOptions___documentPaths'
+  | 'pluginCreator___pluginOptions___projectId'
+  | 'pluginCreator___pluginOptions___dataset'
+  | 'pluginCreator___pluginOptions___token'
+  | 'pluginCreator___pluginOptions___watchMode'
+  | 'pluginCreator___pluginOptions___overlayDrafts'
+  | 'pluginCreator___pluginOptions___component'
+  | 'pluginCreator___pluginOptions___icon'
+  | 'pluginCreator___pluginOptions___name'
+  | 'pluginCreator___pluginOptions___short_name'
+  | 'pluginCreator___pluginOptions___start_url'
+  | 'pluginCreator___pluginOptions___background_color'
+  | 'pluginCreator___pluginOptions___theme_color'
+  | 'pluginCreator___pluginOptions___display'
+  | 'pluginCreator___pluginOptions___legacy'
+  | 'pluginCreator___pluginOptions___theme_color_in_head'
+  | 'pluginCreator___pluginOptions___cache_busting_mode'
+  | 'pluginCreator___pluginOptions___crossOrigin'
+  | 'pluginCreator___pluginOptions___include_favicon'
+  | 'pluginCreator___pluginOptions___cacheDigest'
+  | 'pluginCreator___pluginOptions___path'
+  | 'pluginCreator___pluginOptions___pathCheck'
+  | 'pluginCreator___pluginOptions___allExtensions'
+  | 'pluginCreator___pluginOptions___isTSX'
+  | 'pluginCreator___pluginOptions___jsxPragma'
+  | 'pluginCreator___nodeAPIs'
+  | 'pluginCreator___browserAPIs'
+  | 'pluginCreator___ssrAPIs'
+  | 'pluginCreator___pluginFilepath'
+  | 'pluginCreator___packageJson___name'
+  | 'pluginCreator___packageJson___description'
+  | 'pluginCreator___packageJson___version'
+  | 'pluginCreator___packageJson___main'
+  | 'pluginCreator___packageJson___author'
+  | 'pluginCreator___packageJson___license'
+  | 'pluginCreator___packageJson___dependencies'
+  | 'pluginCreator___packageJson___dependencies___name'
+  | 'pluginCreator___packageJson___dependencies___version'
+  | 'pluginCreator___packageJson___devDependencies'
+  | 'pluginCreator___packageJson___devDependencies___name'
+  | 'pluginCreator___packageJson___devDependencies___version'
+  | 'pluginCreator___packageJson___peerDependencies'
+  | 'pluginCreator___packageJson___peerDependencies___name'
+  | 'pluginCreator___packageJson___peerDependencies___version'
+  | 'pluginCreator___packageJson___keywords'
+  | 'pluginCreatorId'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -3459,99 +3569,7 @@ export type SitePageFieldsEnum =
   | 'internal___mediaType'
   | 'internal___owner'
   | 'internal___type'
-  | 'isCreatedByStatefulCreatePages'
-  | 'context___id'
-  | 'pluginCreator___id'
-  | 'pluginCreator___parent___id'
-  | 'pluginCreator___parent___parent___id'
-  | 'pluginCreator___parent___parent___children'
-  | 'pluginCreator___parent___children'
-  | 'pluginCreator___parent___children___id'
-  | 'pluginCreator___parent___children___children'
-  | 'pluginCreator___parent___internal___content'
-  | 'pluginCreator___parent___internal___contentDigest'
-  | 'pluginCreator___parent___internal___description'
-  | 'pluginCreator___parent___internal___fieldOwners'
-  | 'pluginCreator___parent___internal___ignoreType'
-  | 'pluginCreator___parent___internal___mediaType'
-  | 'pluginCreator___parent___internal___owner'
-  | 'pluginCreator___parent___internal___type'
-  | 'pluginCreator___children'
-  | 'pluginCreator___children___id'
-  | 'pluginCreator___children___parent___id'
-  | 'pluginCreator___children___parent___children'
-  | 'pluginCreator___children___children'
-  | 'pluginCreator___children___children___id'
-  | 'pluginCreator___children___children___children'
-  | 'pluginCreator___children___internal___content'
-  | 'pluginCreator___children___internal___contentDigest'
-  | 'pluginCreator___children___internal___description'
-  | 'pluginCreator___children___internal___fieldOwners'
-  | 'pluginCreator___children___internal___ignoreType'
-  | 'pluginCreator___children___internal___mediaType'
-  | 'pluginCreator___children___internal___owner'
-  | 'pluginCreator___children___internal___type'
-  | 'pluginCreator___internal___content'
-  | 'pluginCreator___internal___contentDigest'
-  | 'pluginCreator___internal___description'
-  | 'pluginCreator___internal___fieldOwners'
-  | 'pluginCreator___internal___ignoreType'
-  | 'pluginCreator___internal___mediaType'
-  | 'pluginCreator___internal___owner'
-  | 'pluginCreator___internal___type'
-  | 'pluginCreator___resolve'
-  | 'pluginCreator___name'
-  | 'pluginCreator___version'
-  | 'pluginCreator___pluginOptions____'
-  | 'pluginCreator___pluginOptions___base64Width'
-  | 'pluginCreator___pluginOptions___stripMetadata'
-  | 'pluginCreator___pluginOptions___defaultQuality'
-  | 'pluginCreator___pluginOptions___failOnError'
-  | 'pluginCreator___pluginOptions___projectId'
-  | 'pluginCreator___pluginOptions___dataset'
-  | 'pluginCreator___pluginOptions___token'
-  | 'pluginCreator___pluginOptions___watchMode'
-  | 'pluginCreator___pluginOptions___overlayDrafts'
-  | 'pluginCreator___pluginOptions___component'
-  | 'pluginCreator___pluginOptions___icon'
-  | 'pluginCreator___pluginOptions___name'
-  | 'pluginCreator___pluginOptions___short_name'
-  | 'pluginCreator___pluginOptions___start_url'
-  | 'pluginCreator___pluginOptions___background_color'
-  | 'pluginCreator___pluginOptions___theme_color'
-  | 'pluginCreator___pluginOptions___display'
-  | 'pluginCreator___pluginOptions___legacy'
-  | 'pluginCreator___pluginOptions___theme_color_in_head'
-  | 'pluginCreator___pluginOptions___cache_busting_mode'
-  | 'pluginCreator___pluginOptions___crossOrigin'
-  | 'pluginCreator___pluginOptions___include_favicon'
-  | 'pluginCreator___pluginOptions___cacheDigest'
-  | 'pluginCreator___pluginOptions___path'
-  | 'pluginCreator___pluginOptions___pathCheck'
-  | 'pluginCreator___pluginOptions___allExtensions'
-  | 'pluginCreator___pluginOptions___isTSX'
-  | 'pluginCreator___pluginOptions___jsxPragma'
-  | 'pluginCreator___nodeAPIs'
-  | 'pluginCreator___browserAPIs'
-  | 'pluginCreator___ssrAPIs'
-  | 'pluginCreator___pluginFilepath'
-  | 'pluginCreator___packageJson___name'
-  | 'pluginCreator___packageJson___description'
-  | 'pluginCreator___packageJson___version'
-  | 'pluginCreator___packageJson___main'
-  | 'pluginCreator___packageJson___author'
-  | 'pluginCreator___packageJson___license'
-  | 'pluginCreator___packageJson___dependencies'
-  | 'pluginCreator___packageJson___dependencies___name'
-  | 'pluginCreator___packageJson___dependencies___version'
-  | 'pluginCreator___packageJson___devDependencies'
-  | 'pluginCreator___packageJson___devDependencies___name'
-  | 'pluginCreator___packageJson___devDependencies___version'
-  | 'pluginCreator___packageJson___peerDependencies'
-  | 'pluginCreator___packageJson___peerDependencies___name'
-  | 'pluginCreator___packageJson___peerDependencies___version'
-  | 'pluginCreator___packageJson___keywords'
-  | 'pluginCreatorId';
+  | 'context___id';
 
 export type SitePageGroupConnection = {
   totalCount: Scalars['Int'];
@@ -3568,14 +3586,14 @@ export type SitePageFilterInput = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  pluginCreator?: Maybe<SitePluginFilterInput>;
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
   context?: Maybe<SitePageContextFilterInput>;
-  pluginCreator?: Maybe<SitePluginFilterInput>;
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageSortInput = {
@@ -3775,11 +3793,11 @@ export type SanitySlugFilterInput = {
 export type SanityFigureFilterInput = {
   _key?: Maybe<StringQueryOperatorInput>;
   _type?: Maybe<StringQueryOperatorInput>;
-  caption?: Maybe<StringQueryOperatorInput>;
-  alt?: Maybe<StringQueryOperatorInput>;
   asset?: Maybe<SanityImageAssetFilterInput>;
   hotspot?: Maybe<SanityImageHotspotFilterInput>;
   crop?: Maybe<SanityImageCropFilterInput>;
+  caption?: Maybe<StringQueryOperatorInput>;
+  alt?: Maybe<StringQueryOperatorInput>;
   _rawAsset?: Maybe<JsonQueryOperatorInput>;
   _rawHotspot?: Maybe<JsonQueryOperatorInput>;
   _rawCrop?: Maybe<JsonQueryOperatorInput>;
@@ -4109,10 +4127,9 @@ export type SanityArticleFieldsEnum =
   | 'slug___internal___owner'
   | 'slug___internal___type'
   | 'publishedAt'
+  | 'hidden'
   | 'mainImage____key'
   | 'mainImage____type'
-  | 'mainImage___caption'
-  | 'mainImage___alt'
   | 'mainImage___asset____id'
   | 'mainImage___asset____type'
   | 'mainImage___asset____createdAt'
@@ -4203,6 +4220,8 @@ export type SanityArticleFieldsEnum =
   | 'mainImage___crop___internal___mediaType'
   | 'mainImage___crop___internal___owner'
   | 'mainImage___crop___internal___type'
+  | 'mainImage___caption'
+  | 'mainImage___alt'
   | 'mainImage____rawAsset'
   | 'mainImage____rawHotspot'
   | 'mainImage____rawCrop'
@@ -4357,8 +4376,6 @@ export type SanityArticleFieldsEnum =
   | 'project___publishedAt'
   | 'project___mainImage____key'
   | 'project___mainImage____type'
-  | 'project___mainImage___caption'
-  | 'project___mainImage___alt'
   | 'project___mainImage___asset____id'
   | 'project___mainImage___asset____type'
   | 'project___mainImage___asset____createdAt'
@@ -4398,6 +4415,8 @@ export type SanityArticleFieldsEnum =
   | 'project___mainImage___crop___right'
   | 'project___mainImage___crop___id'
   | 'project___mainImage___crop___children'
+  | 'project___mainImage___caption'
+  | 'project___mainImage___alt'
   | 'project___mainImage____rawAsset'
   | 'project___mainImage____rawHotspot'
   | 'project___mainImage____rawCrop'
@@ -4663,6 +4682,7 @@ export type SanityArticleFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<SanitySlugFilterInput>;
   publishedAt?: Maybe<DateQueryOperatorInput>;
+  hidden?: Maybe<BooleanQueryOperatorInput>;
   mainImage?: Maybe<SanityFigureFilterInput>;
   categories?: Maybe<SanityCategoryFilterListInput>;
   project?: Maybe<SanityProjectFilterInput>;
@@ -4950,8 +4970,6 @@ export type SanityFigureEdge = {
 export type SanityFigureFieldsEnum = 
   | '_key'
   | '_type'
-  | 'caption'
-  | 'alt'
   | 'asset____id'
   | 'asset____type'
   | 'asset____createdAt'
@@ -5145,6 +5163,8 @@ export type SanityFigureFieldsEnum =
   | 'crop___internal___mediaType'
   | 'crop___internal___owner'
   | 'crop___internal___type'
+  | 'caption'
+  | 'alt'
   | '_rawAsset'
   | '_rawHotspot'
   | '_rawCrop'
@@ -5334,8 +5354,6 @@ export type SanityHighlightsFieldsEnum =
   | 'projects___publishedAt'
   | 'projects___mainImage____key'
   | 'projects___mainImage____type'
-  | 'projects___mainImage___caption'
-  | 'projects___mainImage___alt'
   | 'projects___mainImage___asset____id'
   | 'projects___mainImage___asset____type'
   | 'projects___mainImage___asset____createdAt'
@@ -5375,6 +5393,8 @@ export type SanityHighlightsFieldsEnum =
   | 'projects___mainImage___crop___right'
   | 'projects___mainImage___crop___id'
   | 'projects___mainImage___crop___children'
+  | 'projects___mainImage___caption'
+  | 'projects___mainImage___alt'
   | 'projects___mainImage____rawAsset'
   | 'projects___mainImage____rawHotspot'
   | 'projects___mainImage____rawCrop'
@@ -6016,8 +6036,6 @@ export type SanityProjectFieldsEnum =
   | 'publishedAt'
   | 'mainImage____key'
   | 'mainImage____type'
-  | 'mainImage___caption'
-  | 'mainImage___alt'
   | 'mainImage___asset____id'
   | 'mainImage___asset____type'
   | 'mainImage___asset____createdAt'
@@ -6108,6 +6126,8 @@ export type SanityProjectFieldsEnum =
   | 'mainImage___crop___internal___mediaType'
   | 'mainImage___crop___internal___owner'
   | 'mainImage___crop___internal___type'
+  | 'mainImage___caption'
+  | 'mainImage___alt'
   | 'mainImage____rawAsset'
   | 'mainImage____rawHotspot'
   | 'mainImage____rawCrop'
@@ -8093,8 +8113,6 @@ export type SanityHighlightFieldsEnum =
   | 'projects___publishedAt'
   | 'projects___mainImage____key'
   | 'projects___mainImage____type'
-  | 'projects___mainImage___caption'
-  | 'projects___mainImage___alt'
   | 'projects___mainImage___asset____id'
   | 'projects___mainImage___asset____type'
   | 'projects___mainImage___asset____createdAt'
@@ -8134,6 +8152,8 @@ export type SanityHighlightFieldsEnum =
   | 'projects___mainImage___crop___right'
   | 'projects___mainImage___crop___id'
   | 'projects___mainImage___crop___children'
+  | 'projects___mainImage___caption'
+  | 'projects___mainImage___alt'
   | 'projects___mainImage____rawAsset'
   | 'projects___mainImage____rawHotspot'
   | 'projects___mainImage____rawCrop'
@@ -8514,6 +8534,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___stripMetadata'
   | 'pluginOptions___defaultQuality'
   | 'pluginOptions___failOnError'
+  | 'pluginOptions___documentPaths'
   | 'pluginOptions___projectId'
   | 'pluginOptions___dataset'
   | 'pluginOptions___token'

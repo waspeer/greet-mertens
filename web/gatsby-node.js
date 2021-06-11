@@ -6,7 +6,11 @@ module.exports = {
     const result = await graphql(/* GraphQL */ `
       query createPagesQuery {
         articles: allSanityArticle(
-          filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
+          filter: {
+            slug: { current: { ne: null } }
+            publishedAt: { ne: null }
+            hidden: { ne: true }
+          }
         ) {
           nodes {
             id

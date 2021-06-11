@@ -93,4 +93,11 @@ export const Article: DocumentType<'articleBody' | 'category' | 'excerptText' | 
       };
     },
   },
+  orderings: [
+    {
+      title: 'Date published',
+      name: 'datePublished',
+      by: [{ field: 'publishedAt', direction: 'desc' }],
+    },
+  ],
 };

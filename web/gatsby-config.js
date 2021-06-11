@@ -18,13 +18,9 @@ module.exports = {
     'gatsby-plugin-postcss',
     {
       resolve: 'gatsby-plugin-graphql-codegen',
-      // options: {
-      //   documentPaths: [
-      //     './src/**/*.{ts,tsx}',
-      //     './gatsby-node.ts',
-      //     './node_modules/gatsby-source-sanity/fragments/*.js',
-      //   ],
-      // },
+      options: {
+        documentPaths: ['./src/**/*.{ts,tsx}'],
+      },
     },
     {
       resolve: 'gatsby-source-sanity',

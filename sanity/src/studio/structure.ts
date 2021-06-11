@@ -24,7 +24,11 @@ export default () =>
       S.listItem()
         .title('Artikelen')
         .icon(RiArticleLine)
-        .child(S.documentTypeList('article').title('Artikel')),
+        .child(
+          S.documentTypeList('article')
+            .title('Artikel')
+            .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }]),
+        ),
       S.listItem()
         .title('Uitgelichte Projecten')
         .icon(RiStarLine)
