@@ -5,6 +5,8 @@ const globImporter = require('node-sass-glob-importer');
 const path = require('path');
 const sass = require('sass');
 
+// https://github.com/jhukdev/11tyby
+
 const INPUT_DIRECTORY = 'src';
 const OUTPUT_DIRECTORY = 'dist';
 const STYLES_INPUT_FILE = path.resolve(__dirname, INPUT_DIRECTORY, 'styles/main.scss');
@@ -34,7 +36,7 @@ module.exports = function eleventy(config) {
         ],
       };
     },
-    exts: ['tsx'],
+    exts: ['ts', 'tsx'],
     postProcess({ html, data }) {
       return `
         <!DOCTYPE html>
@@ -50,6 +52,7 @@ module.exports = function eleventy(config) {
           </head>
           <body>
             ${html}
+            <script src="/main.js"></script>
           </body>
         </html>
       `;
@@ -69,14 +72,18 @@ module.exports = function eleventy(config) {
     fs.writeFileSync(STYLES_OUTPUT_FILE, result.css);
   });
 
-  config.addWatchTarget(path.join(__dirname, INPUT_DIRECTORY, '**/*.tsx?'));
+  config.addWatchTarget(path.join(__dirname, INPUT_DIRECTORY, '**/*.ts'));
+  config.addWatchTarget(path.join(__dirname, INPUT_DIRECTORY, '**/*.tsx'));
   config.addWatchTarget(path.join(__dirname, INPUT_DIRECTORY, '**/*.scss'));
+  config.addWatchTarget(path.join(__dirname, INPUT_DIRECTORY, 'javascript/*.js'));
+
+  config.addPassthroughCopy({[path.join(INPUT_DIRECTORY, 'javascript/**/[^.]+.js')]: '/'});
 
   return {
     dir: {
-      data: 'data',
-      input: INPUT_DIRECTORY,
-      layouts: 'screens',
+      data: '../data',
+      input: path.join(INPUT_DIRECTORY, 'pages'),
+      layouts: '../screens',
       output: OUTPUT_DIRECTORY,
     },
   };

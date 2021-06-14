@@ -1,8 +1,17 @@
 @use 'breakpoints';
 
 .home {
+
+  &__text {
+    text-align: center;
+  }
+
   @include breakpoints.media('>md') {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+
+    &__text {
+      text-align: left;
+    }
   }
 }

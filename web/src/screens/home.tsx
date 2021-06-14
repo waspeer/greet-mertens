@@ -1,16 +1,17 @@
 import * as React from 'react';
 
+import { Image } from '../components/image';
 import type { Data } from '../lib/data';
 import Layout from './layout';
 
 export default function Home({ home }: Data.AllData) {
-  const { email, highlightedProjects, tagline } = home;
+  const { email, highlightedProjects, portrait, tagline } = home;
 
   return (
     <Layout>
       <main className="home">
         <div className="home__portrait">
-          <div>IMAGE</div>
+          <Image image={portrait} loading="eager" />
         </div>
         <section className="home__text">
           <h1>Greet Mertens</h1>

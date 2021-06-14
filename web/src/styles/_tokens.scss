@@ -1,0 +1,27 @@
+:root {
+  /* FONTS */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-mid: 600;
+  --weight-bold: 700;
+
+  /* SIZES */
+  --base-size: 1rem;
+
+  --size-300: calc(var(--base-size) * 0.43);
+  --size-300: calc(var(--base-size) * 0.57);
+  --size-300: calc(var(--base-size) * 0.57);
+  --size-400: calc(var(--base-size) * 0.75);
+  --size-500: var(--base-size);
+  --size-600: calc(var(--base-size) * 1.33);
+  --size-700: calc(var(--base-size) * 1.77);
+  --size-800: calc(var(--base-size) * 2.4);
+
+  /* LEADING */
+  --leading-tight: 1.2;
+  --leading-mid: 1.5;
+  --leading-loose: 1.7;
+
+  /* OTHER */
+  --border-radius: 0.25rem;
+}
