@@ -1,9 +1,12 @@
-import * as React from 'react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { h } from 'preact';
 
-import type { Data } from '../lib/data';
-import { imageUrlBuilder } from '../lib/sanity-image-url';
+import type { Data } from '~/lib/data';
+import { imageUrlBuilder } from '~/lib/sanity-image-url';
 
-type AvailableHtmlProps = Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'src'>;
+import './image.scss';
+
+type AvailableHtmlProps = Omit<h.JSX.HTMLAttributes<HTMLImageElement>, 'src'>;
 
 interface ImageProps extends AvailableHtmlProps {
   image: Data.Image;
@@ -19,12 +22,10 @@ export function Image({ image, ...rest }: ImageProps) {
   return (
     <figure
       className="image"
-      style={
-        {
-          '--aspectRatio': `${aspectRatioPercentage}%`,
-          '--color': dominantColor,
-        } as any
-      }
+      style={{
+        '--aspectRatio': `${aspectRatioPercentage}%`,
+        '--color': dominantColor,
+      }}
     >
       <img alt={alt} loading="lazy" src={imageUrl} {...rest} />
     </figure>

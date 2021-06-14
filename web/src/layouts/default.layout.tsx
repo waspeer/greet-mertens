@@ -1,10 +1,12 @@
-import React from 'react';
+import { h } from 'preact';
 
-interface Props {
-  children: React.ReactNode;
+import './default-layout.scss';
+
+interface DefaultLayoutProps {
+  content: string;
 }
 
-function Layout({ children }: Props) {
+function DefaultLayout({ content }: DefaultLayoutProps) {
   return (
     <div className="layout">
       <header>
@@ -27,9 +29,15 @@ function Layout({ children }: Props) {
         </nav>
       </header>
 
-      {children}
+      {content}
     </div>
   );
 }
 
-export default Layout;
+module.exports = {
+  render: DefaultLayout,
+  data: {
+    layoutCss: 'styles/default.layout.css',
+    layout: 'base.11ty.js',
+  },
+};

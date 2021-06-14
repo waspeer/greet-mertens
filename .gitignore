@@ -121,3 +121,5 @@ public
 
 snipsnap.code-snippets
 web-old/
+_build/
+_site/

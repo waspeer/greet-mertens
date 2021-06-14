@@ -23,6 +23,7 @@ declare namespace Data {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Category {
     // color?: {
     //   value?: string | null;
