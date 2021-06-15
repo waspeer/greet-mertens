@@ -48,8 +48,9 @@ const sharedBuildOptions = {
   write: false,
 }
 
-/** @type {(callback: (result: esbuild.BuildResult) => void) => Promise<void>} */
-async function buildServerSide(callback) {
+/** @typedef {{callback: (result: esbuild.BuildResult) => void, watch: boolean}} BuildOptions} */
+/** @type {(options: BuildOptions) => Promise<void>} */
+async function buildServerSide({callback, watch}) {
   const result = await esbuild.build({
     ...sharedBuildOptions,
     entryPoints: [
@@ -61,27 +62,27 @@ async function buildServerSide(callback) {
     plugins: [sassPlugin({
       includePaths: [path.join(INPUT_DIRECTORY, 'styles')]
     })],
-    watch: {
+    watch: watch ? {
       onRebuild(error, result) {
         if (!error && result) return callback(result);
         console.error(error);
       },
-    },
+    } : false,
   });
   callback(result);
 }
 
-/** @type {(callback: (result: esbuild.BuildResult) => void) => Promise<void>} */
-async function buildClientSide(callback) {
+/** @type {(options: BuildOptions) => Promise<void>} */
+async function buildClientSide({ callback, watch }) {
   const result = await esbuild.build({
     ...sharedBuildOptions,
     entryPoints: await glob(path.join(INPUT_DIRECTORY, '**/*.browser.ts')),
-    watch: {
+    watch: watch ? {
       onRebuild(error, result) {
         if (!error && result) return callback(result);
         console.error(error);
       },
-    },
+    } : false,
   });
   callback(result);
 }
@@ -165,6 +166,8 @@ async function handleFile(file) {
     }
   }
 
-  buildClientSide(callback);
-  buildServerSide(callback);
+  const watch = process.argv.includes('--watch');
+
+  buildClientSide({ callback, watch });
+  buildServerSide({ callback, watch });
 })()

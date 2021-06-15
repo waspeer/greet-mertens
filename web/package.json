@@ -5,9 +5,12 @@
   "author": "Wannes Salomé",
   "license": "MIT",
   "scripts": {
+    "build:esbuild": "node ./build.js",
+    "clean": "rm -rf _build _site",
+    "predev": "run-s clean build:esbuild",
     "dev": "run-p dev:*",
     "dev:11ty": "eleventy --serve",
-    "dev:esbuild": "node ./build.js"
+    "dev:esbuild": "node ./build.js --watch"
   },
   "dependencies": {
     "@11ty/eleventy": "^0.12.1",
