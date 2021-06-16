@@ -10,7 +10,7 @@ interface DefaultLayoutProps {
 }
 
 function BaseLayout({ content, lang = 'nl', layoutCss, page }: DefaultLayoutProps) {
-  const cssPaths = [`styles/${page.fileSlug}.css`, layoutCss, 'styles/main.css'];
+  const cssPaths = [`/styles/${page.fileSlug}.css`, `/styles/${layoutCss}`, '/styles/main.css'];
 
   return (
     <html lang={lang}>

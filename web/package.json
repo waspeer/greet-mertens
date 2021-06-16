@@ -6,19 +6,21 @@
   "license": "MIT",
   "scripts": {
     "build:esbuild": "node ./build.js",
-    "clean": "rm -rf _build _site",
+    "clean": "rimraf _build _site",
     "predev": "run-s clean build:esbuild",
     "dev": "run-p dev:*",
     "dev:11ty": "eleventy --serve",
-    "dev:esbuild": "node ./build.js --watch"
+    "dev:esbuild": "yarn build:esbuild --watch"
   },
   "dependencies": {
     "@11ty/eleventy": "^0.12.1",
+    "@sanity/block-content-to-hyperscript": "^3.0.0",
     "@sanity/client": "^2.11.0",
     "@sanity/image-url": "^0.140.22",
+    "chokidar": "^3.5.2",
+    "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
     "esbuild": "^0.12.8",
-    "esbuild-plugin-sass": "^0.5.0",
     "include-media": "^1.4.10",
     "npm-run-all": "^4.1.5",
     "preact": "^10.5.13",
@@ -29,10 +31,12 @@
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",
     "@types/node": "^15.12.2",
+    "@types/rimraf": "^3.0.0",
     "@types/sass": "^1.16.0",
     "@waspeer/eslint-config": "^1.2.0",
     "eslint": "^7.28.0",
     "prettier": "^2.3.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.3.2"
   }
 }

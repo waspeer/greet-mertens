@@ -1,7 +1,7 @@
 import type { SanityReference } from '@sanity/image-url/lib/types/types';
 
 declare namespace Data {
-  type PortableText = PortableText;
+  type BlockContent = any[];
 
   interface Image {
     alt: string;
@@ -37,27 +37,19 @@ declare namespace Data {
     // slug: string;
     // title: string;
   }
-
-  interface ArticlePreview {
-    excerpt: PortableText;
+  interface Article {
+    body: BlockContent;
+    categories: Category[];
+    excerpt: BlockContent;
     id: string;
     publishedAt: Date;
-    mainImage?: Image | null;
+    mainImage?: Image;
     slug: string;
     title: string;
   }
 
-  interface Article {
-    body: PortableText;
-    categories: Category[];
-    id: string;
-    publishedAt: Date;
-    // mainImage?: TransformableFigure | null;
-    title: string;
-  }
-
   interface Project {
-    body: PortableText;
+    body: BlockContent;
     categories: Category[];
     id: string;
     isCurrent: boolean;
@@ -68,7 +60,7 @@ declare namespace Data {
 
   interface ProjectPreview {
     // categories: Category[];
-    excerpt: PortableText;
+    excerpt: BlockContent;
     id: string;
     isCurrent: boolean;
     mainImage?: Image | null;
@@ -84,6 +76,7 @@ declare namespace Data {
   }
 
   interface AllData {
+    articles: Article[];
     home: Home;
   }
 }

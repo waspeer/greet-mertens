@@ -1,14 +1,5 @@
 import { sanityClient } from '../lib/sanity-client';
-
-const IMAGE_FRAGMENT = /* groq */ `
-  asset,
-  crop,
-  hotspot,
-  ...asset-> {
-    "aspectRatio": metadata.dimensions.aspectRatio,
-    "dominantColor": metadata.palette.dominant.background,
-  },
-`;
+import { IMAGE_FRAGMENT } from './shared-fragments';
 
 const HOME_DATA_QUERY = /* groq */ `
 {
@@ -30,18 +21,5 @@ const HOME_DATA_QUERY = /* groq */ `
 async function getHomeData() {
   return await sanityClient.fetch(HOME_DATA_QUERY);
 }
-
-// async function getHomeData(): Promise<Data.Home> {
-//   const rawData = await sanityClient.fetch(HOME_DATA_QUERY);
-
-//   return {
-//     ...rawData,
-//     highlightedProjects: rawData.highlightedProjects.map((project: any) => ({
-//       ...project,
-//       mainImage: createImageObject(project.image),
-//     })),
-//     portrait: createImageObject(rawData.portrait),
-//   };
-// }
 
 module.exports = getHomeData;

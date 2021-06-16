@@ -37,7 +37,7 @@ function DefaultLayout({ content }: DefaultLayoutProps) {
 module.exports = {
   render: DefaultLayout,
   data: {
-    layoutCss: 'styles/default.layout.css',
+    layoutCss: 'default.layout.css',
     layout: 'base.11ty.js',
   },
 };

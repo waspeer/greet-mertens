@@ -1,6 +1,7 @@
 figure.image {
   background-color: var(--color);
   position: relative;
+  margin: 0;
 
   &::before {
     content: '';

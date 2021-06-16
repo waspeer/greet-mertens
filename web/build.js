@@ -5,8 +5,12 @@ const fs = require('fs');
 const glob = require('tiny-glob');
 const path = require('path');
 const sass = require('sass');
-// const sassPlugin = require('esbuild-plugin-sass');
+const chokidar = require('chokidar');
 
+const exists = promisify(fs.exists);
+const mkdir = promisify(fs.mkdir);
+const rimraf = promisify(require('rimraf'));
+const unlink = promisify(fs.unlink);
 const writeFile = promisify(fs.writeFile);
 
 const INPUT_DIRECTORY = 'src';
@@ -42,111 +46,92 @@ function sassPlugin(options = {}) {
 }
 
 /** @type {esbuild.BuildOptions} */
-const sharedBuildOptions = {
+const sharedBundleOptions = {
   bundle: true,
   outdir: OUTPUT_DIRECTORY,
   write: false,
 }
 
-/** @typedef {{callback: (result: esbuild.BuildResult) => void, watch: boolean}} BuildOptions} */
-/** @type {(options: BuildOptions) => Promise<void>} */
-async function buildServerSide({callback, watch}) {
-  const result = await esbuild.build({
-    ...sharedBuildOptions,
-    entryPoints: [
-      ...(await glob(path.join(INPUT_DIRECTORY, '**/*.{data,template,layout}.{ts,tsx}'))),
-      path.join(INPUT_DIRECTORY, 'styles/main.scss')
-    ],
+/** @typedef {(entryPoints: string[], extendOptions?: Partial<esbuild.BuildOptions>)  => Promise<esbuild.BuildResult>} BundleFunction */
+/** @type {BundleFunction} */
+async function bundleServerSide(entryPoints, extendOptions = {}) {
+  return await esbuild.build({
+    ...sharedBundleOptions,
+    entryPoints,
     format: 'cjs',
     platform: 'node',
     plugins: [sassPlugin({
       includePaths: [path.join(INPUT_DIRECTORY, 'styles')]
     })],
-    watch: watch ? {
-      onRebuild(error, result) {
-        if (!error && result) return callback(result);
-        console.error(error);
-      },
-    } : false,
+    ...extendOptions,
   });
-  callback(result);
 }
 
-/** @type {(options: BuildOptions) => Promise<void>} */
-async function buildClientSide({ callback, watch }) {
-  const result = await esbuild.build({
-    ...sharedBuildOptions,
-    entryPoints: await glob(path.join(INPUT_DIRECTORY, '**/*.browser.ts')),
-    watch: watch ? {
-      onRebuild(error, result) {
-        if (!error && result) return callback(result);
-        console.error(error);
-      },
-    } : false,
+/** @type {BundleFunction} */
+async function bundleClientSide(entryPoints, extendOptions = {}) {
+  return await esbuild.build({
+    ...sharedBundleOptions,
+    entryPoints,
+    ...extendOptions,
   });
-  callback(result);
 }
 
-/** @type {(file: esbuild.OutputFile) => Promise<void>} */
+/** @type {(file: esbuild.OutputFile) => Promise<string | undefined>} */
 async function handleFile(file) {
-  await Promise.all([
-    (async function handleTemplate(file) {
-      const fileName = file.path.match(/.*\/(?<fileName>[^.]+)\.template\.js$/i)?.groups?.fileName;
-      if(!fileName) return;
-      await writeFile(path.join(TEMPLATES_DIRECTORY, `${fileName}.11ty.js`), file.contents);
-    })(file),
+  const { fileName, type, extension } = file.path.match(
+    /.*\/(?<fileName>[^.]+)\.(?<type>[^.]+)\.(?<extension>[a-z]+)$/i
+  )?.groups ?? {};
 
-    // --- //
+  /** @type {string | undefined} */
+  let outputPath;
 
-    (async function handleLayout(file) {
-      const fileName = file.path.match(/.*\/(?<fileName>[^.]+)\.layout\.js$/i)?.groups?.fileName;
-      if(!fileName) return;
-      await writeFile(path.join(LAYOUTS_DIRECTORY, `${fileName}.11ty.js`), file.contents);
-    })(file),
+  if (type === 'template' && extension === 'js') {
+    outputPath = outputPath = path.join(TEMPLATES_DIRECTORY, `${fileName}.11ty.js`);
+  }
 
-    // --- //
-    
-    (async function handleStyles(file) {
-      /** @type {string} */
-      let newFileName;
-      
-      if (/.*\/main.css$/i.test(file.path) === true) {
-        newFileName = 'main.css';
-      } else {
-        const {fileName, type} = file.path.match(/.*\/(?<fileName>[^.]+)\.(?<type>[^.]+)\.css$/i)?.groups ?? {};
-        if(!(fileName && type)) return;
-        newFileName = type === 'template' ? `${fileName}.css` : `${fileName}.${type}.css`;
-      }
-      
-      await writeFile(path.join(STYLES_DIRECTORY, newFileName), file.contents);
-    })(file),
-    
-    // --- //
+  else if (type === 'layout' && extension === 'js') {
+    outputPath = path.join(LAYOUTS_DIRECTORY, `${fileName}.11ty.js`);
+  }
 
-    (async function handleData(file) {
-      const {fileName} = file.path.match(/.*\/(?<fileName>[^.]+)\.data\.js$/i)?.groups ?? {};;
-      if(!(fileName)) return;
-      await writeFile(path.join(DATA_DIRECTORY, `${fileName}.js`), file.contents);
-    })(file),
-    
-    // --- //
+  else if (type === 'data' && extension === 'js') {
+    outputPath = path.join(DATA_DIRECTORY, `${fileName}.js`);
+  }
 
-    (async function handleJavascript(file) {
-      const {fileName} = file.path.match(/.*\/(?<fileName>[^.]+)\.browser\.js$/i)?.groups ?? {};;
-      if(!(fileName)) return;
-      await writeFile(path.join(JAVASCRIPT_DIRECTORY, `${fileName}.js`), file.contents);
-    })(file)
-  ])
+  else if (type === 'browser' && extension === 'js') {
+    outputPath = path.join(JAVASCRIPT_DIRECTORY, `${fileName}.js`);
+  }
+
+  else if (extension === 'css') {
+    outputPath = path.join(STYLES_DIRECTORY, 
+      type === 'template' ? `${fileName}.css` : `${fileName}.${type}.css`,
+    );
+  }
+
+  else if (/.*\/main.css$/i.test(file.path) === true) {
+    outputPath = path.join(STYLES_DIRECTORY, 'main.css');
+  };
+
+  if (!outputPath) {
+    console.warn('⚠ File ignored:', file.path);
+    return;
+  }
+
+  await writeFile(outputPath, file.contents);
+  return outputPath;
 }
 
 (async () => {
-  [DATA_DIRECTORY, LAYOUTS_DIRECTORY, TEMPLATES_DIRECTORY, STYLES_DIRECTORY, JAVASCRIPT_DIRECTORY].forEach((directory) => {
-    if (fs.existsSync(directory)) return;
-    fs.mkdirSync(directory, { recursive: true });
-  });
+  async function clean() {
+    await rimraf(OUTPUT_DIRECTORY);
+    await Promise.all(
+      [DATA_DIRECTORY, LAYOUTS_DIRECTORY, TEMPLATES_DIRECTORY, STYLES_DIRECTORY, JAVASCRIPT_DIRECTORY].map(
+        async (directory) => mkdir(directory, { recursive: true })
+      )
+    )
+  }
 
-  /** @type {(result: esbuild.BuildResult) => Promise<void>} */
-  async function callback(result) {
+  /** @type {(result: esbuild.BuildResult) => Promise<string[] | undefined>} */
+  async function handleBuildResult(result) {
     if (result.errors.length > 0) {
       console.error(...result.errors);
       return;
@@ -161,13 +146,56 @@ async function handleFile(file) {
       return;
     }
 
-    for (const file of result.outputFiles) {
-      await handleFile(file)
-    }
+    const outputPaths = /** @type {string[]} */ (
+      await Promise.all(result.outputFiles.map((outputFile) => handleFile(outputFile)))
+    ).filter(Boolean);
+
+    return outputPaths;
   }
 
-  const watch = process.argv.includes('--watch');
+  /** @type {(entryPoints: string[], bundleFunction: BundleFunction) => Promise<void>} */
+  async function watchEntryPoints(entryPoints, bundleFunction) {   
+    chokidar.watch(INPUT_DIRECTORY).on('all', async (event, inputPath) => {
+      const inputPaths = (await Promise.all(entryPoints.map((entryPoint) => glob(entryPoint)))).flat();
 
-  buildClientSide({ callback, watch });
-  buildServerSide({ callback, watch });
+      if (event === 'add' || event === 'change') {
+        console.log('⚡️', inputPath);
+      } else if (event === 'unlink') {
+        console.log('💥', inputPath);
+        await clean();
+      }
+      else return;
+      
+      await handleBuildResult(
+        await bundleFunction(inputPaths)
+      );
+    })
+  }
+
+  await clean();
+  
+  const clientSideEntryPoints = [path.join(INPUT_DIRECTORY, '**/*.browser.ts')];
+  const serverSideEntryPoints = [
+    path.join(INPUT_DIRECTORY, '**/*.{data,template,layout}.{ts,tsx}'),
+    path.join(INPUT_DIRECTORY, 'styles/main.scss'),
+  ];
+  
+  const watch = process.argv.includes('--watch');
+  
+  if (watch) {
+    console.info('👀 Watch Mode engaged');
+    watchEntryPoints(clientSideEntryPoints, bundleClientSide);
+    watchEntryPoints(serverSideEntryPoints, bundleServerSide);
+  } else {
+    console.info('⚡️ Bundling assets for Eleventy');
+
+    const serverSideInputPaths = (await Promise.all(serverSideEntryPoints.map((entryPoint) => glob(entryPoint)))).flat();
+    const clientSideInputPaths = (await Promise.all(clientSideEntryPoints.map((entryPoint) => glob(entryPoint)))).flat();
+
+    const serverSideAssets = await handleBuildResult(await bundleServerSide(serverSideInputPaths));
+    const clientSideAssets = await handleBuildResult(await bundleClientSide(clientSideInputPaths));
+
+    const assetCount = (serverSideAssets?.length ?? 0) + (clientSideAssets?.length ?? 0);
+    console.info(`⚡️ ${assetCount} assets built`);
+  }
 })()
