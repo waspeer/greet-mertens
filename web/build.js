@@ -2,15 +2,12 @@
 const { promisify } = require('util');
 const esbuild = require('esbuild');
 const fs = require('fs');
-const glob = require('tiny-glob');
 const path = require('path');
 const sass = require('sass');
-const chokidar = require('chokidar');
+const globPlugin = require('./glob-plugin');
 
-const exists = promisify(fs.exists);
 const mkdir = promisify(fs.mkdir);
 const rimraf = promisify(require('rimraf'));
-const unlink = promisify(fs.unlink);
 const writeFile = promisify(fs.writeFile);
 
 const INPUT_DIRECTORY = 'src';
@@ -52,26 +49,33 @@ const sharedBundleOptions = {
   write: false,
 }
 
-/** @typedef {(entryPoints: string[], extendOptions?: Partial<esbuild.BuildOptions>)  => Promise<esbuild.BuildResult>} BundleFunction */
+/** @typedef {(extendOptions?: Partial<esbuild.BuildOptions>)  => Promise<esbuild.BuildResult>} BundleFunction */
 /** @type {BundleFunction} */
-async function bundleServerSide(entryPoints, extendOptions = {}) {
+async function bundleServerSide(extendOptions = {}) {
   return await esbuild.build({
     ...sharedBundleOptions,
-    entryPoints,
+    entryPoints: [
+      path.join(INPUT_DIRECTORY, '**/*.{data,template,layout}.{ts,tsx}'),
+      path.join(INPUT_DIRECTORY, 'styles/main.scss'),
+    ],
     format: 'cjs',
     platform: 'node',
-    plugins: [sassPlugin({
-      includePaths: [path.join(INPUT_DIRECTORY, 'styles')]
-    })],
+    plugins: [
+      globPlugin(),
+      sassPlugin({
+        includePaths: [path.join(INPUT_DIRECTORY, 'styles')]
+      }),
+    ],
     ...extendOptions,
   });
 }
 
 /** @type {BundleFunction} */
-async function bundleClientSide(entryPoints, extendOptions = {}) {
+async function bundleClientSide(extendOptions = {}) {
   return await esbuild.build({
     ...sharedBundleOptions,
-    entryPoints,
+    entryPoints: [path.join(INPUT_DIRECTORY, '**/*.browser.ts')],
+    plugins: [globPlugin()],
     ...extendOptions,
   });
 }
@@ -120,82 +124,67 @@ async function handleFile(file) {
   return outputPath;
 }
 
-(async () => {
-  async function clean() {
-    await rimraf(OUTPUT_DIRECTORY);
-    await Promise.all(
-      [DATA_DIRECTORY, LAYOUTS_DIRECTORY, TEMPLATES_DIRECTORY, STYLES_DIRECTORY, JAVASCRIPT_DIRECTORY].map(
-        async (directory) => mkdir(directory, { recursive: true })
-      )
+async function clean() {
+  await rimraf(OUTPUT_DIRECTORY);
+  await Promise.all(
+    [DATA_DIRECTORY, LAYOUTS_DIRECTORY, TEMPLATES_DIRECTORY, STYLES_DIRECTORY, JAVASCRIPT_DIRECTORY].map(
+      async (directory) => mkdir(directory, { recursive: true })
     )
+  )
+}
+
+/** @type {(result: esbuild.BuildResult) => Promise<string[] | undefined>} */
+async function handleBuildResult(result) {
+  if (result.errors.length > 0) {
+    console.error(...result.errors);
+    return;
   }
 
-  /** @type {(result: esbuild.BuildResult) => Promise<string[] | undefined>} */
-  async function handleBuildResult(result) {
-    if (result.errors.length > 0) {
-      console.error(...result.errors);
-      return;
-    }
-
-    if (result.warnings.length > 0) {
-      console.warn(...result.warnings);
-    }
-
-    if (!result.outputFiles) {
-      console.log('No outputfiles');
-      return;
-    }
-
-    const outputPaths = /** @type {string[]} */ (
-      await Promise.all(result.outputFiles.map((outputFile) => handleFile(outputFile)))
-    ).filter(Boolean);
-
-    return outputPaths;
+  if (result.warnings.length > 0) {
+    console.warn(...result.warnings);
   }
 
-  /** @type {(entryPoints: string[], bundleFunction: BundleFunction) => Promise<void>} */
-  async function watchEntryPoints(entryPoints, bundleFunction) {   
-    chokidar.watch(INPUT_DIRECTORY).on('all', async (event, inputPath) => {
-      const inputPaths = (await Promise.all(entryPoints.map((entryPoint) => glob(entryPoint)))).flat();
-
-      if (event === 'add' || event === 'change') {
-        console.log('⚡️', inputPath);
-      } else if (event === 'unlink') {
-        console.log('💥', inputPath);
-        await clean();
-      }
-      else return;
-      
-      await handleBuildResult(
-        await bundleFunction(inputPaths)
-      );
-    })
+  if (!result.outputFiles) {
+    console.log('No outputfiles');
+    return;
   }
 
+  const outputPaths = /** @type {string[]} */ (
+    await Promise.all(result.outputFiles.map((outputFile) => handleFile(outputFile)))
+  ).filter(Boolean);
+
+  return outputPaths;
+}
+
+// EXECUTION
+// ---------
+
+(async () => {
   await clean();
-  
-  const clientSideEntryPoints = [path.join(INPUT_DIRECTORY, '**/*.browser.ts')];
-  const serverSideEntryPoints = [
-    path.join(INPUT_DIRECTORY, '**/*.{data,template,layout}.{ts,tsx}'),
-    path.join(INPUT_DIRECTORY, 'styles/main.scss'),
-  ];
   
   const watch = process.argv.includes('--watch');
   
   if (watch) {
-    console.info('👀 Watch Mode engaged');
-    watchEntryPoints(clientSideEntryPoints, bundleClientSide);
-    watchEntryPoints(serverSideEntryPoints, bundleServerSide);
+    console.info('⚡️ Watch Mode engaged');
+
+    /** @type {esbuild.BuildOptions} */
+    const options = {
+      watch: {
+        onRebuild(_error, result) {
+          if (result) handleBuildResult(result);
+        }
+      }
+    }
+
+    bundleClientSide(options);
+    bundleServerSide(options);
   } else {
     console.info('⚡️ Bundling assets for Eleventy');
 
-    const serverSideInputPaths = (await Promise.all(serverSideEntryPoints.map((entryPoint) => glob(entryPoint)))).flat();
-    const clientSideInputPaths = (await Promise.all(clientSideEntryPoints.map((entryPoint) => glob(entryPoint)))).flat();
-
-    const serverSideAssets = await handleBuildResult(await bundleServerSide(serverSideInputPaths));
-    const clientSideAssets = await handleBuildResult(await bundleClientSide(clientSideInputPaths));
-
+    const serverSideAssets = await handleBuildResult(await bundleServerSide());
+    const clientSideAssets = await handleBuildResult(await bundleClientSide());
     const assetCount = (serverSideAssets?.length ?? 0) + (clientSideAssets?.length ?? 0);
+
     console.info(`⚡️ ${assetCount} assets built`);
   }
 })()
