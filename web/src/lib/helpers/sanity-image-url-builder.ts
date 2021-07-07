@@ -1,11 +1,10 @@
 import imageUrlBuilder from '@sanity/image-url';
-
-import { SanityImageAsset, SanityImageCrop, SanityImageHotspot } from '~/../graphql-types';
+import { SanityImageAsset } from '~/../graphql-types';
 
 interface TransformableImage {
   asset: Pick<SanityImageAsset, '_id'>;
-  crop?: SanityImageCrop | null;
-  hotspot?: SanityImageHotspot | null;
+  crop?: any; // SanityImageCrop | null;
+  hotspot?: any; // SanityImageHotspot | null;
 }
 
 const builder = imageUrlBuilder({

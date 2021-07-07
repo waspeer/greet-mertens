@@ -4,12 +4,12 @@ import React from 'react';
 
 import { CaptionedMedia } from '~/lib/components/captioned-media';
 import { sanityImageUrlBuilder } from '~/lib/helpers/sanity-image-url-builder';
-import type { TransformableImage } from '~/lib/types';
+import type { TransformableFigure } from '~/lib/types';
 import './sanity-figure.css';
 
 interface Props {
   className?: string;
-  image: TransformableImage;
+  image: TransformableFigure;
 }
 
 const IMAGE_RATIO = 0.5625;

@@ -38,7 +38,7 @@ export const CategoryOverview = ({ category, articlePreviews, projectPreviews }:
         </h2>
         <div
           className="categoryOverview__categoryColor"
-          style={{ backgroundColor: color || 'whitesmoke' }}
+          style={{ backgroundColor: color || 'whitesmoke' } as any}
         />
         <p className="categoryOverview__description">{description}</p>
       </div>
