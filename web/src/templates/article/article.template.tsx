@@ -7,6 +7,8 @@ import { Image } from '~/components/image';
 import { createArticleUrl } from '~/lib/create-article-url';
 import type { Data } from '~/lib/data';
 
+import './article.scss';
+
 interface ArticleProps {
   article: Data.Article;
 }
@@ -20,25 +22,27 @@ function Article({ article }: ArticleProps) {
 
   return (
     <main className="article">
-      {/* TODO: should be a figure component for captions */}
       <article>
-        {mainImage && <Image image={mainImage} />}
         <h1>{title}</h1>
+
+        {/* TODO: should be a figure component for captions */}
+        {mainImage && <Image image={mainImage} />}
 
         <div className="article__info">
           <time dateTime={publishedAt.toString()}>{formattedDate}</time>
           {/* {!!categories.length && (
             <ul className="article__categories">
-              {categories.map((category) => (
-                <li key={category.id}>
-                  <Link to={getCategoryUrl(category)}>
-                    <CategoryBadge category={category} />
-                  </Link>
-                </li>
+            {categories.map((category) => (
+              <li key={category.id}>
+              <Link to={getCategoryUrl(category)}>
+              <CategoryBadge category={category} />
+              </Link>
+              </li>
               ))}
-            </ul>
-          )} */}
+              </ul>
+            )} */}
         </div>
+
         <div className="article__body">
           <BlockContent blocks={body} />
         </div>

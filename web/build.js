@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const sass = require('sass');
 const globPlugin = require('./glob-plugin');
+const chokidar = require('chokidar');
 
 const mkdir = promisify(fs.mkdir);
 const rimraf = promisify(require('rimraf'));
@@ -160,7 +161,11 @@ async function handleBuildResult(result) {
 // ---------
 
 (async () => {
-  await clean();
+  await Promise.all(
+    [DATA_DIRECTORY, LAYOUTS_DIRECTORY, TEMPLATES_DIRECTORY, STYLES_DIRECTORY, JAVASCRIPT_DIRECTORY].map(
+      async (directory) => mkdir(directory, { recursive: true })
+    )
+  )
   
   const watch = process.argv.includes('--watch');
   

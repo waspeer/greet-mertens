@@ -1,0 +1,8 @@
+.article-preview {
+  display: flex;
+  flex-direction: column;
+
+  &__text {
+    order: 1;
+  }
+}

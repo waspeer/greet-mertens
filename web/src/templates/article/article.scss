@@ -1,0 +1,12 @@
+.article article {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    order: 1;
+  }
+
+  figure {
+    order: 0;
+  }
+}
