@@ -21,9 +21,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: web/.cache
-          key: cache-cache-${{ github.run_id }}
+          key: cache-gatsby-${{ github.run_id }}
           restore-keys: |
-            cache-cache-
+            cache-gatsby-
 
       - uses: actions/cache@v2
         with:
