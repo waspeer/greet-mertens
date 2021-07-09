@@ -16,7 +16,7 @@
   "dependencies": {
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^0.140.22",
-    "@sindresorhus/class-names": "^1.1.0",
+    "@sindresorhus/class-names": "^2.0.0",
     "cross-fetch": "^3.1.4",
     "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
