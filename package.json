@@ -4,6 +4,11 @@
   "main": "index.js",
   "author": "Wannes Salomé <mail@wannessalome.nl>",
   "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "web",
+    "sanity"
+  ],
   "scripts": {
     "build:sanity": "yarn --cwd sanity build",
     "dev:sanity": "yarn --cwd sanity dev",
