@@ -1,5 +1,3 @@
-import { SanityAsset } from '@sanity/image-url/lib/types/types';
-
 const SANITY_CDN_BASE_URL = 'https://cdn.sanity.io/';
 const SANITY_DATASET = process.env.GATSBY_SANITY_DATASET;
 const SANITY_PROJECT = process.env.GATSBY_SANITY_PROJECT_ID;
@@ -15,7 +13,7 @@ const SANITY_PROJECT = process.env.GATSBY_SANITY_PROJECT_ID;
  * @returns {string}
  */
 
-export function generateSanityFileDownloadUrl(asset: SanityAsset, name: string): string {
+export function generateSanityFileDownloadUrl(asset: any, name: string): string {
   const matches = asset._ref.match(/file-(?<id>\w+)-(?<extension>\w+)/);
 
   if (!matches) {

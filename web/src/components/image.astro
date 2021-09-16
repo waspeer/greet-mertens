@@ -1,0 +1,78 @@
+---
+import { imageUrlBuilder } from '../lib/sanity-image-url';
+import { ImageData } from '../lib/types.js';
+import { getContrast } from '../lib/helpers/get-contrast.js';
+
+export type Props = ImageData & { maxHeight?: string };
+
+const { alt, aspectRatio, asset, dominantColor, caption, crop, hotspot, maxHeight } = Astro.props as Props;
+const aspectRatioPercentage = Math.round((1 / aspectRatio) * 100);
+const imageUrl = imageUrlBuilder.image({ asset, crop, hotspot }).auto('format').url();
+
+---
+
+<figure style={`
+  --aspectRatio: ${aspectRatioPercentage}%;
+  --captionColor: ${getContrast(dominantColor)};
+  --hotspotX: ${(hotspot?.x ?? 0.5) * 100}%;
+  --hotspotY: ${(hotspot?.y ?? 0.5) * 100}%;
+  --dominantColor: ${dominantColor};
+  --maxHeight: ${maxHeight ?? 'none'};
+`}>
+  <img alt={alt} loading="lazy" src={imageUrl} />
+  {caption && <figcaption class="[ fs-300 ta-c ]">{caption}</figcaption>}
+</figure>
+
+<script>
+  document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
+    img.dataset.loaded = 'false';
+    img.addEventListener('load', () => {
+      img.dataset.loaded = 'true';
+    });
+  });
+</script>
+
+<style lang="scss">
+  figure {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    max-height: var(--maxHeight);
+    margin: 0;
+    background-color: var(--dominantColor);
+    grid-template:
+      'image' 1fr
+      'caption' auto;
+
+    &::before {
+      display: block;
+      padding-bottom: var(--aspectRatio);
+      content: '';
+      grid-area: image;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: var(--hotspotX) var(--hotspotY);
+    }
+
+    img[data-loaded] {
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    img[data-loaded='true'] {
+      opacity: 1;
+    }
+
+    figcaption {
+      color: var(--captionColor);
+      grid-area: caption;
+    }
+  }
+</style>

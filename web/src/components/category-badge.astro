@@ -1,0 +1,33 @@
+---
+import { CategoryData } from '../lib/types.js';
+import { getContrast } from '../lib/helpers/get-contrast.js';
+
+const category = Astro.props.category as CategoryData;
+const { color, icon, title } = category;
+
+const backgroundColor = color?.value ?? '#e5e7eb';
+---
+
+<div
+  class="[ category-badge ] [ rounded ] [ px-300 ]"
+  style={`--bg: ${backgroundColor}; --color: ${getContrast(backgroundColor)}`}
+>
+  {icon && (
+    <span role="img" aria-label={icon.description}>
+      {icon.emoji}
+    </span>
+  )}
+
+  {title}
+</div>
+
+<style lang="scss">
+  .category-badge {
+    background-color: var(--bg);
+    color: var(--color);
+
+    span {
+      margin-right: var(--s-300);
+    }
+  }
+</style>

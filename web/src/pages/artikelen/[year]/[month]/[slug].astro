@@ -1,0 +1,39 @@
+---
+import { differenceInDays, format, formatDistanceToNow, getMonth, getYear } from 'date-fns';
+import locale from 'date-fns/locale/nl';
+import Post from '../../../../components/post.astro';
+import BaseLayout from '../../../../layouts/base-layout.astro';
+import * as sanity from '../../../../lib/sanity.js';
+import { ArticleData } from '../../../../lib/types.js';
+
+export type Props = {
+  article: ArticleData;
+}
+
+export async function getStaticPaths() {
+  const articles = await sanity.query(/* groq */ `
+    *[_type == 'article' && defined(publishedAt)] {
+      ${sanity.fragments.article}
+    }
+  `);
+
+  return articles.map((article) => {
+    const publishedAt = new Date(article.publishedAt);
+
+    return {
+      params: {
+        year: getYear(publishedAt).toString(),
+        month: (getMonth(publishedAt) + 1).toString().padStart(2, '0'),
+        slug: article.slug,
+      },
+      props: { article },
+    };
+  });
+}
+
+const { article } = Astro.props as Props;
+---
+
+<BaseLayout title={article.title}>
+  <Post {...article} />
+</BaseLayout>

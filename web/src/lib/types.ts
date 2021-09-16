@@ -1,85 +1,41 @@
-import type { IGatsbyImageData } from 'gatsby-plugin-image';
+type ArticleData = PostData;
 
-export interface Image {
+interface ImageData {
   alt: string;
-  caption?: string | null;
-  imageData: IGatsbyImageData | null;
+  aspectRatio: number;
+  asset: any;
+  caption: string;
+  crop: any;
+  dominantColor: string;
+  hotspot: any;
 }
 
-export interface TransformableImage {
-  asset: {
-    _id: string;
-    metadata: {
-      lqip: string;
-    };
-  };
-  crop?: {
-    bottom: number;
-    left: number;
-    right: number;
-    top: number;
-  } | null;
-  hotspot?: {
-    height: number;
-    width: number;
-    x: number;
-    y: number;
-  } | null;
-}
-
-export interface TransformableFigure extends TransformableImage {
-  alt: string;
-  caption?: string | null;
-}
-
-export interface Category {
-  color?: {
-    value?: string | null;
-  } | null;
-  description?: string | null;
-  icon?: {
+interface CategoryData {
+  id: string;
+  color?: string;
+  description: string;
+  icon: {
     description: string;
-    icon: string;
-  } | null;
-  id: string;
+    emoji: string;
+  };
   slug: string;
   title: string;
 }
 
-export interface ArticlePreview {
-  excerpt: any[];
+interface PostData {
   id: string;
-  publishedAt: Date;
-  mainImage?: Image | null;
-  slug: string;
-  title: string;
-}
-
-export interface Article {
   body: any[];
-  categories: Category[];
-  id: string;
-  publishedAt: Date;
-  mainImage?: TransformableFigure | null;
-  title: string;
-}
-
-export interface Project {
-  body: any[];
-  categories: Category[];
-  id: string;
-  isCurrent: boolean;
-  publishedAt?: Date;
-  mainImage?: TransformableFigure | null;
-  title: string;
-}
-
-export interface ProjectPreview {
-  categories: Category[];
+  categories: CategoryData[] | null;
   excerpt: any[];
-  id: string;
-  isCurrent: boolean;
-  mainImage?: Image | null;
+  mainImage: ImageData;
+  publishedAt: string;
   slug: string;
   title: string;
 }
+
+interface ProjectData extends PostData {
+  isCurrent: boolean;
+}
+
+
+export { ArticleData, CategoryData, ImageData, PostData, ProjectData };

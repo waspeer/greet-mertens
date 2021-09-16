@@ -1,0 +1,69 @@
+@use 'tokens';
+
+// CONTAINER
+
+.container {
+  width: 90vw;
+  width: clamp(16rem, 90vw, 70rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// CLUSTER
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--cluster-gap, 1rem);
+}
+
+// FLOW
+%flow {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+%flow > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+%flow > * + * {
+  margin-top: var(--flow-gap, 1rem);
+}
+
+@each $name, $value in tokens.$size-scale {
+  .flow-#{$name} {
+    --flow-gap: #{$value};
+    @extend %flow;
+  }
+}
+
+.flow {
+  @extend %flow;
+}
+
+.flow-collapse {
+  --flow-gap: 0;
+}
+
+// SWITCHER
+.switcher {
+  --switcher-gap: 1rem;
+  --switcher-threshold: 30rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--switcher-gap);
+}
+
+.switcher > * {
+  flex-basis: calc(( var(--switcher-threshold) - 100%) * 999);
+  flex-grow: 1;
+}
+
+.switcher > :nth-last-child(n+ 5),
+.switcher > :nth-last-child(n+ 5) ~ * {
+  flex-basis: 100%;
+}

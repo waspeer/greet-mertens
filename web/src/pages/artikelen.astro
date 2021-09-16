@@ -1,0 +1,19 @@
+---
+import ArticlePreviewList from '../components/article-preview-list.astro';
+import BaseLayout from '../layouts/base-layout.astro';
+import * as sanity from '../lib/sanity.js';
+
+const articles = await sanity.query(/* groq */ `
+  *[_type == 'article'] | order(publishedAt desc) {
+    ${sanity.fragments.article}
+  }
+`);
+
+---
+
+<BaseLayout title="Artikelen">
+  <main class="[ container flow ]">
+    <h1 class="[ fs-600 ]">Recente Artikelen</h1>
+    <ArticlePreviewList articles={articles} />
+  </main>
+</BaseLayout>

@@ -1,0 +1,52 @@
+// COLORS
+
+$colors: (
+  'gray': (
+    50: #f9fafb,
+    100: #f3f4f6,
+    200: #e5e7eb,
+    300: #d1d5db,
+    400: #9ca3af,
+    500: #6b7280,
+    600: #4b5563,
+    700: #374151,
+    800: #1f2937,
+    900: #111827,
+  ),
+  'blue': (
+    50: #eff6ff,
+    100: #dbeafe,
+    200: #bfdbfe,
+    300: #93c5fd,
+    400: #60a5fa,
+    500: #3b82f6,
+    600: #2563eb,
+    700: #1d4ed8,
+    800: #1e40af,
+    900: #1e3a8a,
+  )
+);
+
+// SIZES
+
+$base-size: 1rem;
+
+$size-scale: (
+  200: $base-size * 0.56,
+  300: $base-size * 0.75,
+  400: $base-size,
+  500: $base-size * 1.33,
+  600: $base-size * 1.77,
+  700: $base-size * 2.36,
+  900: $base-size * 3.15
+);
+
+// FONTS
+
+$fonts: (
+  body: "'Noto Sans', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+  heading: 'Georgia, serif',
+);
+
+////,
+// 'Libre Caslon Display',

@@ -1,0 +1,56 @@
+---
+import Image from '../components/image.astro';
+import { ProjectData } from '../lib/types.js';
+import { getProjectUrl } from '../lib/helpers/get-project-url.js';
+
+export interface Props {
+  project: ProjectData;
+  variant?: 'default' | 'slim';
+}
+
+const { project, variant } = Astro.props as Props;
+const { categories, isCurrent, mainImage, title, excerpt } = project;
+---
+
+<article class="[ preview ]" data-variant={variant}>
+  <section>
+    <Image {...mainImage} aspectRatio="1.5" caption={false} />
+  </section>
+
+  <section class="[ preview__text ] [ click-area ]">
+    <a class="[ preview__title ] [ fs-500 tc-gray-50 lh-tight ]" href={getProjectUrl(project)}>
+      {title}
+    </a>
+    {variant === 'default' && <div class="[ preview__excerpt ]">{excerpt}</div>}
+  </section>
+
+  <!-- {isCurrent && <div class="[ preview__badge]">nog lopend project</div>} -->
+</article>
+
+<!-- {categories.length > 0 && (
+        <CategoryBadge category={categories[0]} className="projectPreview__category" />
+      )} -->
+
+<style lang="scss">
+  .preview {
+    &__title {
+      opacity: 0.8;
+    }
+  }
+
+  .preview[data-variant='slim'] {
+    display: grid;
+
+    section {
+      grid-area: 1 / 1 / -1 / -1;
+    }
+
+    .preview__text {
+      z-index: 10;
+      display: grid;
+      align-items: flex-end;
+      padding: var(--s-300);
+      background: linear-gradient(transparent, var(--gray-900));
+    }
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+import { format } from 'date-fns';
+import locale from 'date-fns/locale/nl';
+import * as sanity from '../../../lib/sanity.js';
+import { ProjectData } from '../../../lib/types.js';
+import BaseLayout from '../../../layouts/base-layout.astro';
+import Image from '../../../components/image.astro';
+import CategoryBadge from '../../../components/category-badge.astro';
+import { getCategoryUrl } from '../../../lib/helpers/get-category-url.js';
+import { ProjectBody } from '../../../components/project-body.js';
+
+export async function getStaticPaths() {
+  const projects = await sanity.query(/* groq */ `
+    *[_type == 'project'] {
+      ${sanity.fragments.project}
+    }
+  `);
+
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const project = Astro.props.project as ProjectData;
+const { body, categories, isCurrent, mainImage, publishedAt, title } = project;
+---
+
+<BaseLayout title={title}>
+  <main>
+    <Image {...mainImage} maxHeight="50vh" />
+
+    <article class="[ project ] [ container flow ] [ p-500 ]">
+      <h1 class="[ lh-none ]">{title}</h1>
+
+      {(!!publishedAt || isCurrent) && (
+        <time datetime={publishedAt}>
+          {
+            isCurrent
+              ? 'Nog lopend project'
+              : format(new Date(publishedAt), 'MMMM yyyy', { locale })
+          }
+        </time>
+      )}
+
+      {!!categories?.length && (
+        <ul class="[ project__categories ] [ cluster ] [ ls-n ]">
+          {categories.map((category) => (
+            <li>
+              <a href={getCategoryUrl(category)}>
+                <CategoryBadge category={category} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <ProjectBody body={body} />
+    </article>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .project {
+    --flow-gap: var(--s-700);
+
+    &__categories,
+    time {
+      --flow-gap: var(--s-200);
+    }
+
+    time {
+      font-style: italic;
+    }
+
+    :is(h2, h3) {
+      --flow-space: var(--size-900);
+    }
+
+    :is(h2, h3) + * {
+      --flow-space: var(--size-400);
+    }
+
+    figure,
+    figure + * {
+      --flow-space: var(--size-900);
+    }
+  }
+</style>

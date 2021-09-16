@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/base-layout.astro';
+import * as sanity from '../lib/sanity';
+import { ImageData, ProjectData } from '../lib/types.js';
+import Image from '../components/image.astro';
+import ProjectPreviewList from '../components/project-preview-list.astro';
+
+interface HomeData {
+  email: string;
+  highlightedProjects: ProjectData[];
+  portrait: ImageData;
+  tagline: string;
+}
+
+const {
+  email,
+  highlightedProjects,
+  portrait,
+  tagline
+} = await sanity.query<HomeData>(/* groq */ `
+  {
+    ...*[_id == "highlights"][0] {
+      "highlightedProjects": projects[] -> { ${sanity.fragments.project} },
+    },
+    ...*[_id == "me"][0] {
+      email,
+      portrait { ${sanity.fragments.image} },
+      tagline,
+    }
+  }
+`);
+---
+
+<BaseLayout>
+  <head>
+    <title>Alles over - Greet Mertens</title>
+  </head>
+
+  <main class="[ home ]">
+    <section class="[ home__portrait ] [ px-400 ]">
+      <Image {...portrait} alt="Greet Mertens" />
+    </section>
+
+    <section class="[ home__text ] [ flow-300 ] [ p-400 ]">
+      <h1 class="[ home__title ] [ fs-900 lh-none ]">Greet Mertens</h1>
+      <div class="[ home__tagline ] [ flow-collapse ] [ fs-500 ]">{ tagline }</div>
+      <a href={`mailto:$email`}>{ email }</a>
+    </section>
+
+    {highlightedProjects && (
+      <section class="[ home__projects ] [ px-400 ]">
+        <div class="[ tt-u tc-gray-600 ]">Uitgelichte Projecten</div>
+        <ProjectPreviewList projects={highlightedProjects} variant="slim" />
+      </section>
+    )}
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .home {
+    padding-bottom: var(--s-400);
+
+    &__projects {
+      margin-top: var(--s-400);
+    }
+
+    @media (min-width: 35rem) {
+      display: grid;
+      align-items: flex-end;
+      grid-template:
+        't i'
+        'p p' /
+        5rem 1fr;
+
+      &__portrait {
+        padding-bottom: 5rem;
+        grid-area: i;
+      }
+
+      &__projects {
+        grid-area: p;
+      }
+
+      &__text {
+        width: max-content;
+        margin-top: -5rem;
+        background-color: var(--gray-50);
+        isolation: isolate;
+      }
+    }
+
+    @media (min-width: 65rem) {
+      align-items: center;
+      grid-template:
+        't i p' /
+        2rem 3fr 1fr;
+
+      &__text {
+        margin-top: 0;
+        box-shadow: 0.35rem 0.35rem var(--gray-800);
+        grid-area: t;
+      }
+
+      &__portrait {
+        padding-bottom: 0;
+      }
+
+      &__projects {
+        margin-top: 0;
+      }
+    }
+  }
+</style>

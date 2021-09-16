@@ -1,0 +1,54 @@
+---
+import PortableText from '@sanity/block-content-to-react';
+import { format } from 'date-fns';
+import locale from 'date-fns/locale/nl';
+import { getArticleUrl } from '../lib/helpers/get-article-url.js';
+import { ArticleData } from '../lib/types.js';
+import Image from './image.astro';
+
+export type Props = {
+  article: ArticleData;
+};
+
+const { article } = Astro.props as Props;
+const { mainImage, title, excerpt, publishedAt } = article;
+
+---
+
+<article class="[ article-preview ] [ click-area ]">
+  <section class="[ article-preview__text ] [ py-400 ]">
+    <h2 class="[ fs-500 ]">
+      <a href={getArticleUrl(article)}>{title}</a>
+    </h2>
+
+    <time class="[ tc-gray-500 ] [ mb-400 ]" datetime={publishedAt}>
+      {format(new Date(publishedAt), 'd MMMM yyyy', { locale })}
+    </time>
+
+    <PortableText blocks={excerpt} />
+  </section>
+
+  <Image {...mainImage} aspectRatio="1.5" caption={false} />
+</article>
+
+<style lang="scss">
+  .article-preview {
+    display: flex;
+    // align-items: center;
+    gap: var(--s-400);
+
+    :global(figure) {
+      flex: 0 0 33%;
+    }
+
+    &__text {
+      display: grid;
+      align-items: flex-end;
+      order: 1;
+    }
+
+    time {
+      font-style: italic;
+    }
+  }
+</style>

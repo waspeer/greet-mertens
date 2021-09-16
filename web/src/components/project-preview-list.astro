@@ -1,0 +1,25 @@
+---
+import ProjectPreview from '../components/project-preview.astro';
+import { ProjectData } from '../lib/types.js';
+
+export interface Props {
+  projects: ProjectData[];
+  variant?: 'default' | 'slim';
+}
+
+const { projects, variant } = Astro.props as Props;
+---
+
+<ul class="[ preview-list ] [ switcher ] [ ls-n ]">
+  {projects.map((project) => (
+    <li>
+      <ProjectPreview project={project} variant={variant} />
+    </li>
+  ))}
+</ul>
+
+<style lang="scss">
+  .preview-list {
+    --switcher-threshold: 32rem;
+  }
+</style>

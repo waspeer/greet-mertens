@@ -1,0 +1,25 @@
+---
+import { getArticleUrl } from '../lib/helpers/get-article-url.js';
+import { ArticleData } from '../lib/types.js';
+import ArticlePreview from './article-preview.astro'
+
+export type Props = {
+  articles: ArticleData[];
+};
+
+const { articles } = Astro.props as Props;
+---
+
+<ul class="[ article-preview-list ] [ flow ] [ ls-n ]">
+  {articles.map((article) => (
+    <li>
+      <ArticlePreview article={article} />
+    </li>
+  ))}
+</ul>
+
+<style lang="scss">
+  .article-preview-list {
+    --flow-gap: var(--s-600);
+  }
+</style>

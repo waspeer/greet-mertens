@@ -1,0 +1,71 @@
+---
+import { differenceInDays, format, formatDistanceToNow } from 'date-fns';
+import locale from 'date-fns/locale/nl';
+
+import { ProjectData } from '../lib/types.js';
+import { getCategoryUrl } from '../lib/helpers/get-category-url.js';
+
+import CategoryBadge from './category-badge.astro';
+import Image from './image.astro';
+import { ProjectBody } from './project-body.js';
+
+export type Props = PostData
+
+const { body, categories, mainImage, publishedAt, title } = Astro.props as Props;
+
+const formattedDate = publishedAt
+  ? (differenceInDays(new Date(publishedAt), new Date()) > 3
+      ? formatDistanceToNow(new Date(publishedAt), { locale })
+      : format(new Date(publishedAt), 'd MMMM yyyy', { locale }))
+  : null;
+---
+
+<Image {...mainImage} maxHeight="50vh" />
+
+<article class="[ post ] [ container flow ] [ p-500 ]">
+  <h1 class="[ lh-none ]">{title}</h1>
+
+  {(!!formattedDate) && <time datetime={publishedAt}>{formattedDate}</time>}
+
+  {!!categories?.length && (
+    <ul class="[ post__categories ] [ cluster ] [ ls-n ]">
+      {categories.map((category) => (
+        <li>
+          <a href={getCategoryUrl(category)}>
+            <CategoryBadge category={category} />
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <ProjectBody body={body} />
+</article>
+
+<style lang="scss">
+  .post {
+    --flow-gap: var(--s-700);
+
+    &__categories,
+    time {
+      --flow-gap: var(--s-200);
+    }
+
+    time {
+      font-style: italic;
+    }
+
+    :is(h2, h3) {
+      --flow-space: var(--size-900);
+    }
+
+    :is(h2, h3) + * {
+      --flow-space: var(--size-400);
+    }
+
+    figure,
+    figure + * {
+      --flow-space: var(--size-900);
+    }
+  }
+</style>

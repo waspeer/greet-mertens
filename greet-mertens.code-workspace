@@ -1,11 +1,14 @@
 {
   "folders": [
-	{
-		"path": "sanity"
-	},
-	{
-		"path": "web"
-	}
-],
+		{
+			"path": "sanity"
+		},
+		{
+			"path": "web"
+		},
+		{
+			"path": "web-old"
+		}
+	],
   "settings": {}
 }
