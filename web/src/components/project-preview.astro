@@ -1,4 +1,6 @@
 ---
+import PortableText from '@sanity/block-content-to-react';
+import CategoryBadge from '../components/category-badge.astro';
 import Image from '../components/image.astro';
 import { ProjectData } from '../lib/types.js';
 import { getProjectUrl } from '../lib/helpers/get-project-url.js';
@@ -8,49 +10,63 @@ export interface Props {
   variant?: 'default' | 'slim';
 }
 
-const { project, variant } = Astro.props as Props;
-const { categories, isCurrent, mainImage, title, excerpt } = project;
+const { project, variant = 'default' } = Astro.props as Props;
+const { categories, mainImage, title, excerpt } = project;
 ---
 
-<article class="[ preview ]" data-variant={variant}>
-  <section>
-    <Image {...mainImage} aspectRatio="1.5" caption={false} />
+<article class="[ project-preview ] [ click-area ]" data-variant={variant}>
+  <section class="[ project-preview__text ] [ flow ]">
+    {variant === 'default' && categories.length > 0 && (
+      <CategoryBadge category={categories[0]} />
+    )}
+
+    <h2 class="[ project-preview__title ] [ font-body fs-500 lh-tight ]">
+      <a href={getProjectUrl(project)}>{title}</a>
+    </h2>
+
+    {variant === 'default' && <PortableText blocks={excerpt} />}
   </section>
 
-  <section class="[ preview__text ] [ click-area ]">
-    <a class="[ preview__title ] [ fs-500 tc-gray-50 lh-tight ]" href={getProjectUrl(project)}>
-      {title}
-    </a>
-    {variant === 'default' && <div class="[ preview__excerpt ]">{excerpt}</div>}
-  </section>
-
-  <!-- {isCurrent && <div class="[ preview__badge]">nog lopend project</div>} -->
+  <Image {...mainImage} aspectRatio={1.5} caption={null} />
 </article>
 
-<!-- {categories.length > 0 && (
-        <CategoryBadge category={categories[0]} className="projectPreview__category" />
-      )} -->
-
 <style lang="scss">
-  .preview {
-    &__title {
-      opacity: 0.8;
+  .project-preview {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-500);
+
+    &__text {
+      align-items: flex-start;
+      order: 1;
+    }
+
+    a {
+      color: inherit;
     }
   }
 
-  .preview[data-variant='slim'] {
+  .project-preview[data-variant='slim'] {
     display: grid;
 
-    section {
+    section,
+    :global(figure) {
       grid-area: 1 / 1 / -1 / -1;
     }
 
-    .preview__text {
+    .project-preview__text {
       z-index: 10;
       display: grid;
       align-items: flex-end;
       padding: var(--s-300);
       background: linear-gradient(transparent, var(--gray-900));
+      isolation: isolate;
+    }
+
+    .project-preview__title {
+      color: var(--gray-50);
+      font-weight: 500;
+      opacity: 0.8;
     }
   }
 </style>

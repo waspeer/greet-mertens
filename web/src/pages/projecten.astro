@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/base-layout.astro';
+import ProjectPreviewList from '../components/project-preview-list.astro';
+import * as sanity from '../lib/sanity.js';
+
+const projects = await sanity.query(/* groq */ `
+  *[_type == 'project'] {
+    ${sanity.fragments.project}
+  }
+`);
+---
+
+<BaseLayout title="Projecten">
+  <main class="[ container ]">
+    <h1 class="[ gentle-heading ] [ mb-200 ]">Projecten</h1>
+    <ProjectPreviewList projects={projects} />
+  </main>
+</BaseLayout>

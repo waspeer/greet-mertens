@@ -7,10 +7,10 @@ export interface Props {
   variant?: 'default' | 'slim';
 }
 
-const { projects, variant } = Astro.props as Props;
+const { projects, variant = 'default' } = Astro.props as Props;
 ---
 
-<ul class="[ preview-list ] [ switcher ] [ ls-n ]">
+<ul class="[ project-preview-list ] [ ls-n ]" data-variant={variant}>
   {projects.map((project) => (
     <li>
       <ProjectPreview project={project} variant={variant} />
@@ -19,7 +19,20 @@ const { projects, variant } = Astro.props as Props;
 </ul>
 
 <style lang="scss">
-  .preview-list {
-    --switcher-threshold: 32rem;
+  .project-preview-list {
+    --preview-min-width: 12rem;
+
+    display: grid;
+    max-width: calc((var(--preview-min-width) + var(--s-500)) * 3);
+    margin: 0;
+    gap: var(--s-500);
+
+    @supports (width: min(12rem, 100%)) {
+      grid-template-columns: repeat(auto-fit, minmax(min(var(--preview-min-width), 100%), 1fr));
+    }
+  }
+
+  .project-preview-list[data-variant='default'] {
+    row-gap: var(--s-900);
   }
 </style>

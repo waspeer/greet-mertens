@@ -31,11 +31,7 @@ const {
 `);
 ---
 
-<BaseLayout>
-  <head>
-    <title>Alles over - Greet Mertens</title>
-  </head>
-
+<BaseLayout title="Alles over">
   <main class="[ home ]">
     <section class="[ home__portrait ] [ px-400 ]">
       <Image {...portrait} alt="Greet Mertens" />
@@ -49,7 +45,7 @@ const {
 
     {highlightedProjects && (
       <section class="[ home__projects ] [ px-400 ]">
-        <div class="[ tt-u tc-gray-600 ]">Uitgelichte Projecten</div>
+        <div class="[ gentle-heading ] [ mb-200 ]">Uitgelichte Projecten</div>
         <ProjectPreviewList projects={highlightedProjects} variant="slim" />
       </section>
     )}

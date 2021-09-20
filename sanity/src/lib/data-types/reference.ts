@@ -41,5 +41,5 @@ export interface ReferenceType extends DataType {
     filterParams?: Record<string, any>;
   };
 
-  validator?: ValidatorFunction<ReferenceValidator>;
+  validation?: ValidatorFunction<ReferenceValidator>;
 }

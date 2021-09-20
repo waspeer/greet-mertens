@@ -1,0 +1,35 @@
+---
+import {ProjectBody} from '../components/project-body.jsx';
+import BaseLayout from '../layouts/base-layout.astro';
+import * as sanity from '../lib/sanity.js';
+
+const data = await sanity.query(/* groq */ `
+  *[_id == 'me'][0] {
+    bio,
+    email,
+    phone,
+  }
+`);
+
+const { bio, email, phone } = data;
+---
+
+<BaseLayout title="Contact">
+  <main class="[ container flow ]">
+    <ProjectBody body={bio} />
+
+    <section>
+      <div>
+        <a class="contact__email" href={`mailto:${email}`}>
+          {email}
+        </a>
+      </div>
+
+      <div>
+        <a class="contact__phone" href={`tel:${phone}`}>
+          {phone}
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

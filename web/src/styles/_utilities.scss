@@ -56,7 +56,7 @@ $variables: ();
 // FONT / TEXT
 @each $name, $value in tokens.$fonts {
   @include add-variable('font-#{$name}', $value);
-  .font-#{$name} { font-family: $value; }
+  .font-#{$name} { font-family: #{$value}; }
 }
 
 @each $name, $value in tokens.$size-scale {

@@ -13,6 +13,7 @@ import { Attachment } from './objects/attachment';
 import { BioText } from './objects/bio-text';
 import { ExcerptText } from './objects/excerpt-text';
 import { Figure } from './objects/figure';
+import { PageLink } from './objects/pagelink';
 import { Player } from './objects/player';
 import { ProjectBody } from './objects/project-body';
 import { ProjectRelatedArticles } from './objects/project-related-articles';
@@ -26,6 +27,7 @@ export default createSchema({
     BioText,
     ExcerptText,
     Figure,
+    PageLink,
     Player,
     ProjectBody,
     ProjectRelatedArticles,

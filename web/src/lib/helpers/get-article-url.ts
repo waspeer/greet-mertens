@@ -1,8 +1,9 @@
-import { format } from 'date-fns';
-import { ArticleData } from '../types';
+import { format } from "date-fns";
+import { ArticleData } from "../types";
 
-export function getArticleUrl({ publishedAt, slug }: ArticleData) {
-  const dateSegment = format(new Date(publishedAt), 'yyyy/MM');
+type Arguments = Pick<ArticleData, "publishedAt" | "slug">;
 
+export function getArticleUrl({ publishedAt, slug }: Arguments) {
+  const dateSegment = format(new Date(publishedAt), "yyyy/MM");
   return `/artikelen/${dateSegment}/${slug}/`;
 }

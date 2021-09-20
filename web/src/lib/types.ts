@@ -4,7 +4,7 @@ interface ImageData {
   alt: string;
   aspectRatio: number;
   asset: any;
-  caption: string;
+  caption: string | null;
   crop: any;
   dominantColor: string;
   hotspot: any;

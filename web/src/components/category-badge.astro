@@ -2,10 +2,14 @@
 import { CategoryData } from '../lib/types.js';
 import { getContrast } from '../lib/helpers/get-contrast.js';
 
-const category = Astro.props.category as CategoryData;
+export interface Props {
+  category: CategoryData;
+}
+
+const { category } = Astro.props as Props;
 const { color, icon, title } = category;
 
-const backgroundColor = color?.value ?? '#e5e7eb';
+const backgroundColor = color ?? '#e5e7eb';
 ---
 
 <div

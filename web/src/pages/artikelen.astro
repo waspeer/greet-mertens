@@ -12,8 +12,8 @@ const articles = await sanity.query(/* groq */ `
 ---
 
 <BaseLayout title="Artikelen">
-  <main class="[ container flow ]">
-    <h1 class="[ fs-600 ]">Recente Artikelen</h1>
+  <main class="[ container ]">
+    <h1 class="[ gentle-heading ]">Recente Artikelen</h1>
     <ArticlePreviewList articles={articles} />
   </main>
 </BaseLayout>

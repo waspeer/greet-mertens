@@ -17,7 +17,7 @@ const { mainImage, title, excerpt, publishedAt } = article;
 
 <article class="[ article-preview ] [ click-area ]">
   <section class="[ article-preview__text ] [ py-400 ]">
-    <h2 class="[ fs-500 ]">
+    <h2 class="[ font-body fs-500 ]">
       <a href={getArticleUrl(article)}>{title}</a>
     </h2>
 
@@ -28,13 +28,12 @@ const { mainImage, title, excerpt, publishedAt } = article;
     <PortableText blocks={excerpt} />
   </section>
 
-  <Image {...mainImage} aspectRatio="1.5" caption={false} />
+  <Image {...mainImage} aspectRatio={1.5} caption={null} />
 </article>
 
 <style lang="scss">
   .article-preview {
     display: flex;
-    // align-items: center;
     gap: var(--s-400);
 
     :global(figure) {
@@ -45,6 +44,10 @@ const { mainImage, title, excerpt, publishedAt } = article;
       display: grid;
       align-items: flex-end;
       order: 1;
+    }
+
+    a {
+      color: inherit;
     }
 
     time {

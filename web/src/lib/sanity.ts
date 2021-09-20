@@ -28,9 +28,31 @@ const fragments = (() => {
   `;
 
   const post = /* groq */ `
-    id,
-    body,
+    'id': _id,
+    body[] {
+      ...,
+      _type == 'pageLink' => {
+        ... @.page -> {
+          mainImage { ${image} },
+          publishedAt,
+          'slug': slug.current,
+          title,
+          'type': _type,
+        },
+      },
+      markDefs[] {
+        ...,
+        _type == 'internalLink' => {
+          ... @.reference -> {
+            publishedAt,
+            'slug': slug.current,
+            'type': _type,
+          },
+        }
+      }
+    },
     categories[] -> { ${category} },
+    excerpt,
     isCurrent,
     mainImage { ${image} },
     publishedAt,
@@ -38,22 +60,25 @@ const fragments = (() => {
     title,
   `;
 
-  const article = `${post} excerpt,`;
+  const article = post;
   const project = `${post} isCurrent,`;
 
-  return { article, category, image, project }
+  return { article, category, image, project };
 })();
 
 const cache = new Map<string, any>();
 
-async function query<TData = any>(query: string, params?: Record<string, any>): Promise<TData> {
+async function query<TData = any>(
+  query: string,
+  params?: Record<string, any>
+): Promise<TData> {
   const url = new URL(baseUrl);
 
-  url.searchParams.append('query', query);
+  url.searchParams.append("query", query);
 
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
-      url.searchParams.append(`$${key}`, value)
+      url.searchParams.append(`$${key}`, value);
     });
   }
 
@@ -61,7 +86,12 @@ async function query<TData = any>(query: string, params?: Record<string, any>): 
     return cache.get(url.toString());
   }
 
-  const result = await fetch(url.toString())
+  const result = await fetch(url.toString(), {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${import.meta.env.SNOWPACK_PUBLIC_SANITY_TOKEN}`,
+    },
+  })
     .then((response) => response.json())
     .then((response) => {
       if (response.error) {

@@ -16,8 +16,8 @@ export interface Validator<T> {
   /**
    * Creates a custom validation rule.
    */
-  custom<T = any>(
-    customRule: (field: T, context: CustomRuleContext) => true | string | Promise<true | string>,
+  custom<TField = any>(
+    customRule: (field: TField, context: CustomRuleContext) => true | string | Promise<true | string>,
   ): T;
 
   /**
