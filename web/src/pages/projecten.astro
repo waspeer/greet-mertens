@@ -11,7 +11,7 @@ const projects = await sanity.query(/* groq */ `
 ---
 
 <BaseLayout title="Projecten">
-  <main class="[ container ]">
+  <main class="[ container ] [ py-900 ]">
     <h1 class="[ gentle-heading ] [ mb-200 ]">Projecten</h1>
     <ProjectPreviewList projects={projects} />
   </main>

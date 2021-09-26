@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import locale from 'date-fns/locale/nl';
 import { getArticleUrl } from '../lib/helpers/get-article-url.js';
 import { ArticleData } from '../lib/types.js';
-import Image from './image.astro';
+import { Image } from './image/image.jsx';
 
 export type Props = {
   article: ArticleData;

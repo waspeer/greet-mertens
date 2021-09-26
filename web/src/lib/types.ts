@@ -2,10 +2,20 @@ type ArticleData = PostData;
 
 interface ImageData {
   alt: string;
-  aspectRatio: number;
   asset: any;
+  aspectRatio: number;
   caption: string | null;
-  crop: any;
+  crop: {
+    bottom: number;
+    left: number;
+    right: number;
+    top: number;
+  } | null;
+  dimensions: {
+    aspectRatio: number;
+    height: number;
+    width: number;
+  };
   dominantColor: string;
   hotspot: any;
 }
@@ -36,6 +46,5 @@ interface PostData {
 interface ProjectData extends PostData {
   isCurrent: boolean;
 }
-
 
 export { ArticleData, CategoryData, ImageData, PostData, ProjectData };

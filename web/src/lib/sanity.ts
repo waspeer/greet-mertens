@@ -22,31 +22,42 @@ const fragments = (() => {
     crop,
     hotspot,
     ...asset-> {
-      "aspectRatio": metadata.dimensions.aspectRatio,
+      "dimensions": metadata.dimensions,
       "dominantColor": metadata.palette.dominant.background,
     },
+  `;
+
+  const pageLink = /* groq */ `
+    mainImage { ${image} },
+    publishedAt,
+    'slug': slug.current,
+    title,
+    'type': _type,
   `;
 
   const post = /* groq */ `
     'id': _id,
     body[] {
       ...,
+      _type == 'figure' => {
+        ${image}
+      },
       _type == 'pageLink' => {
         ... @.page -> {
-          mainImage { ${image} },
-          publishedAt,
-          'slug': slug.current,
-          title,
-          'type': _type,
+          ${pageLink}
         },
+      },
+      _type == 'projectRelatedArticles' => {
+	      ...,
+        'pages': *[_type == 'article' && references(^.category._ref)] | order(publishedAt desc) {
+          ${pageLink}
+        }
       },
       markDefs[] {
         ...,
         _type == 'internalLink' => {
           ... @.reference -> {
-            publishedAt,
-            'slug': slug.current,
-            'type': _type,
+            ${pageLink}
           },
         }
       }

@@ -7,8 +7,8 @@ import { PostData } from '../lib/types.js';
 import { getCategoryUrl } from '../lib/helpers/get-category-url.js';
 
 import CategoryBadge from './category-badge.astro';
-import Image from './image.astro';
-import { PostBody } from './post-body.jsx';
+import { Image } from './image/image.jsx';
+import { PostBody } from './post-body/post-body.jsx';
 
 export type Props = PostData;
 
@@ -41,7 +41,7 @@ const formattedDate = publishedAt
   <PostBody body={body} />
 </article>
 
-<style lang="scss">
+<style lang="scss" global>
   .post {
     --flow-gap: var(--s-600);
 
@@ -55,16 +55,21 @@ const formattedDate = publishedAt
     }
 
     :is(h2, h3) {
-      --flow-space: var(--size-900);
+      --flow-gap: var(--s-900);
     }
 
     :is(h2, h3) + * {
-      --flow-space: var(--size-400);
+      --flow-gap: var(--s-400);
     }
 
-    figure,
-    figure + * {
-      --flow-space: var(--size-900);
+    > figure {
+      margin-right: calc(var(--s-400) * -1);
+      margin-left: calc(var(--s-400) * -1);
+    }
+
+    > figure,
+    > figure + * {
+      --flow-gap: var(--s-900);
     }
   }
 </style>

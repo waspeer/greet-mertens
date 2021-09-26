@@ -19,7 +19,7 @@ const imageUrl = imageUrlBuilder.image({ asset, crop, hotspot }).auto('format').
   --dominantColor: ${dominantColor};
   --maxHeight: ${maxHeight ?? 'none'};
 `}>
-  <img alt={alt} loading="lazy" src={imageUrl} />
+  {imageUrl && <img alt={alt} loading="lazy" src={imageUrl} />}
   {caption && <figcaption class="[ fs-300 ta-c ]">{caption}</figcaption>}
 </figure>
 

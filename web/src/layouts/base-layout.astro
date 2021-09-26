@@ -29,10 +29,24 @@ const { title } = Astro.props;
 </body>
 </html>
 
+<script>
+  document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
+    img.dataset.loaded = 'false';
+    img.addEventListener('load', () => {
+      img.dataset.loaded = 'true';
+    });
+  });
+</script>
+
 <style lang="scss">
   .header {
+    position: sticky;
+    z-index: 10;
+    top: 0;
     display: flex;
     align-items: center;
+    background-color: var(--color-bg);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     justify-items: center;
 
     a {

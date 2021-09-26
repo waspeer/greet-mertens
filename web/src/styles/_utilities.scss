@@ -7,6 +7,13 @@ $variables: ();
   $variables: list.append($variables, ($name, $value)) !global;
 }
 
+// BOX SHADOW
+@each $variant, $value in tokens.$shadows {
+  .bs-#{$variant} {
+    box-shadow: #{$value};
+  }
+}
+
 // COLORS
 @each $name, $variants in tokens.$colors {
   @each $variant, $value in $variants {
@@ -19,6 +26,10 @@ $variables: ();
     }
   }
 }
+
+@include add-variable('color-bg', tokens.$color-bg);
+@include add-variable('color-text', tokens.$color-text);
+@include add-variable('color-shadow', tokens.$color-shadow);
 
 // SIZES / MARGIN / PADDING
 @each $name, $value in tokens.$size-scale {
@@ -92,7 +103,12 @@ $variables: ();
 
 // BORDER RADIUS
 
-.rounded { border-radius: 0.25rem; }
+@each $variant, $value in tokens.$radius {
+  @include add-variable('radius-#{$variant}', $value);
+  .br-#{$variant} {
+    border-radius: #{$value};
+  }
+}
 
 // CLICK AREA
 .click-area {
@@ -111,8 +127,8 @@ $variables: ();
 
 // LISTS
 .ls-n {
-  padding: 0;
-  // margin: 0;
+  padding: initial;
+  margin: initial;
   list-style: none;
 }
 

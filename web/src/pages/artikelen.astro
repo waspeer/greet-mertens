@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/base-layout.astro';
 import * as sanity from '../lib/sanity.js';
 
 const articles = await sanity.query(/* groq */ `
-  *[_type == 'article'] | order(publishedAt desc) {
+  *[_type == 'article' && publishedAt <= now()] | order(publishedAt desc) {
     ${sanity.fragments.article}
   }
 `);
@@ -12,8 +12,8 @@ const articles = await sanity.query(/* groq */ `
 ---
 
 <BaseLayout title="Artikelen">
-  <main class="[ container ]">
-    <h1 class="[ gentle-heading ]">Recente Artikelen</h1>
+  <main class="[ container ] [ py-900 ]">
+    <h1 class="[ gentle-heading ] [ mb-200 ]">Recente Artikelen</h1>
     <ArticlePreviewList articles={articles} />
   </main>
 </BaseLayout>

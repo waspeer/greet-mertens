@@ -1,5 +1,5 @@
 ---
-import {ProjectBody} from '../components/project-body.jsx';
+import { PostBody } from '../components/post-body.jsx';
 import BaseLayout from '../layouts/base-layout.astro';
 import * as sanity from '../lib/sanity.js';
 
@@ -16,7 +16,7 @@ const { bio, email, phone } = data;
 
 <BaseLayout title="Contact">
   <main class="[ container flow ]">
-    <ProjectBody body={bio} />
+    <PostBody body={bio} />
 
     <section>
       <div>

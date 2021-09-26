@@ -1,0 +1,16 @@
+.pagelink {
+  display: flex;
+  max-width: 50ch;
+  align-items: center;
+  border: 1px solid var(--gray-300);
+  gap: var(--s-400);
+
+  a {
+    color: inherit;
+    font-weight: 700;
+  }
+
+  figure {
+    min-width: 5rem;
+  }
+}
