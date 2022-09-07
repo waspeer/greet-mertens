@@ -3144,10 +3144,10 @@
   resolved "https://registry.yarnpkg.com/@turist/time/-/time-0.0.1.tgz#57637d2a7d1860adb9f9cecbdcc966ce4f551d63"
   integrity sha512-M2BiThcbxMxSKX8W4z5u9jKZn6datnM3+FpEU+eYw0//l31E2xhqi7vTAuJ/Sf0P3yhp66SDJgPu3bRRpvrdQQ==
 
-"@types/aws-lambda@^8.10.78":
-  version "8.10.78"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.78.tgz#dbb509837b6082962d6e7bc19f814e067ac9f5a2"
-  integrity sha512-+lZ8NuHT0qKEEpiZR4bF1G24SLrLwzdu0i9Cjdc3BGq6XJU6gBBYS5I0RJ8RdDCtgqgGdW8sOwsiZGHrC6mp0Q==
+"@types/aws-lambda@^8.10.103":
+  version "8.10.103"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.103.tgz#9f0d748036a206ebe4a3eb19febc53b52ee36352"
+  integrity sha512-mYWsrM5YPmnyJru7kMDX8RYSc486sDqVOP1kUdotthD3YjJ57iTBN3N7MMtL1qdVoPW2YmCnNnWscyidmPe6Gw==
 
 "@types/cacheable-request@^6.0.1":
   version "6.0.1"
