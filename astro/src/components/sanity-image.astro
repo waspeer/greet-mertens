@@ -1,0 +1,43 @@
+---
+import type { ImageFragment } from '../lib/sanity';
+import * as sanity from '../lib/sanity';
+import Image from './image.astro';
+
+export type Props = ImageFragment & {
+  aspectRatioOverride?: number;
+  loading?: 'lazy' | 'eager';
+  width?: number;
+};
+
+const {
+  alt = '',
+  asset,
+  aspectRatioOverride,
+  caption,
+  crop,
+  dimensions,
+  dominantColor,
+  hotspot,
+  loading,
+  width,
+} = Astro.props as Props;
+
+const aspectRatio =
+  aspectRatioOverride ??
+  (crop
+    ? (dimensions.width * (1 - crop.right - crop.left)) /
+      (dimensions.height * (1 - crop.bottom - crop.top))
+    : dimensions.aspectRatio);
+
+const src =
+  asset &&
+  sanity
+    .imageUrl({ asset, crop, hotspot })
+    .width(width as any)
+    .auto('format')
+    .url();
+
+const props = { alt, aspectRatio, caption, dominantColor, hotspot, loading, src };
+---
+
+<Image {...props} />

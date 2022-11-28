@@ -1,0 +1,14 @@
+---
+import { PortableTextHtmlComponents, toHTML } from '@portabletext/to-html';
+import type { TypedObject } from '@portabletext/types';
+
+export interface Props {
+  blocks?: TypedObject[] | undefined;
+}
+
+const { blocks = [] } = Astro.props;
+
+const components: Partial<PortableTextHtmlComponents> = {};
+---
+
+<Fragment set:html={toHTML(blocks, { components })} />

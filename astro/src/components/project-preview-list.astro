@@ -1,0 +1,37 @@
+---
+import type { ProjectPreviewFragment } from '../lib/sanity';
+import { projectUrl } from '../lib/util';
+import ProjectPreview from './project-preview.astro';
+
+export interface Props {
+  class?: string;
+  projectPreviews: ProjectPreviewFragment[];
+  type?: 'normal' | 'slim';
+}
+
+const { class: className, projectPreviews, type } = Astro.props;
+---
+
+<ul class:list={['project-preview-list', 'focussed-list', 'grid', className]}>
+  {
+    projectPreviews.map((projectPreview) => (
+      <li>
+        <a href={projectUrl(projectPreview)}>
+          <ProjectPreview projectPreview={projectPreview} type={type} />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .project-preview-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & a {
+      text-decoration: none;
+    }
+  }
+</style>

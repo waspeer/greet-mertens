@@ -1,0 +1,84 @@
+---
+import type { ProjectPreviewFragment } from '../lib/sanity';
+import CategoryBadge from './category-badge.astro';
+import PortableText from './portable-text.astro';
+import SanityImage from './sanity-image.astro';
+import { Sprite } from 'astro-icon';
+
+export interface Props {
+  projectPreview: Omit<ProjectPreviewFragment, 'slug'>;
+  type?: 'normal' | 'slim' | undefined;
+}
+
+const { projectPreview, type } = Astro.props;
+const { categories, isCurrent, mainImage, title, excerpt } = projectPreview;
+---
+
+<div class:list={['project-preview', { pile: type === 'slim' }]}>
+  <div class="[ project-preview__image ] [ with-media ]">
+    <SanityImage {...mainImage} width={700} aspectRatioOverride={16 / 9} caption="" />
+  </div>
+
+  {
+    isCurrent && (
+      <div class="project-preview__current-badge">
+        <Sprite name="fa-regular:clock" />
+      </div>
+    )
+  }
+
+  {type === 'slim' && <div class="project-preview__title--slim">{title}</div>}
+
+  {
+    type === 'normal' && (
+      <div class="project-preview__text">
+        {!!categories.length && (
+          <CategoryBadge category={categories[0]!} class="project-preview__category" />
+        )}
+        <h3>{title}</h3>
+        <div class="project-preview__excerpt">
+          <PortableText blocks={excerpt} />
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .project-preview__current-badge,
+  .project-preview__title--slim,
+  .project-preview__text {
+    isolation: isolate;
+  }
+
+  .project-preview__current-badge {
+    display: flex;
+    opacity: 0;
+    transition: opacity 200ms var(--ease-1);
+    padding: var(--font-size-sm);
+
+    @nest .project-preview:hover & {
+      opacity: 1;
+    }
+
+    & svg {
+      width: var(--font-size-base);
+      height: var(--font-size-base);
+    }
+  }
+
+  .project-preview__title--slim {
+    display: flex;
+    align-items: flex-end;
+    opacity: 0;
+    transition: opacity 200ms var(--ease-1);
+    background: linear-gradient(to bottom, transparent, black);
+    padding: var(--font-size-sm);
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+</style>

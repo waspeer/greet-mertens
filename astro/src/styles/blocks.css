@@ -1,0 +1,107 @@
+/*
+  BUTTON
+*/
+
+.button,
+button {
+  --main-color: var(--blue);
+
+  position: relative;
+  display: inline-block;
+  padding: var(--font-size-sm);
+  font-weight: var(--font-weight-6);
+  line-height: var(--font-lineheight-0);
+  text-align: center;
+  text-decoration: none;
+  word-wrap: none;
+  background: none;
+  border: 0.1875em solid var(--main-color);
+  border-radius: var(--font-size-sm);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+:is(button, .button)[data-variant='filled'] {
+  color: white;
+  background-color: var(--main-color);
+}
+
+:is(button, .button)[data-color='green'] {
+  --main-color: var(--green);
+}
+
+:is(button, .button)[data-color='orange'] {
+  --main-color: var(--orange);
+}
+
+:is(button, .button)[data-color='pinkish'] {
+  --main-color: var(--pinkish);
+
+  &:hover {
+    background-color: var(--pinkish-dark);
+    border-color: var(--pinkish-dark);
+  }
+}
+
+:is(button, .button)[data-color='red'] {
+  --main-color: var(--red);
+}
+
+:is(button, .button)[data-color='yellow'] {
+  --main-color: var(--yellow);
+}
+
+:is(button, .button)[data-color='white'] {
+  --main-color: #fff;
+}
+
+/* 
+  CARD
+*/
+
+.card {
+  padding: var(--size-4);
+  background-color: white;
+  border: 1px solid var(--gray-1);
+  border-radius: var(--font-size-sm);
+  box-shadow: var(--shadow-4);
+}
+
+/* 
+  FORMS
+*/
+
+.form-control :is(input, label) {
+  display: block;
+  width: 100%;
+}
+
+.form-control label {
+  font-weight: var(--font-weight-5);
+}
+
+.form-control__error {
+  color: var(--red);
+  font-size: var(--font-size-sm);
+}
+
+input,
+select {
+  margin: 0;
+  padding: var(--size-1) var(--size-3);
+  line-height: var(--leading-tight);
+  border: 1px solid;
+  border-color: var(--gray);
+  border-radius: var(--radius-2);
+  transition: all 0.2s;
+
+  &:focus {
+    border-color: var(--blue);
+    outline: 0;
+    box-shadow: var(--blue) 0 0 0 1px;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: var(--red);
+  }
+}
