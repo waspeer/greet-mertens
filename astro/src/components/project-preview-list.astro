@@ -6,13 +6,13 @@ import ProjectPreview from './project-preview.astro';
 export interface Props {
   class?: string;
   projectPreviews: ProjectPreviewFragment[];
-  type?: 'normal' | 'slim';
+  type: 'normal' | 'slim';
 }
 
 const { class: className, projectPreviews, type } = Astro.props;
 ---
 
-<ul class:list={['project-preview-list', 'focussed-list', 'grid', className]}>
+<ul class:list={['project-preview-list', 'focussed-list', 'grid', className]} data-type={type}>
   {
     projectPreviews.map((projectPreview) => (
       <li>
@@ -26,11 +26,16 @@ const { class: className, projectPreviews, type } = Astro.props;
 
 <style>
   .project-preview-list {
-    list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    list-style: none;
 
-    & a {
+    &[data-type='normal'] {
+      gap: var(--font-size-xxl);
+    }
+
+    & a,
+    & a:hover {
       text-decoration: none;
     }
   }

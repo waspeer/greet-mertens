@@ -1,5 +1,6 @@
 ---
 import '@fontsource/libre-caslon-display';
+import 'modern-normalize';
 import '../styles/global.css';
 
 import { SEO } from 'astro-seo';
@@ -73,3 +74,9 @@ const ogImageUrl = sanity.imageUrl(portrait).width(1200).height(630).url();
     </main>
   </body>
 </html>
+
+<style>
+  .wrapper {
+    padding-bottom: var(--wrapper-padding);
+  }
+</style>

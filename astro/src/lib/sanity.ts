@@ -8,6 +8,7 @@ import type {
   SanityImagePalette,
   Project,
   Category,
+  Article,
 } from './sanity.gen';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
@@ -73,6 +74,26 @@ export type ImageFragment = Pick<SanityImageMetadata, 'dimensions'> & {
   dominantColor?: SanityImagePalette['dominant']['background'];
 };
 
+const ARTICLE_PREVIEW_FRAGMENT = /* groq */ `
+  _id,
+  publishedAt,
+  mainImage { ${IMAGE_FRAGMENT} },
+  title,
+  excerpt,
+  'slug': slug.current,
+  categories[]-> { ${CATEGORY_FRAGMENT} },
+`;
+
+export type ArticlePreviewFragment = {
+  _id: string;
+  publishedAt: NonNullable<Article['publishedAt']>;
+  mainImage: ImageFragment;
+  title: Article['title'];
+  excerpt: Article['excerpt'];
+  slug: NonNullable<Article['slug']>['current'];
+  categories: CategoryFragment[];
+};
+
 const PROJECT_PREVIEW_FRAGMENT = /* groq */ `
   _id,
   categories[]-> { ${CATEGORY_FRAGMENT} },
@@ -94,6 +115,8 @@ export type ProjectPreviewFragment = Pick<Project, 'isCurrent' | 'title' | 'exce
 };
 
 export const fragments = {
+  articlePreview: ARTICLE_PREVIEW_FRAGMENT,
+  category: CATEGORY_FRAGMENT,
   image: IMAGE_FRAGMENT,
   projectPreview: PROJECT_PREVIEW_FRAGMENT,
 };

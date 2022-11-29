@@ -1,0 +1,36 @@
+---
+import type { ArticlePreviewFragment } from '../lib/sanity';
+import { articleUrl } from '../lib/util';
+import ArticlePreview from './article-preview.astro';
+
+export interface Props {
+  articlePreviews: ArticlePreviewFragment[];
+  class?: string;
+}
+
+const { class: className, articlePreviews } = Astro.props;
+---
+
+<ul class:list={['article-preview-list', 'focussed-list', 'stack', className]}>
+  {
+    articlePreviews.map((articlePreview) => (
+      <li>
+        <a href={articleUrl(articlePreview)}>
+          <ArticlePreview {...articlePreview} />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .article-preview-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    & a:hover {
+      text-decoration: ;
+    }
+  }
+</style>
