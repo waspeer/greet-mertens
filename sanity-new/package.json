@@ -1,0 +1,38 @@
+{
+  "name": "@greet-mertens/sanity",
+  "private": true,
+  "version": "1.0.0",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@emoji-mart/data": "^1.0.8",
+    "@emoji-mart/react": "^1.0.1",
+    "@sanity/vision": "^3.0.0",
+    "date-fns": "^2.29.3",
+    "emoji-mart": "^5.3.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "react-is": "^18.2.0",
+    "react-player": "^2.11.0",
+    "sanity": "^3.0.0",
+    "styled-components": "^5.2.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "$react",
+      "react-dom": "$react-dom",
+      "styled-components": "$styled-components"
+    }
+  }
+}
