@@ -1,6 +1,6 @@
 ---
 import ArticlePreviewList from '../../components/article-preview-list.astro';
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../layouts/layout.astro';
 import * as sanity from '../../lib/sanity';
 
 const articlePreviews = await sanity.client.fetch(/* groq */ `

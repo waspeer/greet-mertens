@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@astrojs/netlify': ^1.2.1
-  '@fontsource/libre-caslon-display': ^4.5.11
+  '@fontsource/rubik': ^4.5.11
   '@portabletext/to-html': ^1.0.4
   '@portabletext/types': ^2.0.0
   '@sanity/image-url': ^1.0.1
@@ -21,7 +21,7 @@ specifiers:
 
 dependencies:
   '@astrojs/netlify': 1.2.1
-  '@fontsource/libre-caslon-display': 4.5.11
+  '@fontsource/rubik': 4.5.11
   '@portabletext/to-html': 1.0.4
   '@sanity/image-url': 1.0.1
   astro: 1.6.11
@@ -580,8 +580,8 @@ packages:
     dev: false
     optional: true
 
-  /@fontsource/libre-caslon-display/4.5.11:
-    resolution: {integrity: sha512-nGlezVoyPLBpFGS+buF+O7jfitgDx+U4NgkQZBJfa9lfLxiev6S2w36qK1kztaunJejX3wmpwXExgzTwLbcQJw==}
+  /@fontsource/rubik/4.5.11:
+    resolution: {integrity: sha512-m0/4GKOqJjF9cB4wuLgDhRdRVt35WzqI5n7SgddRjRD+yzsO0eEq/ak0ezgfbR3+f91ydDCek1+RuOVB8dNYwg==}
     dev: false
 
   /@jridgewell/gen-mapping/0.1.1:

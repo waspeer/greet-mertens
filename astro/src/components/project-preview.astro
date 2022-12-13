@@ -100,7 +100,8 @@ const { categories, isCurrent, mainImage, title, excerpt } = projectPreview;
 
   .project-preview__title {
     margin-bottom: calc(var(--space) * -0.5);
-    font-weight: var(--font-weight-5);
+    max-width: var(--size-content-1);
+    font-weight: var(--font-weight-4);
     font-size: var(--font-size-base);
   }
 
@@ -117,5 +118,13 @@ const { categories, isCurrent, mainImage, title, excerpt } = projectPreview;
     &:hover {
       opacity: 1;
     }
+  }
+
+  .project-preview__excerpt {
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--gray-6);
   }
 </style>

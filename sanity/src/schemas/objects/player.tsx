@@ -18,8 +18,7 @@ export const Player: ObjectType = {
       name: 'url',
       type: 'url',
       title: 'URL',
-      description:
-        'Vul een link in naar YouTube, Facebook, Twitch, SoundCloud, Streamable, Vimeo, Wistia, Mixcloud, of DailyMotion',
+      description: 'Vul een link in naar SoundCloud, YouTube of Vimeo.',
       validation: (Rule) => Rule.required().error('Vul een URL in.'),
     },
     {

@@ -4,7 +4,7 @@ import { differenceInDays, format, formatDistanceToNow, isFuture } from 'date-fn
 import locale from 'date-fns/locale/nl';
 import CategoryBadge from '../../../../components/category-badge.astro';
 import SanityImage from '../../../../components/sanity-image.astro';
-import Layout from '../../../../layouts/Layout.astro';
+import Layout from '../../../../layouts/layout.astro';
 import { attachment, figure, player } from '../../../../lib/portable-text';
 import * as sanity from '../../../../lib/sanity';
 import type { Article } from '../../../../lib/sanity.gen';
@@ -168,6 +168,27 @@ const formattedDate =
 
     & :global(.figure) {
       margin-inline: calc(var(--space) * -1);
+    }
+
+    & :global(.player) {
+      display: flex;
+      justify-content: stretch;
+      align-self: stretch;
+      margin-inline: calc(var(--space) * -1);
+      margin-block: var(--space);
+
+      & > :global(*) {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    & :global(.player[data-type='video']) {
+      aspect-ratio: 16 / 9;
+    }
+
+    & :global(.player[data-type='soundcloud']) {
+      min-height: 166px;
     }
   }
 </style>

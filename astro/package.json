@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^1.2.1",
-    "@fontsource/libre-caslon-display": "^4.5.11",
+    "@fontsource/rubik": "^4.5.11",
     "@portabletext/to-html": "^1.0.4",
     "@sanity/image-url": "^1.0.1",
     "astro": "^1.6.11",
