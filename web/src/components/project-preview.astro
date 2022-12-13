@@ -1,0 +1,130 @@
+---
+import { Sprite } from 'astro-icon';
+import type { ProjectPreviewFragment } from '../lib/sanity';
+import { randomBorderRadius } from '../lib/util';
+import CategoryBadge from './category-badge.astro';
+import PortableText from './portable-text.astro';
+import SanityImage from './sanity-image.astro';
+
+export interface Props {
+  projectPreview: Omit<ProjectPreviewFragment, 'slug'>;
+  type?: 'normal' | 'slim' | undefined;
+}
+
+const { projectPreview, type = 'normal' } = Astro.props;
+const { categories, isCurrent, mainImage, title, excerpt } = projectPreview;
+---
+
+<div
+  class:list={['project-preview', { pile: type === 'slim', stack: type === 'normal' }]}
+  data-type={type}
+  style={`--radius: ${randomBorderRadius()};`}
+>
+  <div class="[ project-preview__image ] [ with-media ]">
+    <SanityImage {...mainImage} width={700} aspectRatioOverride={16 / 9} caption="" />
+  </div>
+
+  {
+    isCurrent && (
+      <div class="project-preview__current-badge">
+        <Sprite name="fa-regular:clock" />
+      </div>
+    )
+  }
+
+  {type === 'slim' && <div class="project-preview__title--slim">{title}</div>}
+
+  {
+    type === 'normal' && (
+      <>
+        {!!categories.length && (
+          <CategoryBadge category={categories[0]!} class="project-preview__category" />
+        )}
+        <h3 class="project-preview__title">{title}</h3>
+        <div class="project-preview__excerpt">
+          <PortableText blocks={excerpt} />
+        </div>
+      </>
+    )
+  }
+</div>
+
+<style>
+  .project-preview {
+    --space: var(--font-size-sm);
+
+    max-width: var(--size-content-2);
+  }
+
+  .project-preview[data-type='slim'] {
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .project-preview[data-type='normal'] {
+    position: relative;
+
+    & .project-preview__current-badge {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    & .project-preview__image {
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+  }
+
+  .project-preview__current-badge,
+  .project-preview__title--slim,
+  .project-preview__text {
+    isolation: isolate;
+  }
+
+  .project-preview__current-badge {
+    display: flex;
+    opacity: 0;
+    transition: opacity 200ms var(--ease-1);
+    padding: var(--font-size-sm);
+
+    @nest .project-preview:hover & {
+      opacity: 1;
+    }
+
+    & svg {
+      width: var(--font-size-base);
+      height: var(--font-size-base);
+    }
+  }
+
+  .project-preview__title {
+    margin-bottom: calc(var(--space) * -0.5);
+    max-width: var(--size-content-1);
+    font-weight: var(--font-weight-4);
+    font-size: var(--font-size-base);
+  }
+
+  .project-preview__title--slim {
+    display: flex;
+    align-items: flex-end;
+    opacity: 0;
+    transition: opacity 200ms var(--ease-1);
+    background: linear-gradient(to bottom, transparent, black);
+    padding: var(--font-size-sm);
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .project-preview__excerpt {
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--gray-6);
+  }
+</style>

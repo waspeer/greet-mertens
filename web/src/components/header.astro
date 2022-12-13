@@ -1,0 +1,32 @@
+<header class="[ header ] [ wrapper ]">
+  <div class="cluster">
+    <h1 class="header__logo">
+      <a href="/">Greet Mertens</a>
+    </h1>
+
+    <nav class="[ header__nav ] [ cluster ]">
+      <a href="/artikelen">artikelen</a>
+      <a href="/projecten">projecten</a>
+      <a href="/contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    padding-block: var(--font-size-md);
+  }
+
+  .header > .cluster {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header__logo {
+    font-size: var(--font-size-md);
+
+    & a {
+      text-decoration: none;
+    }
+  }
+</style>

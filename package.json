@@ -4,9 +4,10 @@
   "main": "index.js",
   "author": "Wannes Salomé <mail@wannessalome.nl>",
   "license": "MIT",
-  "scripts": {
-    "build:sanity": "yarn --cwd sanity build",
-    "dev:sanity": "yarn --cwd sanity dev",
-    "dev:web": "yarn --cwd web dev"
+  "devDependencies": {
+    "prettier": "^2.8.0",
+    "prettier-plugin-astro": "^0.7.0",
+    "prettier-plugin-css-order": "^1.3.0",
+    "typescript": "^4.9.4"
   }
 }

@@ -1,0 +1,302 @@
+---
+import { defaultComponents, toHTML } from '@portabletext/to-html';
+import { Sprite } from 'astro-icon';
+import { format as formatDate } from 'date-fns';
+import locale from 'date-fns/locale/nl';
+import CategoryBadge from '../../../components/category-badge.astro';
+import SanityImage from '../../../components/sanity-image.astro';
+import Layout from '../../../layouts/layout.astro';
+import { attachment, figure, player } from '../../../lib/portable-text';
+import * as sanity from '../../../lib/sanity';
+import type { Project } from '../../../lib/sanity.gen';
+import { articleUrl, categoryUrl } from '../../../lib/util';
+
+type SanityData = {
+  categories: sanity.CategoryFragment[];
+  isCurrent: Project['isCurrent'];
+  mainImage: sanity.ImageFragment;
+  publishedAt: Project['publishedAt'];
+  title: Project['title'];
+  body: Project['body'];
+  relatedArticles: sanity.ArticlePreviewFragment[];
+};
+
+const slug = Astro.params.slug as string;
+
+const project = await sanity.client.fetch<SanityData | null>(
+  /* groq */ `
+    *[_type == "project" && slug.current == $slug][0] {
+      categories[]-> { ${sanity.fragments.category} },
+      isCurrent,
+      mainImage { ${sanity.fragments.image} },
+      publishedAt,
+      title,
+      body,
+
+      'relatedArticles': *[_type == "article" && references(^._id)] | order(publishedAt desc) {
+        ${sanity.fragments.articlePreview}
+      },
+    }
+  `,
+  { slug },
+);
+
+if (!project) {
+  // TODO
+  return new Response('not found', { status: 404 });
+}
+
+const { categories, isCurrent, mainImage, publishedAt, title, body, relatedArticles } = project;
+
+// TODO use proper open graph image
+---
+
+<Layout title={project.title ?? ''}>
+  <article class="[ project ] [ stack ]">
+    {
+      mainImage && (
+        <div class="project__main-image">
+          <SanityImage {...mainImage} aspectRatioOverride={1.78} />
+        </div>
+      )
+    }
+    <div class="[ project__text ] [ stack ]">
+      <header class="[ project__header ] [ stack ]">
+        <h2 class="project__title">{title}</h2>
+        <div class="[ project__info ] [ cluster ]">
+          {
+            isCurrent && (
+              <div class="[ project__current-badge ] [ badge ]">
+                <Sprite name="fa-regular:clock" />
+                Nog lopend project
+              </div>
+            )
+          }
+          {
+            !!publishedAt && !isCurrent && (
+              <div class="project__published-at">
+                {formatDate(new Date(publishedAt), 'MMMM yyyy', { locale })}
+              </div>
+            )
+          }
+          {
+            !!categories.length && (
+              <ul class="[ project__categories ] [ cluster ]">
+                {categories.map((category) => (
+                  <li>
+                    <a href={categoryUrl(category)}>
+                      <CategoryBadge category={category} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+      </header>
+      <div
+        class="[ project__body ] [ stack ]"
+        set:html={toHTML(body, {
+          components: {
+            block: (props) => {
+              const { children, value } = props ?? {};
+              const style = value.style || 'normal';
+
+              if (style === 'h2') {
+                return `<h3>${children}</h3>`;
+              }
+
+              if (style === 'h3') {
+                return `<h4>${children}</h4>`;
+              }
+
+              return (defaultComponents.block as any).normal(props);
+            },
+
+            types: {
+              attachment,
+              figure,
+              player,
+
+              projectRelatedArticles: ({ value }) => {
+                if (!value || !value.category) {
+                  return '';
+                }
+
+                // return '';
+
+                const categoryId = value?.category?._ref;
+                const articlePreviews = relatedArticles.filter(({ categories }) =>
+                  categories?.some(({ _id }) => _id === categoryId),
+                );
+
+                return `
+                  <ul class="[ project__related-articles ] [ stack focussed-list ]">
+                    ${articlePreviews
+                      .map(
+                        ({ slug, publishedAt, title, mainImage }) => /* html */ `
+                          <li>
+                            <a 
+                              class="project__related-article cluster" 
+                              href="${articleUrl({ slug, publishedAt })}"
+                            >
+                              <img src="${sanity
+                                .imageUrl(mainImage)
+                                .width(200)
+                                .height(200)
+                                .toString()}" 
+                              />
+                              <div>
+                                <div class="project__related-article-title"> 
+                                  ${title}
+                                </div>
+                                <div class="project__related-article-date">
+                                  ${formatDate(new Date(publishedAt), 'd MMMM yyyy', { locale })}
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+                        `,
+                      )
+                      .join('')}
+                  </ul>
+                `;
+              },
+            },
+          },
+        })}
+      />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .project {
+    align-items: center;
+  }
+
+  .project__main-image {
+    align-self: stretch;
+  }
+
+  .project__text {
+    gap: var(--font-size-base);
+  }
+
+  .project__header {
+    border: 2px solid;
+    padding: var(--size-2);
+  }
+
+  .project__title {
+    max-width: var(--size-content-1);
+    font-size: var(--font-size-xxl);
+    line-height: 1;
+  }
+
+  .project__current-badge {
+    background-color: var(--gray-1);
+
+    & :global(svg) {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  .project__published-at {
+    color: var(--gray-6);
+    font-size: var(--font-size-sm);
+    text-transform: capitalize;
+  }
+
+  .project__categories {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project__body {
+    --space: var(--font-size-base);
+
+    max-width: var(--size-content-3);
+    line-height: 1.6;
+
+    & :global(h2),
+    & :global(h3),
+    & :global(h4) {
+      margin-top: var(--space);
+      margin-bottom: calc(var(--space) * -0.5);
+      max-width: var(--size-content-2);
+      line-height: 1;
+    }
+
+    & :global(h3) {
+      font-size: var(--font-size-lg);
+    }
+
+    & :global(h4) {
+      font-size: var(--font-size-md);
+    }
+
+    & :global(.figure) {
+      margin-inline: calc(var(--space) * -1);
+    }
+
+    & :global(.player) {
+      display: flex;
+      justify-content: stretch;
+      align-self: stretch;
+      margin-inline: calc(var(--space) * -1);
+      margin-block: var(--space);
+
+      & > :global(*) {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    & :global(.player[data-type='video']) {
+      aspect-ratio: 16 / 9;
+    }
+
+    & :global(.player[data-type='soundcloud']) {
+      min-height: 166px;
+    }
+  }
+</style>
+
+<style is:global>
+  .project__related-articles {
+    align-self: stretch;
+    margin: 0;
+    margin-block: var(--font-size-base);
+    padding: 0;
+    list-style-type: none;
+
+    & li {
+      display: flex;
+    }
+  }
+
+  .project__related-article {
+    align-items: center;
+
+    & img {
+      max-width: var(--font-size-xxl);
+      max-height: var(--font-size-xxl);
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .project__related-article-title {
+    font-weight: var(--font-weight-4);
+  }
+
+  .project__related-article-date {
+    color: var(--gray-5);
+    font-size: var(--font-size-sm);
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import ProjectPreviewList from '../components/project-preview-list.astro';
+import Layout from '../layouts/layout.astro';
+import * as sanity from '../lib/sanity';
+
+type SanityData = sanity.ProjectPreviewFragment[];
+
+const projectPreviews = await sanity.client.fetch<SanityData>(/* groq */ `
+  [
+    ...*[_type == 'project' && defined(slug.current) && isCurrent == true] | order(title asc) {
+      ${sanity.fragments.projectPreview}
+    },
+    ...*[_type == 'project' && defined(slug.current) && isCurrent == false && dateTime(publishedAt) < dateTime(now())] | order(publishedAt desc) {
+      ${sanity.fragments.projectPreview}
+    },
+  ]
+`);
+---
+
+<Layout title="Projecten">
+  <div class="[ projects ] [ stack ]">
+    <h2 class="gentle-heading">Projecten</h2>
+    <ProjectPreviewList projectPreviews={projectPreviews} type="normal" />
+  </div>
+</Layout>
+
+<style>
+  .projects {
+    align-items: stretch;
+  }
+</style>

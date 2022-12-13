@@ -1,0 +1,14 @@
+/* 
+  BADGE
+*/
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2);
+  border-radius: var(--radius-2);
+  padding-inline: var(--size-2);
+  font-size: var(--font-size-sm);
+  user-select: none;
+  text-transform: lowercase;
+}

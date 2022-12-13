@@ -1,0 +1,97 @@
+---
+export interface Props {
+  alt?: string;
+  aspectRatio: number;
+  caption?: string | undefined;
+  dominantColor?: string;
+  hotspot?: {
+    x: number;
+    y: number;
+  };
+  loading?: 'lazy' | 'eager' | undefined;
+  src: string;
+}
+
+const {
+  alt = '',
+  aspectRatio,
+  caption,
+  dominantColor = 'whitesmoke',
+  hotspot,
+  loading = 'lazy',
+  src,
+} = Astro.props as Props;
+---
+
+<figure
+  class="[ picture ]"
+  style={`
+  --aspect-ratio: ${aspectRatio};
+  --hotspot-x: ${(hotspot?.x ?? 0.5) * 100}%;
+  --hotspot-y: ${(hotspot?.y ?? 0.5) * 100}%;
+  ${dominantColor ? `--dominant-color: ${dominantColor}` : ''};
+`}
+>
+  <div class="picture__img-wrapper">
+    {src && <img alt={alt} loading={loading} src={src} />}
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]').forEach((imageElement) => {
+    imageElement.dataset.loaded = imageElement.complete.toString();
+    imageElement.addEventListener('load', () => {
+      imageElement.dataset.loaded = 'true';
+    });
+  });
+</script>
+
+<style>
+  .picture {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    max-width: var(--max-width);
+    max-height: var(--max-height);
+    overflow: hidden;
+
+    & .picture__img-wrapper {
+      position: relative;
+      flex: 1;
+
+      &::before {
+        display: block;
+        position: absolute;
+        inset: 0;
+        background-color: var(--dominant-color, whitesmoke);
+        aspect-ratio: var(--aspect-ratio);
+        content: '';
+      }
+    }
+
+    & img {
+      position: relative;
+      grid-area: image;
+      aspect-ratio: var(--aspect-ratio);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: var(--hotspot-x) var(--hotspot-y);
+    }
+
+    & img[data-loaded] {
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    & img[data-loaded='true'] {
+      opacity: 1;
+    }
+
+    & figcaption {
+      color: var(--caption-color, var(--gray-5));
+      text-align: center;
+    }
+  }
+</style>

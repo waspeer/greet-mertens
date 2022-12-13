@@ -1,0 +1,1 @@
+- [ ] SEO tags / OG images

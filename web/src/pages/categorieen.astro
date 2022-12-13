@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/layout.astro';
+import * as sanity from '../lib/sanity';
+import { categoryUrl } from '../lib/util';
+
+type SanityData = sanity.CategoryFragment[];
+
+const categories = await sanity.client.fetch<SanityData>(/* groq */ `
+  *[_type == "category"] | order(title asc) {
+    ${sanity.fragments.category}
+  }
+`);
+---
+
+<Layout title="Categorieën">
+  <div class="categories-overview">
+    <ul class="[ categories-overview__list ] [ focussed-list grid ]">
+      {
+        categories.map(({ title, color, icon, description, slug }) => (
+          <li class="category">
+            <a href={categoryUrl({ slug })}>
+              <h2 class="category__title">
+                {icon && (
+                  <span class="category__icon" role="img" aria-label={icon.description}>
+                    {icon.icon}
+                  </span>
+                )}
+                {title}
+                <span class="category__arrow">»</span>
+              </h2>
+              <div class="category__color" style={{ backgroundColor: color ?? 'whitesmoke' }} />
+              <p class="category__description">{description}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>
+
+<style>
+  .categories-overview__list {
+    gap: var(--font-size-xl);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .category {
+    max-width: var(--size-content-2);
+  }
+
+  .category__title {
+    font-size: var(--font-size-base);
+  }
+
+  .category__color {
+    height: var(--size-1);
+  }
+
+  .category__description {
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>

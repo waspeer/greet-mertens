@@ -1,0 +1,113 @@
+---
+import ArticlePreviewList from '../../components/article-preview-list.astro';
+import ProjectPreviewList from '../../components/project-preview-list.astro';
+import Layout from '../../layouts/layout.astro';
+import * as sanity from '../../lib/sanity';
+
+type SanityData = sanity.CategoryFragment & {
+  articles: sanity.ArticlePreviewFragment[];
+  projects: sanity.ProjectPreviewFragment[];
+};
+
+const slug = Astro.params.slug;
+
+const category = await sanity.client.fetch<SanityData | null>(
+  /* groq */ `
+    *[_type == "category" && slug.current == $slug][0] {
+      ${sanity.fragments.category}
+      
+      'articles': *[_type == "article" && ^._id in categories[]._ref && publishedAt < now() && hidden != true] | order(publishedAt desc) {
+        ${sanity.fragments.articlePreview}
+      },
+      
+      'projects': *[_type == "project" && ^._id in categories[]._ref && publishedAt < now()] | order(publishedAt desc) {
+        ${sanity.fragments.projectPreview}
+      },
+    }
+  `,
+  { slug },
+);
+
+if (!category) {
+  // TODO
+  return new Response('Not found', { status: 404 });
+}
+
+const { title, color, description, icon, articles, projects } = category;
+---
+
+<Layout title={title ?? ''}>
+  <div class="[ category-overview ] [ stack ]">
+    <div class="category-overview__navigation">
+      <a href="/categorieen">&lt; Naar alle categorieën</a>
+    </div>
+
+    <div class="[ category-overview__info ] [ stack ]">
+      <h2 class="category-overview__heading" style={`--color: ${color ?? 'black'};`}>
+        {
+          icon && (
+            <span class="category__icon" role="img" aria-label={icon.description}>
+              {icon.icon}
+            </span>
+          )
+        }
+        {title}
+      </h2>
+    </div>
+    <p class="category-overview__description">{description}</p>
+  </div>
+
+  {
+    !!projects.length && (
+      <div class="[ category-overview__related-content ] [ stack ]">
+        <h2 class="gentle-heading">Projecten in deze categorie</h2>
+        <ProjectPreviewList projectPreviews={projects} type="normal" />
+      </div>
+    )
+  }
+
+  {
+    !!articles.length && (
+      <div class="[ category-overview__related-content ] [ stack ]">
+        <h2 class="gentle-heading">Artikelen in deze categorie</h2>
+        <ArticlePreviewList articlePreviews={articles} />
+      </div>
+    )
+  }
+
+  {
+    !projects.length && !articles.length && (
+      <div class="category-overview__no-related-content">
+        Er zijn nog geen projecten of artikelen in deze categorie.
+      </div>
+    )
+  }
+</Layout>
+
+<style>
+  .category-overview__navigation {
+    color: var(--gray-6);
+    font-size: var(--font-size-sm);
+  }
+
+  .category-overview__heading {
+    border: 2px solid;
+    padding: var(--size-2);
+    max-width: var(--size-content-1);
+    font-size: var(--font-size-xxl);
+    line-height: 1;
+  }
+
+  .category-overview__description {
+    max-width: var(--size-content-2);
+  }
+
+  .category-overview__related-content,
+  .category-overview__related-content .focussed-list {
+    align-self: stretch;
+  }
+
+  .category-overview__no-related-content {
+    color: var(--gray-6);
+  }
+</style>

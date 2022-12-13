@@ -1,0 +1,70 @@
+/* @tailwind base;
+
+@tailwind components;
+
+@tailwind utilities; */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-heading font-semibold leading-tight;
+}
+
+h1 {
+  @apply text-4xl;
+}
+
+h2 {
+  @apply text-3xl;
+}
+
+h3 {
+  @apply text-2xl;
+}
+
+h4 {
+  @apply text-xl;
+}
+
+h5 {
+  @apply text-lg;
+}
+
+html {
+  @apply antialiased font-body text-body;
+
+  @apply md:text-xl;
+}
+
+p,
+ul,
+ol {
+  @apply leading-snug;
+}
+
+ul.focussedList {
+  & li {
+    @apply transition-opacity duration-200;
+  }
+
+  &:hover {
+    & li {
+      @apply opacity-75;
+
+      &:hover {
+        @apply opacity-100;
+      }
+    }
+  }
+}
+
+.container {
+  @apply max-w-2xl;
+}
+
+.gentleHeading {
+  @apply font-body uppercase text-base font-normal mb-2 text-gray-500;
+}

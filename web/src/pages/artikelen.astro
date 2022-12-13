@@ -1,0 +1,35 @@
+---
+import ArticlePreviewList from '../components/article-preview-list.astro';
+import Layout from '../layouts/layout.astro';
+import * as sanity from '../lib/sanity';
+
+const articlePreviews = await sanity.client.fetch(/* groq */ `
+  *[_type == 'article' && defined(slug.current) && dateTime(publishedAt) < dateTime(now()) && hidden != true] | order(publishedAt desc) | [0...6] {
+    ${sanity.fragments.articlePreview}
+  }
+`);
+
+const hasMoreArticles = true;
+---
+
+<Layout title="Artikelen">
+  <div class="[ articles ] [ stack ]">
+    <div class="stack">
+      <h2 class="gentle-heading">Recente artikelen</h2>
+      <ArticlePreviewList articlePreviews={articlePreviews} />
+      {
+        hasMoreArticles && (
+          <a class="article-recent-list__more-link" href="/artikelen/archief">
+            Meer artikelen »
+          </a>
+        )
+      }
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .articles {
+    align-items: center;
+  }
+</style>

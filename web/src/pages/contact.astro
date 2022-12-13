@@ -1,0 +1,66 @@
+---
+import { toHTML } from '@portabletext/to-html';
+import Layout from '../layouts/layout.astro';
+import * as sanity from '../lib/sanity';
+import type { Me } from '../lib/sanity.gen';
+
+type SanityData = Pick<Me, 'bio' | 'email' | 'phone'>;
+
+const { bio, email, phone } = await sanity.client.fetch<SanityData>(/* groq */ `
+  *[_id == 'me'][0] {
+    bio,
+    email,
+    phone,
+  }
+`);
+
+const bioHtml = toHTML(bio, {
+  components: {
+    types: {
+      figure: ({ value }) => {
+        if (!value || !value.asset || !value.asset._ref) {
+          return '';
+        }
+
+        const imageUrl = sanity.imageUrl(value).width(1500);
+
+        return /* html */ `
+          <img src="${imageUrl}" alt="${value.alt}" />
+        `;
+      },
+    },
+  },
+});
+---
+
+<Layout title="Contact">
+  <div class="[ contact ] [ stack ]">
+    <div class="contact__bio" set:html={bioHtml} />
+
+    <div class="[ contact__links ] [ stack ]">
+      <a class="contact__email" href={`mailto:${email}`}>
+        {email}
+      </a>
+
+      <a class="contact__phone" href={`tel:${phone}`}>
+        {phone}
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .contact,
+  .stack {
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact__bio :global(img) {
+    max-width: 850px;
+  }
+
+  .contact__links {
+    gap: var(--size-1);
+  }
+</style>

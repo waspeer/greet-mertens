@@ -1,0 +1,84 @@
+---
+import ProjectPreviewList from '../components/project-preview-list.astro';
+import SanityImage from '../components/sanity-image.astro';
+import Layout from '../layouts/layout.astro';
+import * as sanity from '../lib/sanity';
+import type { Me } from '../lib/sanity.gen';
+
+type SanityData = {
+  email: Me['email'];
+  tagline: Me['tagline'];
+  portrait: sanity.ImageFragment;
+  projectHighlights: Array<sanity.ProjectPreviewFragment>;
+};
+
+const { email, tagline, portrait, projectHighlights } = await sanity.client
+  .fetch<SanityData>(/* groq */ `
+    {
+      ...*[_id == 'me'][0] {
+        email,
+        tagline,
+        portrait { ${sanity.fragments.image} },
+      },
+      ...*[_id == 'highlights'][0] {
+        'projectHighlights': projects[]->{ ${sanity.fragments.projectPreview} }
+      }
+    }
+  `);
+---
+
+<Layout title="Alles over">
+  <div class="[ home ] [ stack ]">
+    <div class="home__header switcher">
+      <div class="home__portrait">
+        <SanityImage {...portrait} width={1000} />
+      </div>
+      <div class="home__text stack">
+        <div class="home__tagline">{tagline}</div>
+        <a class="home__email" href={`mailto:${email}`}>
+          {email}
+        </a>
+      </div>
+    </div>
+
+    {
+      projectHighlights && (
+        <div class="[ home__project-highlights ] [ stack ]">
+          <h3 class="gentle-heading">Uitgelichte Projecten</h3>
+          <ProjectPreviewList projectPreviews={projectHighlights} type="slim" />
+        </div>
+      )
+    }
+  </div>
+</Layout>
+
+<style>
+  .home__header {
+    align-items: center;
+  }
+
+  .home__portrait :global(figure) {
+    border-radius: 10% 90% 9% 91% / 89% 10% 90% 11%;
+  }
+
+  .home__text {
+    gap: var(--size-2);
+  }
+
+  .home__tagline {
+    border: 2px solid;
+    padding: var(--size-2);
+    font-size: var(--font-size-md);
+  }
+
+  .home__email {
+    margin-left: var(--size-2);
+    color: var(--gray-7);
+  }
+
+  .home__project-highlights {
+    align-items: stretch;
+    align-self: stretch;
+    gap: var(--size-2);
+  }
+</style>

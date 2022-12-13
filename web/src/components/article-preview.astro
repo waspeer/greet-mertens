@@ -1,0 +1,61 @@
+---
+import { format } from 'date-fns';
+import locale from 'date-fns/locale/nl';
+import type { ArticlePreviewFragment } from '../lib/sanity';
+import { randomBorderRadius } from '../lib/util';
+import PortableText from './portable-text.astro';
+import SanityImage from './sanity-image.astro';
+
+export type Props = ArticlePreviewFragment;
+
+const { mainImage, title, excerpt, publishedAt } = Astro.props;
+---
+
+<div class="[ article-preview ] [ switcher ]">
+  <div class="article-preview__image" style={`--radius: ${randomBorderRadius()};`}>
+    <SanityImage {...mainImage} width={700} aspectRatioOverride={16 / 9} caption="" />
+  </div>
+  <div class="[ article-preview__text ] [ stack ]">
+    <div class="article-preview__heading">{title}</div>
+    <div class="article-preview__excerpt">
+      <PortableText blocks={excerpt} />
+    </div>
+    <div class="article-preview__published-at">
+      {format(new Date(publishedAt), 'd MMMM yyyy', { locale })}
+    </div>
+  </div>
+</div>
+
+<style>
+  .article-preview {
+    align-items: center;
+  }
+
+  .article-preview__image {
+    border-radius: var(--radius);
+    max-width: 350px;
+    overflow: hidden;
+  }
+
+  .article-preview__text.article-preview__text {
+    gap: var(--size-1);
+    max-width: var(--size-content-2);
+  }
+
+  .article-preview__heading {
+    font-weight: var(--font-weight-4);
+  }
+
+  .article-preview__excerpt {
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--gray-6);
+  }
+
+  .article-preview__published-at {
+    color: var(--gray-6);
+    font-size: var(--font-size-sm);
+  }
+</style>
