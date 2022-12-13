@@ -3,10 +3,5 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Wannes Salomé <mail@wannessalome.nl>",
-  "license": "MIT",
-  "scripts": {
-    "build:sanity": "yarn --cwd sanity build",
-    "dev:sanity": "yarn --cwd sanity dev",
-    "dev:web": "yarn --cwd web dev"
-  }
+  "license": "MIT"
 }

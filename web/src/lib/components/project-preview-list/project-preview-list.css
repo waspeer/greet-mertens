@@ -1,7 +1,0 @@
-.projectPreviewList {
-  @apply grid grid-cols-2 gap-4;
-
-  @screen md {
-    @apply grid-cols-3;
-  }
-}
