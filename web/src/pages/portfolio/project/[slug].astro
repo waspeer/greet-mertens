@@ -80,7 +80,7 @@ const { categories, isCurrent, mainImage, publishedAt, title, body, relatedArtic
             )
           }
           {
-            !!categories.length && (
+            !!categories?.length && (
               <ul class="[ project__categories ] [ cluster ]">
                 {categories.map((category) => (
                   <li>

@@ -66,7 +66,7 @@ const formattedDate =
         <div class="[ article__info ] [ cluster ]">
           <div class="article__published-at">{formattedDate}</div>
           {
-            !!categories.length && (
+            !!categories?.length && (
               <ul class="article__categories">
                 {categories.map((category) => (
                   <li>

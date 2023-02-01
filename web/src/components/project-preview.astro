@@ -37,7 +37,7 @@ const { categories, isCurrent, mainImage, title, excerpt } = projectPreview;
   {
     type === 'normal' && (
       <>
-        {!!categories.length && (
+        {!!categories?.length && (
           <CategoryBadge category={categories[0]!} class="project-preview__category" />
         )}
         <h3 class="project-preview__title">{title}</h3>
