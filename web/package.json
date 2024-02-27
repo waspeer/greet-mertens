@@ -27,7 +27,6 @@
     "@portabletext/types": "^2.0.8",
     "@sanity-typed/types": "^6.3.3",
     "open-props": "^1.6.20",
-    "postcss-preset-env": "^9.4.0",
-    "type-fest": "^4.10.3"
+    "postcss-preset-env": "^9.4.0"
   }
 }
