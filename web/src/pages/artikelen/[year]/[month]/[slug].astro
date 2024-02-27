@@ -1,23 +1,23 @@
 ---
 import { defaultComponents, toHTML } from '@portabletext/to-html';
+import type { TypedObject } from '@portabletext/types';
 import { differenceInDays, format, formatDistanceToNow, isFuture } from 'date-fns';
-import locale from 'date-fns/locale/nl';
+import { nl as locale } from 'date-fns/locale';
 import CategoryBadge from '../../../../components/category-badge.astro';
 import SanityImage from '../../../../components/sanity-image.astro';
 import Layout from '../../../../layouts/layout.astro';
 import { attachment, figure, player } from '../../../../lib/portable-text';
 import * as sanity from '../../../../lib/sanity';
-import type { Article } from '../../../../lib/sanity.gen';
 import { categoryUrl } from '../../../../lib/util';
 
 type SanityData = {
   _id: string;
   categories: sanity.CategoryFragment[];
   mainImage: sanity.ImageFragment;
-  publishedAt: Article['publishedAt'];
-  title: Article['title'];
-  body: Article['body'];
-  hidden: Article['hidden'];
+  publishedAt: string;
+  title: string;
+  body: TypedObject[];
+  hidden: boolean;
 };
 
 const slug = Astro.params.slug;

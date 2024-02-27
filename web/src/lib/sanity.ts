@@ -1,16 +1,6 @@
-import createClient from 'picosanity';
 import createImageUrlBuilder from '@sanity/image-url';
-import type {
-  SanityImageMetadata,
-  SanityImageAsset,
-  SanityImageCrop,
-  SanityImageHotspot,
-  SanityImagePalette,
-  Project,
-  Category,
-  Article,
-} from './sanity.gen';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import createClient from 'picosanity';
 
 // CLIENT
 // ------
@@ -46,10 +36,10 @@ const CATEGORY_FRAGMENT = /* groq */ `
 export type CategoryFragment = {
   _id: string;
   color: string;
-  description: Category['description'];
+  description: string;
   icon: IconFragment;
-  slug: NonNullable<Category['slug']>['current'];
-  title: Category['title'];
+  slug: string;
+  title: string;
 };
 
 const IMAGE_FRAGMENT = /* groq */ `
@@ -64,14 +54,31 @@ const IMAGE_FRAGMENT = /* groq */ `
   },
 `;
 
-export type ImageFragment = Pick<SanityImageMetadata, 'dimensions'> & {
+export type ImageFragment = {
   _type: 'image';
   alt?: string;
-  asset: SanityImageAsset;
+  asset: {
+    _ref: string;
+  };
   caption?: string;
-  crop?: SanityImageCrop;
-  hotspot?: SanityImageHotspot;
-  dominantColor?: SanityImagePalette['dominant']['background'];
+  crop?: {
+    left: number;
+    bottom: number;
+    right: number;
+    top: number;
+  };
+  hotspot?: {
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+  };
+  dominantColor?: string;
+  dimensions: {
+    height: number;
+    width: number;
+    aspectRatio: number;
+  };
 };
 
 const ARTICLE_PREVIEW_FRAGMENT = /* groq */ `
@@ -86,11 +93,11 @@ const ARTICLE_PREVIEW_FRAGMENT = /* groq */ `
 
 export type ArticlePreviewFragment = {
   _id: string;
-  publishedAt: NonNullable<Article['publishedAt']>;
+  publishedAt: string;
   mainImage: ImageFragment;
-  title: Article['title'];
-  excerpt: Article['excerpt'];
-  slug: NonNullable<Article['slug']>['current'];
+  title: string;
+  excerpt: Array<{ _key: string; _type: string }>;
+  slug: string;
   categories: CategoryFragment[];
 };
 
@@ -104,12 +111,12 @@ const PROJECT_PREVIEW_FRAGMENT = /* groq */ `
   'slug': slug.current,
 `;
 
-export type ProjectPreviewFragment = Pick<Project, 'isCurrent' | 'title' | 'excerpt'> & {
+export type ProjectPreviewFragment = {
+  isCurrent?: boolean;
   _id: string;
-  isCurrent: Project['isCurrent'];
-  title: Project['title'];
-  excerpt: Project['excerpt'];
-  slug: NonNullable<Project['slug']>['current'];
+  title: string;
+  excerpt: Array<{ _key: string; _type: string }>;
+  slug: string;
   mainImage: ImageFragment;
   categories: Array<CategoryFragment>;
 };

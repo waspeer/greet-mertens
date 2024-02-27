@@ -1,5 +1,5 @@
 ---
-import { Sprite } from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 import type { ProjectPreviewFragment } from '../lib/sanity';
 import { randomBorderRadius } from '../lib/util';
 import CategoryBadge from './category-badge.astro';
@@ -27,7 +27,7 @@ const { categories, isCurrent, mainImage, title, excerpt } = projectPreview;
   {
     isCurrent && (
       <div class="project-preview__current-badge">
-        <Sprite name="fa-regular:clock" />
+        <Icon name="fa-regular:clock" />
       </div>
     )
   }
@@ -88,7 +88,7 @@ const { categories, isCurrent, mainImage, title, excerpt } = projectPreview;
     transition: opacity 200ms var(--ease-1);
     padding: var(--font-size-sm);
 
-    @nest .project-preview:hover & {
+    .project-preview:hover & {
       opacity: 1;
     }
 

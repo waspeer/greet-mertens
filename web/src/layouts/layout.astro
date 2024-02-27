@@ -8,9 +8,7 @@ import '../styles/global.css';
 
 import { SEO } from 'astro-seo';
 import * as sanity from '../lib/sanity';
-import type { SiteSettings } from '../lib/sanity.gen';
 import Header from '../components/header.astro';
-import { SpriteProvider } from 'astro-icon';
 
 export interface Props {
   title: string;
@@ -18,7 +16,7 @@ export interface Props {
 
 type SanityData = {
   portrait: sanity.ImageFragment;
-  description: SiteSettings['description'];
+  description: string;
 };
 
 const { title } = Astro.props;
@@ -71,9 +69,7 @@ const ogImageUrl = sanity.imageUrl(portrait).width(1200).height(630).url();
     <Header />
 
     <main class="wrapper">
-      <SpriteProvider>
-        <slot />
-      </SpriteProvider>
+      <slot />
     </main>
   </body>
 </html>

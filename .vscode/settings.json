@@ -1,7 +1,5 @@
 {
-  "cssvar.files": [
-    "./node_modules/open-props/open-props.min.css",
-    "./web/src/styles/global.css"
-  ],
-  "cssvar.extensions": ["css", "astro"]
+  "cssvar.files": ["./node_modules/open-props/open-props.min.css", "./web/src/styles/global.css"],
+  "cssvar.extensions": ["css", "astro"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

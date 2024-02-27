@@ -1,23 +1,22 @@
 ---
 import { defaultComponents, toHTML } from '@portabletext/to-html';
-import { Sprite } from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 import { format as formatDate } from 'date-fns';
-import locale from 'date-fns/locale/nl';
+import { nl as locale } from 'date-fns/locale';
 import CategoryBadge from '../../../components/category-badge.astro';
 import SanityImage from '../../../components/sanity-image.astro';
 import Layout from '../../../layouts/layout.astro';
 import { attachment, figure, player } from '../../../lib/portable-text';
 import * as sanity from '../../../lib/sanity';
-import type { Project } from '../../../lib/sanity.gen';
 import { articleUrl, categoryUrl } from '../../../lib/util';
 
 type SanityData = {
   categories: sanity.CategoryFragment[];
-  isCurrent: Project['isCurrent'];
+  isCurrent: boolean;
   mainImage: sanity.ImageFragment;
-  publishedAt: Project['publishedAt'];
-  title: Project['title'];
-  body: Project['body'];
+  publishedAt: string;
+  title: string;
+  body: Array<{ _type: string; _key: string }>;
   relatedArticles: sanity.ArticlePreviewFragment[];
 };
 
@@ -67,7 +66,7 @@ const { categories, isCurrent, mainImage, publishedAt, title, body, relatedArtic
           {
             isCurrent && (
               <div class="[ project__current-badge ] [ badge ]">
-                <Sprite name="fa-regular:clock" />
+                <Icon name="fa-regular:clock" />
                 Nog lopend project
               </div>
             )
