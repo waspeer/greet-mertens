@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
 import { RiAttachmentLine } from 'react-icons/ri';
+import { defineField, defineType } from 'sanity';
 
 export const Attachment = defineType({
   icon: RiAttachmentLine,

@@ -9,8 +9,8 @@ import {
   RiUser3Line,
 } from 'react-icons/ri';
 import { defineConfig } from 'sanity';
-import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 import { structureTool } from 'sanity/structure';
+import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 import { schemaTypes } from './schema-types';
 
 const config = defineConfig({

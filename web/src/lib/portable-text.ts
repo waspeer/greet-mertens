@@ -1,6 +1,6 @@
 import type { PortableTextTypeComponent } from '@portabletext/to-html';
-import { sanityFileDownloadUrl } from './util';
 import * as sanity from './sanity';
+import { sanityFileDownloadUrl } from './util';
 
 // ATTACHMENT
 // ---------
@@ -47,7 +47,7 @@ const MediaType = {
   soundcloud: 'soundcloud',
 } as const;
 
-type MediaType = typeof MediaType[keyof typeof MediaType];
+type MediaType = (typeof MediaType)[keyof typeof MediaType];
 
 const mediaTypeMatchers: Record<MediaType, (url: string) => boolean> = {
   [MediaType.youtube]: (url) => /youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/.test(url),

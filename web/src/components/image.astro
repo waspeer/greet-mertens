@@ -1,13 +1,15 @@
 ---
 export interface Props {
-  alt?: string;
+  alt?: string | undefined;
   aspectRatio: number;
   caption?: string | undefined;
-  dominantColor?: string;
-  hotspot?: {
-    x: number;
-    y: number;
-  };
+  dominantColor?: string | undefined;
+  hotspot?:
+    | {
+        x: number;
+        y: number;
+      }
+    | undefined;
   loading?: 'lazy' | 'eager' | undefined;
   src: string;
 }

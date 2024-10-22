@@ -7,8 +7,8 @@ import 'open-props/style';
 import '../styles/global.css';
 
 import { SEO } from 'astro-seo';
-import * as sanity from '../lib/sanity';
 import Header from '../components/header.astro';
+import * as sanity from '../lib/sanity';
 
 export interface Props {
   title: string;
@@ -33,7 +33,7 @@ const { description, portrait } = await sanity.client.fetch<SanityData>(/* groq 
 const ogImageUrl = sanity.imageUrl(portrait).width(1200).height(630).url();
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />

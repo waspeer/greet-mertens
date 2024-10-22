@@ -1,7 +1,7 @@
 import imageUrlBuilder from '@sanity/image-url';
 import { Box, Text } from '@sanity/ui';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { RiFileMarkLine } from 'react-icons/ri';
+import { RiFileMarkedLine } from 'react-icons/ri';
 import { defineField, defineType, useClient, useFormValue } from 'sanity';
 
 interface RelatedArticle {
@@ -27,7 +27,7 @@ export const Preview = ({ categoryId }: PreviewProps) => {
     (image: any) => {
       return imageBuilder.image(image.asset).height(200).width(200).url()!;
     },
-    [imageBuilder, client],
+    [imageBuilder],
   );
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export const Preview = ({ categoryId }: PreviewProps) => {
     return () => {
       isMounted = false;
     };
-  }, [categoryId, projectId]);
+  }, [categoryId, client, projectId]);
 
   return relatedArticles.length ? (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', columnGap: '10px' }}>
@@ -79,7 +79,7 @@ export const Preview = ({ categoryId }: PreviewProps) => {
 };
 
 export const ProjectRelatedArticles = defineType({
-  icon: RiFileMarkLine,
+  icon: RiFileMarkedLine,
   name: 'projectRelatedArticles',
   title: 'Gerelateerde Artikelen',
   type: 'object',
