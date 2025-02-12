@@ -7,7 +7,6 @@
   "main": "index.js",
   "devDependencies": {
     "@waspeer/config": "^2.4.2",
-    "config": "file:../config",
     "eslint": "^9.20.1",
     "prettier": "^3.5.0",
     "prettier-plugin-astro": "^0.14.1",
