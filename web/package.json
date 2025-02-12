@@ -11,15 +11,16 @@
     "start": "astro dev"
   },
   "dependencies": {
-    "@astrojs/netlify": "^5.5.4",
+    "@astrojs/netlify": "^6.1.0",
     "@fontsource/rubik": "^5.1.0",
     "@iconify-json/fa-regular": "^1.2.0",
     "@portabletext/to-html": "^2.0.13",
     "@sanity/image-url": "^1.0.2",
-    "astro": "^4.16.6",
+    "astro": "^5.2.6",
     "astro-icon": "^1.1.1",
     "astro-seo": "^0.8.4",
     "date-fns": "^4.1.0",
+    "groq": "^3.75.0",
     "modern-normalize": "^3.0.1",
     "picosanity": "^4.1.1"
   },

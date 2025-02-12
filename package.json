@@ -7,12 +7,21 @@
   "main": "index.js",
   "devDependencies": {
     "@waspeer/config": "^2.4.2",
-    "eslint": "^9.13.0",
-    "eslint-plugin-jsx-a11y": "^6.10.1",
-    "prettier": "^3.3.3",
+    "config": "file:../config",
+    "eslint": "^9.20.1",
+    "prettier": "^3.5.0",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-css-order": "^2.1.2",
+    "prettier-plugin-packagejson": "^2.5.8",
     "typescript": "^5.6.3"
   },
   "volta": {
-    "node": "20.11.1"
+    "node": "22.14.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }

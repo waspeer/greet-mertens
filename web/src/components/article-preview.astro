@@ -11,7 +11,7 @@ export type Props = ArticlePreviewFragment;
 const { mainImage, title, excerpt, publishedAt } = Astro.props;
 ---
 
-<div class="[ article-preview ] [ switcher ]">
+<div class="[ article-preview ]">
   <div class="article-preview__image" style={`--radius: ${randomBorderRadius()};`}>
     <SanityImage {...mainImage} width={700} aspectRatioOverride={16 / 9} caption="" />
   </div>
@@ -28,12 +28,20 @@ const { mainImage, title, excerpt, publishedAt } = Astro.props;
 
 <style>
   .article-preview {
+    display: grid;
+    grid-template-columns: min(33vw, 350px) auto;
     align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-block-end: var(--font-size-xxl);
+    }
   }
 
   .article-preview__image {
     border-radius: var(--radius);
-    max-width: 350px;
     overflow: hidden;
   }
 
