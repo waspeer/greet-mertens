@@ -16,7 +16,7 @@ export const Player = defineType({
         ...props,
         title: 'Player',
         children: url ? (
-          <ReactPlayer url={url} width="100%" />
+          <ReactPlayer src={url} width="100%" />
         ) : (
           <Box padding={2}>
             <Text muted align="center">
