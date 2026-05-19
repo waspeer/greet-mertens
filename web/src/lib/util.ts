@@ -1,4 +1,4 @@
-import type { SanityAsset } from '@sanity/image-url/lib/types/types';
+import type { SanityAsset } from '@sanity/image-url';
 import { format } from 'date-fns';
 
 const SANITY_CDN_BASE_URL = 'https://cdn.sanity.io/';

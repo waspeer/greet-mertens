@@ -15,7 +15,7 @@
     "@fontsource/rubik": "^5.2.6",
     "@iconify-json/fa-regular": "^1.2.2",
     "@portabletext/to-html": "^3.0.0",
-    "@sanity/image-url": "^1.2.0",
+    "@sanity/image-url": "^2.1.1",
     "astro": "^5.14.3",
     "astro-icon": "^1.1.5",
     "astro-seo": "^0.8.4",
