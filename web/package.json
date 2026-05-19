@@ -30,8 +30,5 @@
     "@types/semver": "^7.7.1",
     "open-props": "^1.7.16",
     "postcss-preset-env": "^10.3.1"
-  },
-  "volta": {
-    "node": "22.14.0"
   }
 }

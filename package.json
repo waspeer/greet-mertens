@@ -5,6 +5,9 @@
   "author": "Wannes Salomé <mail@wannessalome.nl>",
   "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": ">=24"
+  },
   "devDependencies": {
     "@waspeer/config": "^2.4.5",
     "eslint": "^9.35.0",
@@ -13,9 +16,6 @@
     "prettier-plugin-css-order": "^2.1.2",
     "prettier-plugin-packagejson": "^2.5.19",
     "typescript": "^5.9.2"
-  },
-  "volta": {
-    "node": "22.14.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
