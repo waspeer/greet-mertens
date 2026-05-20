@@ -94,8 +94,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       '@portabletext/to-html':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^5.0.2
+        version: 5.0.2
       '@sanity/image-url':
         specifier: ^2.1.1
         version: 2.1.1
@@ -119,11 +119,11 @@ importers:
         version: 5.0.0
     devDependencies:
       '@portabletext/types':
-        specifier: ^2.0.15
-        version: 2.0.15
+        specifier: ^4.0.2
+        version: 4.0.2
       '@sanity-typed/types':
-        specifier: ^8.0.1
-        version: 8.0.1(@portabletext/types@2.0.15)(sanity@5.26.0(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.11.3)(@sanity/cli-core@1.3.2(@noble/hashes@2.2.0)(@types/node@24.7.1)(terser@5.38.2)(yaml@2.9.0))(@types/node@24.7.1)(@types/react@19.2.15)(immer@10.1.3)(jiti@2.7.0)(prismjs@1.30.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.2(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(terser@5.38.2)(typescript@5.9.2))(typescript@5.9.2)
+        specifier: ^9.0.1
+        version: 9.0.1(@portabletext/types@4.0.2)(sanity@5.26.0(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.11.3)(@sanity/cli-core@1.3.2(@noble/hashes@2.2.0)(@types/node@24.7.1)(terser@5.38.2)(yaml@2.9.0))(@types/node@24.7.1)(@types/react@19.2.15)(immer@10.1.3)(jiti@2.7.0)(prismjs@1.30.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.2(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(terser@5.38.2)(typescript@5.9.2))(typescript@5.9.2)
       '@types/json-schema':
         specifier: ^7.0.15
         version: 7.0.15
@@ -2711,10 +2711,10 @@ packages:
       sanity: ^3.0.0
       styled-components: ^6.1
 
-  '@portabletext-typed/types@3.0.0':
-    resolution: {integrity: sha512-OPj8BgwfpZgoCqzU1O1m3naUJodyWF4+rNwrVamLkhY4juQbnc3Xj3MonSF7EqmX5hpEYljAjUj5G17z6keTsw==}
+  '@portabletext-typed/types@4.0.1':
+    resolution: {integrity: sha512-sbNGyXNPAlYe2PmfHgBLW2Vw2vRuy6YE8TAIbFZeCsG/svMh1YmINDe7NbB4UJ6Md6x3KIX330iOCwnK2XfP+A==}
     peerDependencies:
-      '@portabletext/types': ^2.0.2
+      '@portabletext/types': ^4.0.1
       typescript: 5.7.2 || 5.7.3
 
   '@portabletext/editor@6.6.4':
@@ -2795,25 +2795,13 @@ packages:
     resolution: {integrity: sha512-cH5ZleN0nw3W7xYBvOfMoAhGdkz6XFGhk0yuXcAZX9rwrtWb6qfQVLcieGC5tmIsrDFjQeVMro64vIFg5tz6vA==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@portabletext/to-html@3.0.0':
-    resolution: {integrity: sha512-MlU5Og1HqYnU9riXjtydJQcrG/kWmtgo8q2pGEDmLMbKD0Agel4umYLhVoHhRAwC7AEApu9U4BweO8HkY0SIow==}
-    engines: {node: ^14.13.1 || >=16.0.0}
-
   '@portabletext/to-html@5.0.2':
     resolution: {integrity: sha512-w59PcErj5JXUCv9tbV2npqJmcnORTAftCMLp0vc9FnWrXL3C9qYvuB2MQbdHsZEOesF3VmwqUsYUgjm7PX4JTw==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@portabletext/toolkit@3.0.1':
-    resolution: {integrity: sha512-z8NGqxKxfP0zuC58hPe8+xFC17qSbQ3nC9DgZmhrr7NUFaENJ6vAHJBsH5QzT7nKUjj++dTn+i4O2Uz9cqiGjA==}
-    engines: {node: ^14.13.1 || >=16.0.0}
-
   '@portabletext/toolkit@5.0.2':
     resolution: {integrity: sha512-Njc1LE1PMJkTx/wEPqZ6sOWGgFgX2B47fxpOQ/Ia4ByhsZoA5Sq8dNvvV5F052j/xE8TbOLiBEjS848FkKADDQ==}
     engines: {node: '>=20.19 <22 || >=22.12'}
-
-  '@portabletext/types@2.0.15':
-    resolution: {integrity: sha512-2e6i2gSQsrA/5OL5Gm4/9bxB9MNO73Fa47zj+0mT93xkoQUCGCWX5fZh1YBJ86hszaRYlqvqG08oULxvvPPp/Q==}
-    engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
 
   '@portabletext/types@4.0.2':
     resolution: {integrity: sha512-djfIGU9n6DRrunlvj2nIDAp17URo/nA4jSXGvf+Gupx8NLLy9fmJBZ3GL8yhqn9lSVc+cKCharjOa3aOBnWbRw==}
@@ -2956,8 +2944,8 @@ packages:
     resolution: {integrity: sha512-rM0+qso6XaE60UaJ7z7v7DWBRlJ57XQUzuL8nTwtub42xGw4jusEhDq7/c4Mrdec98hLykyhe6t5n2mKxf/BVQ==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@sanity-typed/types@8.0.1':
-    resolution: {integrity: sha512-vHI4WaaJQG7XMtgS7/U9z0MgA07tOakNH8mGZuQVNGWBo8uwoOSzF1RixvSffqa7OtLqAFvPdycB2CTllq0zdw==}
+  '@sanity-typed/types@9.0.1':
+    resolution: {integrity: sha512-fJAFjjUWNLWB43EzUp2z7uGXiQStZ/MWZ6sy+bUF4RIJwZvQ8K+6hej5x90aXm8TBIye7YQyBstnNnq1W7265w==}
     peerDependencies:
       sanity: ^3.25.0
       typescript: 5.7.2 || 5.7.3
@@ -12249,9 +12237,9 @@ snapshots:
       - react-dom
       - react-is
 
-  '@portabletext-typed/types@3.0.0(@portabletext/types@2.0.15)(typescript@5.9.2)':
+  '@portabletext-typed/types@4.0.1(@portabletext/types@4.0.2)(typescript@5.9.2)':
     dependencies:
-      '@portabletext/types': 2.0.15
+      '@portabletext/types': 4.0.2
       type-fest: 4.30.2
       typescript: 5.9.2
 
@@ -12353,25 +12341,14 @@ snapshots:
 
   '@portabletext/schema@2.1.1': {}
 
-  '@portabletext/to-html@3.0.0':
-    dependencies:
-      '@portabletext/toolkit': 3.0.1
-      '@portabletext/types': 2.0.15
-
   '@portabletext/to-html@5.0.2':
     dependencies:
       '@portabletext/toolkit': 5.0.2
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolkit@3.0.1':
-    dependencies:
-      '@portabletext/types': 2.0.15
-
   '@portabletext/toolkit@5.0.2':
     dependencies:
       '@portabletext/types': 4.0.2
-
-  '@portabletext/types@2.0.15': {}
 
   '@portabletext/types@4.0.2': {}
 
@@ -12464,9 +12441,9 @@ snapshots:
 
   '@sanity-labs/design-tokens@0.0.2-alpha.2': {}
 
-  '@sanity-typed/types@8.0.1(@portabletext/types@2.0.15)(sanity@5.26.0(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.11.3)(@sanity/cli-core@1.3.2(@noble/hashes@2.2.0)(@types/node@24.7.1)(terser@5.38.2)(yaml@2.9.0))(@types/node@24.7.1)(@types/react@19.2.15)(immer@10.1.3)(jiti@2.7.0)(prismjs@1.30.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.2(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(terser@5.38.2)(typescript@5.9.2))(typescript@5.9.2)':
+  '@sanity-typed/types@9.0.1(@portabletext/types@4.0.2)(sanity@5.26.0(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.11.3)(@sanity/cli-core@1.3.2(@noble/hashes@2.2.0)(@types/node@24.7.1)(terser@5.38.2)(yaml@2.9.0))(@types/node@24.7.1)(@types/react@19.2.15)(immer@10.1.3)(jiti@2.7.0)(prismjs@1.30.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.2(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(terser@5.38.2)(typescript@5.9.2))(typescript@5.9.2)':
     dependencies:
-      '@portabletext-typed/types': 3.0.0(@portabletext/types@2.0.15)(typescript@5.9.2)
+      '@portabletext-typed/types': 4.0.1(@portabletext/types@4.0.2)(typescript@5.9.2)
       sanity: 5.26.0(@emotion/is-prop-valid@1.4.0)(@noble/hashes@2.2.0)(@oclif/core@4.11.3)(@sanity/cli-core@1.3.2(@noble/hashes@2.2.0)(@types/node@24.7.1)(terser@5.38.2)(yaml@2.9.0))(@types/node@24.7.1)(@types/react@19.2.15)(immer@10.1.3)(jiti@2.7.0)(prismjs@1.30.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.2(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(terser@5.38.2)(typescript@5.9.2)
       type-fest: 4.30.2
       typescript: 5.9.2

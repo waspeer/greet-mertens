@@ -14,7 +14,7 @@
     "@astrojs/netlify": "^7.0.10",
     "@fontsource/rubik": "^5.2.8",
     "@iconify-json/fa-regular": "^1.2.2",
-    "@portabletext/to-html": "^3.0.0",
+    "@portabletext/to-html": "^5.0.2",
     "@sanity/image-url": "^2.1.1",
     "astro": "^6.3.5",
     "astro-icon": "^1.1.5",
@@ -24,8 +24,8 @@
     "picosanity": "^5.0.0"
   },
   "devDependencies": {
-    "@portabletext/types": "^2.0.15",
-    "@sanity-typed/types": "^8.0.1",
+    "@portabletext/types": "^4.0.2",
+    "@sanity-typed/types": "^9.0.1",
     "@types/json-schema": "^7.0.15",
     "@types/semver": "^7.7.1",
     "open-props": "^1.7.23",
