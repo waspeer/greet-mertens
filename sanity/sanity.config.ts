@@ -1,4 +1,4 @@
-import { colorList } from '@pogasanov/sanity-plugin-color-list';
+import { colorInput } from '@sanity/color-input';
 import { visionTool } from '@sanity/vision';
 import {
   RiArticleLine,
@@ -80,7 +80,7 @@ const config = defineConfig({
           ]),
     }),
     visionTool(),
-    colorList(),
+    colorInput(),
     unsplashImageAsset(),
   ],
 

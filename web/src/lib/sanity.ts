@@ -25,7 +25,7 @@ export type IconFragment = {
 
 const CATEGORY_FRAGMENT = /* groq */ `
   _id,
-  'color': color.value,
+  'color': color.hex,
   description,
   icon { ${ICON_FRAGMENT} },
   'slug': slug.current,

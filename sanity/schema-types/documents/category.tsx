@@ -34,16 +34,11 @@ export const Category = defineType({
     // }),
     defineField({
       name: 'color',
-      type: 'colorlist',
+      type: 'color',
       title: 'Kleur',
       options: {
-        list: [
-          { title: 'Onyx', value: '#303633' },
-          { title: 'Mint', value: '#7AC4AD' },
-          { title: 'Blueish', value: '#9CB8BF' },
-          { title: 'Greyish', value: '#B0B3C4' },
-          { title: 'Pinkish', value: '#C2ADBF' },
-        ],
+        disableAlpha: true,
+        colorList: ['#303633', '#7AC4AD', '#9CB8BF', '#B0B3C4', '#C2ADBF'],
       },
     }),
     defineField({
