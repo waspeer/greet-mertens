@@ -5,7 +5,7 @@ import { configs, prefixFiles } from '@waspeer/config/eslint';
 const config = [
   configs.base,
   prefixFiles(configs.react, 'sanity'),
-  [{ ignores: ['**/.netlify', '**/.sanity', '**/dist'] }],
+  [{ ignores: ['**/.netlify', '**/.sanity', '**/.astro', '**/dist'] }],
 ].flat();
 
 export default config;
