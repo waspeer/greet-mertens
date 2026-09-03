@@ -11,14 +11,14 @@
     "start": "astro dev"
   },
   "dependencies": {
-    "@astrojs/netlify": "^7.0.13",
-    "@fontsource/rubik": "^5.2.8",
+    "@astrojs/netlify": "^8.2.5",
+    "@fontsource/rubik": "^5.3.0",
     "@iconify-json/fa-regular": "^1.2.2",
-    "@portabletext/to-html": "^5.0.2",
+    "@portabletext/to-html": "^6.0.0",
     "@sanity/image-url": "^2.1.1",
-    "astro": "^6.4.8",
-    "astro-icon": "^1.1.5",
-    "astro-seo": "^1.1.0",
+    "astro": "^7.3.1",
+    "astro-icon": "^1.2.0",
+    "astro-seo": "^1.2.0",
     "date-fns": "^4.4.0",
     "modern-normalize": "^3.0.1",
     "picosanity": "^5.0.0"
@@ -26,8 +26,8 @@
   "devDependencies": {
     "@portabletext/types": "^4.0.2",
     "@types/json-schema": "^7.0.15",
-    "@types/semver": "^7.7.1",
+    "@types/semver": "^7.8.0",
     "open-props": "^1.7.23",
-    "postcss-preset-env": "^11.3.1"
+    "postcss-preset-env": "^11.5.1"
   }
 }
