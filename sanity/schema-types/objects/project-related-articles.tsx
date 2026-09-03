@@ -52,7 +52,9 @@ export const Preview = ({ categoryId }: PreviewProps) => {
         if (isMounted) {
           setRelatedArticles(articles);
         }
-      })();
+      })().catch((error: unknown) => {
+        console.error('Failed to load related articles', error);
+      });
     }
 
     return () => {
