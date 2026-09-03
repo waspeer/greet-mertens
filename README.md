@@ -20,6 +20,7 @@ A portfolio website built with Astro and Sanity CMS, showcasing projects and art
 ## Quick Start
 
 1. **Install dependencies**
+
    ```bash
    pnpm install
    ```
@@ -29,24 +30,27 @@ A portfolio website built with Astro and Sanity CMS, showcasing projects and art
    # Web app
    cd web && pnpm dev
 
-   # Sanity Studio  
+   # Sanity Studio
    cd sanity && pnpm dev
    ```
 
 ## Scripts
 
 ### Web (`/web`)
+
 - `pnpm dev` - Development server
 - `pnpm build` - Production build
 - `pnpm preview` - Preview build
 
 ### Sanity (`/sanity`)
+
 - `pnpm dev` - Studio development
 - `pnpm deploy` - Deploy studio
 
 ## Environment
 
 Create `/web/.env`:
+
 ```env
 PUBLIC_SANITY_PROJECT_ID="ph08or48"
 PUBLIC_SANITY_DATASET="production"

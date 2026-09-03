@@ -3,8 +3,9 @@
 @import url('./utilities.css');
 
 :root {
-  --font-fallback: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen, ubuntu, cantarell,
-    'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-fallback:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen, ubuntu, cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
   --font-body: 'Rubik', var(--font-fallback);
 
   /* https://www.fluid-type-scale.com/ */
