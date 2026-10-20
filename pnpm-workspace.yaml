@@ -3,7 +3,7 @@ packages:
   - web
 
 catalog:
-  vite-plus: ^0.3.0
+  vite-plus: ^1.1.0
 
 peerDependencyRules:
   allowAny:
