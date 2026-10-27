@@ -16,7 +16,7 @@
     "@iconify-json/fa-regular": "^1.2.2",
     "@portabletext/to-html": "^6.0.0",
     "@sanity/image-url": "^2.1.1",
-    "astro": "^7.3.1",
+    "astro": "^7.3.3",
     "astro-icon": "^1.2.0",
     "astro-seo": "^1.2.0",
     "date-fns": "^4.4.0",
